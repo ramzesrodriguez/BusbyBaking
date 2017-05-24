@@ -1,0 +1,11 @@
+ext.versions = [
+		minSdk		: 17,
+		targetSdk	: 25,
+
+		// Library Versions
+		mosby		: '3.0.4'
+]
+
+ext.libraries = [
+		mosbyMvp    : "com.hannesdorfmann.mosby3:mvp:$versions.mosby"
+]
