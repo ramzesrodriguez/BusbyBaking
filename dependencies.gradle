@@ -3,9 +3,12 @@ ext.versions = [
 		targetSdk	: 25,
 
 		// Library Versions
-		mosby		: '3.0.4'
+        mosby		: '3.0.4',
+        retrofit2   : '2.3.0'
 ]
 
 ext.libraries = [
-		mosbyMvp    : "com.hannesdorfmann.mosby3:mvp:$versions.mosby"
+		mosbyMvp          : "com.hannesdorfmann.mosby3:mvp:$versions.mosby",
+        retrofit2_gson    : "com.squareup.retrofit2:converter-gson:$versions.retrofit2",
+        retrofit2         : "com.squareup.retrofit2:retrofit:$versions.retrofit2"
 ]

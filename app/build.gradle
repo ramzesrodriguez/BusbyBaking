@@ -31,4 +31,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile libraries.mosbyMvp
+    compile libraries.retrofit2
+    compile libraries.retrofit2_gson
 }
