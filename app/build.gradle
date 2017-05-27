@@ -5,8 +5,8 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "me.androidbox.busbybaking"
-        minSdkVersion 17
-        targetSdkVersion 25
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,8 +31,22 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
 
+    /* MVP */
     compile libraries.mosbyMvp
+
+    /* Networking */
     compile libraries.retrofit2
     compile libraries.retrofit2_gson
 
+    /* Logging */
+    compile libraries.timber
+
+    /* Dependency Injection */
+    annotationProcessor libraries.dagger_compiler
+    compile libraries.dagger
+    provided libraries.jsr250_api
+
+    /* Reactive */
+    compile libraries.rxjava
+    compile libraries.rxandroid
 }
