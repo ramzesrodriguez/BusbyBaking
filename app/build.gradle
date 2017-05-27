@@ -21,6 +21,10 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
