@@ -16,5 +16,12 @@ android:
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
+licenses:
+  - android-sdk-license-.+
+  - '.+'
+
 script:
-    - ./gradlew build
+    - ./gradlew --daemon build jacocoTestReport
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
