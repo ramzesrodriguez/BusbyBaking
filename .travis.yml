@@ -21,4 +21,7 @@ licenses:
   - '.+'
 
 script:
-    - ./gradlew build
+    - ./gradlew --daemon build jacocoTestReport
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
