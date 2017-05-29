@@ -17,7 +17,7 @@ import timber.log.Timber;
  */
 
 public class RecipeListModuleImp
-        implements RecipeListModuleContract{
+        implements RecipeListModuleContract {
 
     private Subscription subscription;
     private RecipesAPI recipesAPI;

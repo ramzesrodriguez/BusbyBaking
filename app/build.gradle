@@ -54,6 +54,7 @@ dependencies {
     /* Reactive */
     compile libraries.rxjava
     compile libraries.rxandroid
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
 }
 
 jacocoAndroidUnitTestReport {
