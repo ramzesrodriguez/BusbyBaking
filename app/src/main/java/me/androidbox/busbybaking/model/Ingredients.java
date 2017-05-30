@@ -5,11 +5,11 @@ package me.androidbox.busbybaking.model;
  */
 
 public class Ingredients {
-    private int quantity;
+    private float quantity;
     private String measure;
     private String ingredient;
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
