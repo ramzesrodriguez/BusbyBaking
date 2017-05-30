@@ -42,6 +42,7 @@ dependencies {
     /* Networking */
     compile libraries.retrofit2
     compile libraries.retrofit2_gson
+    compile libraries.adapter_rxjava
 
     /* Logging */
     compile libraries.timber

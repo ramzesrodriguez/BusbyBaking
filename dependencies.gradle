@@ -3,13 +3,14 @@ ext.versions = [
 		targetSdk	: 25,
 
 		// Library Versions
-		mosby	   : '3.0.4',
-		retrofit2  : '2.3.0',
-        timber     : '4.5.1',
-        dagger     : '2.11',
-        jsr250_api : '1.0',
-        rxjava     : '1.3.0',
-        rxandroid  : '1.2.1'
+		mosby	       : '3.0.4',
+		retrofit2      : '2.3.0',
+        timber         : '4.5.1',
+        dagger         : '2.11',
+        jsr250_api     : '1.0',
+        rxjava         : '1.3.0',
+		rxandroid      : '1.2.1',
+		adapter_rxjava : '2.3.0'
 ]
 
 ext.libraries = [
@@ -21,5 +22,6 @@ ext.libraries = [
         dagger            : "com.google.dagger:dagger:$versions.dagger",
         jsr250_api        : "javax.annotation:jsr250-api:$versions.jsr250_api",
         rxjava            : "io.reactivex:rxjava:$versions.rxjava",
-        rxandroid         : "io.reactivex:rxandroid:$versions.rxandroid"
+        rxandroid         : "io.reactivex:rxandroid:$versions.rxandroid",
+		adapter_rxjava    : "com.squareup.retrofit2:adapter-rxjava:$versions.adapter_rxjava"
 ]

@@ -22,7 +22,7 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class RecipeListView
-        extends MvpFragment<RecipeListPresenterContract, RecipeListPresenterImp>
+        extends MvpFragment<RecipeListViewContract, RecipeListPresenterImp>
         implements RecipeListViewContract {
 
     public static final String TAG = RecipeListView.class.getSimpleName();
@@ -44,6 +44,7 @@ public class RecipeListView
 
         if(recipeListPresenterContract != null) {
             Timber.d("recipeListPresenterContract != null");
+            recipeListPresenterContract.retrieveAllRecipes();
         }
         else {
             Timber.e("recipeListPresenterContract == null");
@@ -69,12 +70,12 @@ public class RecipeListView
     }
 
     @Override
-    public void displayData(List<Recipe> recipeList) {
+    public void displayRecipeData(List<Recipe> recipeList) {
         Timber.d("displayData: %d", recipeList.size());
     }
 
     @Override
-    public void displayError(String error) {
+    public void displayRecipeError(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 }
