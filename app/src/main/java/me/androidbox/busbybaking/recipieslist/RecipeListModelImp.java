@@ -16,14 +16,14 @@ import timber.log.Timber;
  * Created by steve on 5/27/17.
  */
 
-public class RecipeListModuleImp
-        implements RecipeListModuleContract {
+public class RecipeListModelImp
+        implements RecipeListModelContract {
 
     private Subscription subscription;
     private RecipesAPI recipesAPI;
 
     @Inject
-    public RecipeListModuleImp(RecipesAPI recipesAPI) {
+    public RecipeListModelImp(RecipesAPI recipesAPI) {
         this.recipesAPI = recipesAPI;
     }
 
@@ -54,7 +54,6 @@ public class RecipeListModuleImp
 
     @Override
     public void startup() {
-
     }
 
     @Override

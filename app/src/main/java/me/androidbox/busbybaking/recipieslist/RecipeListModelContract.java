@@ -8,7 +8,7 @@ import me.androidbox.busbybaking.model.Recipe;
  * Created by steve on 5/27/17.
  */
 
-public interface RecipeListModuleContract {
+public interface RecipeListModelContract {
 
     interface RecipeGetAllListener {
         void onRecipeGetAllSuccess(List<Recipe> recipeList);
