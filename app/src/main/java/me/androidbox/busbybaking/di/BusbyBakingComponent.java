@@ -9,8 +9,5 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {NetworkModule.class, AndroidModule.class})
-public interface BusbyBakingComponent {
-    void inject(BusbyBakingApplication target);
-
-    RecipeListComponent add(RecipeListModule recipeListModule);
+public interface BusbyBakingComponent extends BaseBusbyBakingComponent {
 }

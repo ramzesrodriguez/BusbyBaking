@@ -20,7 +20,7 @@ public class BusbyBakingApplication extends Application {
         createApplicationComponent();
     }
 
-    private void createApplicationComponent() {
+    public void createApplicationComponent() {
         applicationComponent = DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
