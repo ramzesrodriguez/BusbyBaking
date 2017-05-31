@@ -8,4 +8,12 @@ A baking app that instructs you on how to create many different recipes
 * [ ] Display recipes in a list
 * [ ] Display a detail view of the recipes
 
+# Libraries
+* [X] Dagger2
+* [X] Retrofit2
+* [X] Mosby
+* [X] Espresso
+* [X] Mockito
+* [X] RxJava
+* [X] Timber
 
