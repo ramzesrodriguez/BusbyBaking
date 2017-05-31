@@ -32,7 +32,7 @@ public class BusbyBakingApplication extends Application {
     }
 
     public RecipeListComponent createRecipeListComponent() {
-        recipeListComponent = applicationComponent.add(new RecipeListPresenterModule());
+        recipeListComponent = applicationComponent.add(new RecipeListModule());
         return recipeListComponent;
     }
 

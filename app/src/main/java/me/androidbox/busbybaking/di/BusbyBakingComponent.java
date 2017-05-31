@@ -12,5 +12,5 @@ import dagger.Component;
 public interface BusbyBakingComponent {
     void inject(BusbyBakingApplication target);
 
-    RecipeListComponent add(RecipeListPresenterModule recipeListPresenterModule);
+    RecipeListComponent add(RecipeListModule recipeListModule);
 }
