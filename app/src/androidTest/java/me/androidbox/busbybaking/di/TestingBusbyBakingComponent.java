@@ -13,5 +13,5 @@ import me.androidbox.busbybaking.recipieslist.RecipeListModelImpTest;
 @Singleton
 @Component(modules = {MockRecipeListModule.class})
 public interface TestingBusbyBakingComponent extends BaseBusbyBakingComponent {
- //   void inject(RecipeListModelImpTest target);
+    void inject(RecipeListModelImpTest target);
 }

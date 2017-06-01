@@ -4,9 +4,10 @@ package me.androidbox.busbybaking.di;
  * Created by steve on 5/31/17.
  */
 
-public class MockBusbyBakingApplication extends BusbyBakingApplication {
+public class MockBusbyBakingApplication  {
     private TestingBusbyBakingComponent testingBusbyBakingComponent;
 
+/*
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,4 +27,5 @@ public class MockBusbyBakingApplication extends BusbyBakingApplication {
     public TestingBusbyBakingComponent getBusbyBakingComponent() {
         return testingBusbyBakingComponent;
     }
+*/
 }
