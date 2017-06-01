@@ -17,11 +17,11 @@ public class BusbyBakingApplication extends Application {
         super.onCreate();
         Timber.plant(new Timber.DebugTree());
 
-        createApplicationComponent();
+        applicationComponent = createApplicationComponent();
     }
 
-    public void createApplicationComponent() {
-        applicationComponent = DaggerBusbyBakingComponent.builder()
+    public BusbyBakingComponent createApplicationComponent() {
+        return DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
                 .build();
