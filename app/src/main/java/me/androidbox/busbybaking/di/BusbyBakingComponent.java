@@ -8,7 +8,10 @@ import dagger.Component;
  * Created by steve on 5/27/17.
  */
 @Singleton
-@Component(modules = {NetworkModule.class, AndroidModule.class})
+@Component(modules = {
+        AndroidModule.class,
+        RecipeListModule.class,
+        NetworkModule.class})
 public interface BusbyBakingComponent extends BaseBusbyBakingComponent {
 
 }

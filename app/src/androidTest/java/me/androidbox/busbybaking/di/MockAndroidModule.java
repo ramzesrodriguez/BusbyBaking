@@ -1,11 +1,9 @@
 package me.androidbox.busbybaking.di;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import javax.inject.Singleton;
@@ -18,6 +16,8 @@ import dagger.Provides;
  */
 @Module
 public class MockAndroidModule {
+
+    public MockAndroidModule() {}
 
     @Singleton
     @Provides
