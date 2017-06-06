@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -20,16 +22,19 @@ public class AndroidModule {
         this.context = application;
     }
 
+    @Singleton
     @Provides
     public Context providesContext() {
         return context;
     }
 
+    @Singleton
     @Provides
     public Resources providesResources() {
         return context.getResources();
     }
 
+    @Singleton
     @Provides
     public SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);

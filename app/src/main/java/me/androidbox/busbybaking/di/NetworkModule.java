@@ -35,10 +35,4 @@ public class NetworkModule {
     public RecipesAPI providesRecipesAPI() {
         return getRetrofit(Constants.BASELINE).create(RecipesAPI.class);
     }
-
-    @Singleton
-    @Provides
-    public RecipeListModelContract providesRecipeListModel() {
-        return new RecipeListModelImp(providesRecipesAPI());
-    }
 }

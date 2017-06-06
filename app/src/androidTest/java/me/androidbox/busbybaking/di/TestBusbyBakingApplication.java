@@ -5,8 +5,30 @@ package me.androidbox.busbybaking.di;
  */
 
 public class TestBusbyBakingApplication extends BusbyBakingApplication {
-    private BusbyBakingComponent testBusbyBakingComponent
-    private TestRecipeListComponent testRecipeListComponent;
+ //   private BusbyBakingComponent testBusbyBakingComponent;
+ //   private TestRecipeListComponent testRecipeListComponent;
+
+    @Override
+    public BaseBusbyBakingComponent createApplicationComponent() {
+        return DaggerTestBusbyBakingComponent.builder()
+                .mockAndroidModule(new MockAndroidModule())
+                .build();
+    }
+
+
+
+
+/*
+    @Override
+    public BusbyBakingComponent createApplicationComponent() {
+        return  DaggerTestBusbyBakingComponent.builder()
+                .mockAndroidModule(new MockAndroidModule())
+                .build();
+    }
+*/
+
+
+/*
 
     @Override
     public TestBusbyBakingComponent createApplicationComponent() {
@@ -15,6 +37,7 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
                 .mockAndroidModule(new MockAndroidModule(TestBusbyBakingApplication.this))
                 .build();
     }
+*/
 
     /*
     private void createBusbyBakingComponent() {

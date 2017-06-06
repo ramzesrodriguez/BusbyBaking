@@ -10,7 +10,7 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "me.androidbox.busbybaking.di.MockBusbyBakingTestRunner"
     }
     buildTypes {
         release {
@@ -39,6 +39,7 @@ dependencies {
     androidTestCompile libraries.mockito_core
     androidTestCompile libraries.dagger
     androidTestAnnotationProcessor libraries.dagger_compiler
+    androidTestCompile libraries.mockito_android
 
     testCompile 'junit:junit:4.12'
 

@@ -38,9 +38,10 @@ public class RecipeListView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BusbyBakingApplication)getActivity().getApplication())
-                .createRecipeListComponent()
-                .inject(RecipeListView.this);
+        ((BusbyBakingApplication)getActivity()
+                .getApplication())
+                .getApplicationComponent()
+                .inject(this);
 
         if(recipeListPresenterContract != null) {
             Timber.d("recipeListPresenterContract != null");
@@ -54,8 +55,8 @@ public class RecipeListView
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((BusbyBakingApplication)getActivity().getApplication())
-                .releaseRecipeListComponent();
+/*        ((BusbyBakingApplication)getActivity().getApplication())
+                .releaseRecipeListComponent();*/
     }
 
     @Override
