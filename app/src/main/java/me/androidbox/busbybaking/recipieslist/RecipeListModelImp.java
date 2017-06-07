@@ -1,9 +1,12 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.internal.Preconditions;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import rx.Subscriber;
@@ -23,8 +26,8 @@ public class RecipeListModelImp
     private RecipesAPI recipesAPI;
 
     @Inject
-    public RecipeListModelImp(RecipesAPI recipesAPI) {
-        this.recipesAPI = recipesAPI;
+    public RecipeListModelImp(@NonNull RecipesAPI recipesAPI) {
+        this.recipesAPI = Preconditions.checkNotNull(recipesAPI);
     }
 
     @Override

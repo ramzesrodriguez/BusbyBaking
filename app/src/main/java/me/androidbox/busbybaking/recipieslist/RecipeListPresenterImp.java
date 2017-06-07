@@ -1,10 +1,13 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.support.annotation.NonNull;
+
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.internal.Preconditions;
 import me.androidbox.busbybaking.model.Recipe;
 
 /**
@@ -20,8 +23,8 @@ public class RecipeListPresenterImp
     private RecipeListModelContract recipeListModelContract;
 
     @Inject
-    public RecipeListPresenterImp(RecipeListModelContract recipeListModelContract) {
-        this.recipeListModelContract = recipeListModelContract;
+    public RecipeListPresenterImp(@NonNull RecipeListModelContract recipeListModelContract) {
+        this.recipeListModelContract = Preconditions.checkNotNull(recipeListModelContract);
     }
 
     @Override
