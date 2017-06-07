@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion versions.targetSdk
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "me.androidbox.busbybaking"
@@ -10,7 +10,7 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "me.androidbox.busbybaking.di.MockBusbyBakingTestRunner"
     }
     buildTypes {
         release {
@@ -34,6 +34,13 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+
+    /* Instrumentation and unit Testing */
+    androidTestCompile libraries.mockito_core
+    androidTestCompile libraries.dagger
+    androidTestAnnotationProcessor libraries.dagger_compiler
+    androidTestCompile libraries.mockito_android
+
     testCompile 'junit:junit:4.12'
 
     /* MVP */
