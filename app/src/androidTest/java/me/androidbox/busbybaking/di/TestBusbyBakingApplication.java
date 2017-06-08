@@ -12,6 +12,7 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
     public BaseBusbyBakingComponent createApplicationComponent() {
         return DaggerTestBusbyBakingComponent.builder()
                 .mockAndroidModule(new MockAndroidModule())
+                .mockRecipeListModule(new MockRecipeListModule())
                 .build();
     }
 

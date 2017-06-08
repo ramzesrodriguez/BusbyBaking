@@ -37,4 +37,12 @@ public class Recipe {
     public String getImage() {
         return image;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
 }
