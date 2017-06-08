@@ -28,19 +28,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile libraries.recyclerview
+    compile libraries.cardview
 
     /* Instrumentation and unit Testing */
     androidTestCompile libraries.mockito_core
     androidTestCompile libraries.dagger
     androidTestAnnotationProcessor libraries.dagger_compiler
     androidTestCompile libraries.mockito_android
-
     testCompile 'junit:junit:4.12'
 
     /* MVP */
@@ -58,6 +59,8 @@ dependencies {
     annotationProcessor libraries.dagger_compiler
     compile libraries.dagger
     provided libraries.jsr250_api
+    annotationProcessor libraries.butterknife_compiler
+    compile libraries.butterknife
 
     /* Reactive */
     compile libraries.rxjava

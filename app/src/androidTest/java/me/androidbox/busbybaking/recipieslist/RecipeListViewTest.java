@@ -26,6 +26,7 @@ import me.androidbox.busbybaking.di.MockAndroidModule;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
 import me.androidbox.busbybaking.model.Recipe;
+import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import rx.Observable;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -39,10 +40,13 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(AndroidJUnit4.class)
 public class RecipeListViewTest {
-    @Inject RecipeListModelContract recipeListModelContract;
+    @Inject RecipeListModelImp recipeListModelContract;
+    @Inject RecipesAPI recipesAPI;
 
-    private RecipeListModelContract.RecipeGetAllListener recipeGetAllListener;
-
+/*
+    @Mock RecipeListModelContract.RecipeGetAllListener mockRecipeListener;
+    @Mock List<Recipe> mockRecipeList;
+*/
 
     public ActivityTestRule<MainActivity> mainActivity =
             new ActivityTestRule<>(
@@ -52,7 +56,7 @@ public class RecipeListViewTest {
 
     @Before
     public void setup() throws Exception {
-
+        MockitoAnnotations.initMocks(RecipeListViewTest.class);
 
         final Instrumentation instrumentation =
                 InstrumentationRegistry.getInstrumentation();
@@ -69,17 +73,16 @@ public class RecipeListViewTest {
     }
 
     @Test
-    public void shouldBeAbleToGetSharedPreferences() throws Exception {
-
-        List<Recipe> recipeStub = new ArrayList<>();
-        recipeGetAllListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
-
-     //   Mockito.doReturn(ArgumentMatchers.anyObject()).when(recipeListModelContract.getRecipesFromAPI(Observable.just(recipeStub));
-        Mockito.when(recipeListModelContract.getRecipesFromAPI(recipeGetAllListener)).thenReturn(Observable.just(recipeStub)));
+    public void shouldReturnAListOfRecipes() throws Exception {
+        List<Recipe> mockRecipeList = new ArrayList<>();
+        Mockito.when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(mockRecipeList));
 
         mainActivity.launchActivity(new Intent());
 
-        Mockito.verify(recipeGetAllListener, times(1)).onRecipeGetAllSuccess(recipeStub);
-        Mockito.verify(recipeGetAllListener, never()).onRecipeGetAllFailure(anyString());
+        RecipeListModelContract.RecipeGetAllListener mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
+        recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
+
+        Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(mockRecipeList);
+        Mockito.verify(mockRecipeListener, never()).onRecipeGetAllFailure(anyString());
     }
 }
