@@ -8,6 +8,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
+import timber.log.Timber;
 
 /**
  * Created by steve on 6/7/17.
@@ -30,6 +31,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder {
     public void populateDate(Recipe recipe) {
         tvRecipeName.setText(recipe.getName());
         final String quantity = "Quantity: " + recipe.getServings();
+        Timber.d(recipe.getName());
         tvQuantity.setText(quantity);
     }
 }
