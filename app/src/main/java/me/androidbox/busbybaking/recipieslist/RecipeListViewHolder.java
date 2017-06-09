@@ -14,7 +14,7 @@ import timber.log.Timber;
  * Created by steve on 6/7/17.
  */
 
-public class RecipeListViewHolder extends RecyclerView.ViewHolder {
+public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
 
@@ -22,6 +22,8 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         ButterKnife.bind(RecipeListViewHolder.this, itemView);
+
+        itemView.setOnClickListener(RecipeListViewHolder.this);
     }
 
     public static RecipeListViewHolder getInstance(View itemView) {
@@ -33,5 +35,10 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder {
         final String quantity = "Quantity: " + recipe.getServings();
         Timber.d(recipe.getName());
         tvQuantity.setText(quantity);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Timber.d("onClick %d", getAdapterPosition());
     }
 }

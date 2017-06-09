@@ -9,8 +9,8 @@ import timber.log.Timber;
  */
 
 public class BusbyBakingApplication extends Application {
-    private BaseBusbyBakingComponent applicationComponent;
-//    private RecipeListComponent recipeListComponent;
+    private BusbyBakingComponent applicationComponent;
+    private RecipeListComponent recipeListComponent;
 
     @Override
     public void onCreate() {
@@ -20,24 +20,23 @@ public class BusbyBakingApplication extends Application {
         applicationComponent = createApplicationComponent();
     }
 
-    public BaseBusbyBakingComponent createApplicationComponent() {
+    public BusbyBakingComponent createApplicationComponent() {
         return DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
-                .recipeListModule(new RecipeListModule())
                 .build();
     }
 
-    public BaseBusbyBakingComponent getApplicationComponent() {
+    public BusbyBakingComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-  /*  public RecipeListComponent createRecipeListComponent() {
+    public RecipeListComponent createRecipeListComponent() {
         recipeListComponent = applicationComponent.add(new RecipeListModule());
         return recipeListComponent;
     }
 
     public void releaseRecipeListComponent() {
         recipeListComponent = null;
-    }*/
+    }
 }

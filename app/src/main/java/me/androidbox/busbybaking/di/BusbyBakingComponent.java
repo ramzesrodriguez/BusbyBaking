@@ -10,8 +10,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         AndroidModule.class,
-        RecipeListModule.class,
         NetworkModule.class})
-public interface BusbyBakingComponent extends BaseBusbyBakingComponent {
+public interface BusbyBakingComponent {
 
+    RecipeListComponent add(RecipeListModule recipeListModule);
 }
