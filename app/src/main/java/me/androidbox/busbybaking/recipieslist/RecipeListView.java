@@ -34,6 +34,7 @@ public class RecipeListView
     public static final String TAG = RecipeListView.class.getSimpleName();
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
+    @Inject RecipeItemListener recipeItemListener;
 
     @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
     private Unbinder unbinder;
@@ -47,8 +48,9 @@ public class RecipeListView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ((BusbyBakingApplication)getActivity().getApplication())
-                .createRecipeListComponent()
+                .createRecipeListComponent((MainActivity)getActivity())
                 .inject(RecipeListView.this);
     }
 
@@ -101,6 +103,8 @@ public class RecipeListView
         Timber.d("displayData: %d", recipeList.size());
 
         setupDataBinding(recipeList);
+
+        recipeItemListener.onRecipeItem();
     }
 
     @Override

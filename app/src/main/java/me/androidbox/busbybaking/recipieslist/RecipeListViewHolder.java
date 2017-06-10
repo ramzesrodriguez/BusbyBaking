@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
@@ -15,6 +17,7 @@ import timber.log.Timber;
  */
 
 public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
 
@@ -22,6 +25,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         super(itemView);
 
         ButterKnife.bind(RecipeListViewHolder.this, itemView);
+
 
         itemView.setOnClickListener(RecipeListViewHolder.this);
     }
@@ -40,5 +44,6 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
         Timber.d("onClick %d", getAdapterPosition());
+
     }
 }

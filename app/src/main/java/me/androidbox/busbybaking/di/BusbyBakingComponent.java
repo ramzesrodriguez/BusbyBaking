@@ -12,6 +12,5 @@ import dagger.Component;
         AndroidModule.class,
         NetworkModule.class})
 public interface BusbyBakingComponent {
-
     RecipeListComponent add(RecipeListModule recipeListModule);
 }

@@ -1,7 +1,5 @@
 package me.androidbox.busbybaking.di;
 
-import javax.inject.Singleton;
-
 import dagger.Subcomponent;
 import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.recipieslist.RecipeListView;
