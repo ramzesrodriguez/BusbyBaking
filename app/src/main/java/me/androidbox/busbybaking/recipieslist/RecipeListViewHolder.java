@@ -26,7 +26,6 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
 
         ButterKnife.bind(RecipeListViewHolder.this, itemView);
 
-
         itemView.setOnClickListener(RecipeListViewHolder.this);
     }
 
