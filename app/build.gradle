@@ -69,6 +69,10 @@ dependencies {
     /* Reactive */
     compile libraries.rxjava
     compile libraries.rxandroid
+
+    /* Misc */
+    compile libraries.parceler_api
+    annotationProcessor libraries.parceler
 }
 
 jacocoAndroidUnitTestReport {

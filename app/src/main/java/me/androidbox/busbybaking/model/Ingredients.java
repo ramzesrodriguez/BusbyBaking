@@ -1,9 +1,11 @@
 package me.androidbox.busbybaking.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by steve on 5/24/17.
  */
-
+@Parcel
 public class Ingredients {
     private float quantity;
     private String measure;

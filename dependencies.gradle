@@ -18,7 +18,8 @@ ext.versions = [
         support_library      : '25.3.1',
         mockito_android      : '2.8.9',
         butterknife          : '8.6.0',
-        dart_henson          : '2.0.2'
+        dart_henson          : '2.0.2',
+        parceler             : '1.1.8'
 ]
 
 ext.libraries = [
@@ -42,5 +43,7 @@ ext.libraries = [
         dart                 : "com.f2prateek.dart:dart:$versions.dart_henson",
         dart_processor       : "com.f2prateek.dart:dart-processor:$versions.dart_henson",
         henson               : "com.f2prateek.dart:henson:$versions.dart_henson",
-        henson_processor     : "com.f2prateek.dart:henson-processor:$versions.dart_henson"
+        henson_processor     : "com.f2prateek.dart:henson-processor:$versions.dart_henson",
+        parceler_api         : "org.parceler:parceler-api:$versions.parceler",
+        parceler             : "org.parceler:parceler:$versions.parceler"
 ]

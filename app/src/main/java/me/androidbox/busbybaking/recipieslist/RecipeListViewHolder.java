@@ -1,5 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -10,8 +12,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
-import me.androidbox.busbybaking.model.Ingredients;
 import me.androidbox.busbybaking.model.Recipe;
+import me.androidbox.busbybaking.recipedetail.Henson;
 import timber.log.Timber;
 
 /**
@@ -19,6 +21,7 @@ import timber.log.Timber;
  */
 
 public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private Context context;
 
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
@@ -27,6 +30,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     public RecipeListViewHolder(View itemView, RecipeAdapter recipeAdapter) {
         super(itemView);
         this.recipeAdapter = recipeAdapter;
+        context = itemView.getContext();
 
         ButterKnife.bind(RecipeListViewHolder.this, itemView);
 
@@ -34,6 +38,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     public static RecipeListViewHolder newInstance(View itemView, RecipeAdapter recipeAdapter) {
+
         return new RecipeListViewHolder(itemView, recipeAdapter);
     }
 
@@ -48,5 +53,13 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     public void onClick(View v) {
         Timber.d("onClick %d", getAdapterPosition());
         Recipe recipe = recipeAdapter.getRecipe(getAdapterPosition());
+
+        final Intent intent = Henson.with(context)
+                .gotoRecipeDetailActivity()
+                .recipe(recipe)
+                .build();
+
+        context.startActivity(intent);
+
     }
 }
