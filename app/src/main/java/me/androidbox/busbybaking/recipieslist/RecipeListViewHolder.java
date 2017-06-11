@@ -30,7 +30,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         itemView.setOnClickListener(RecipeListViewHolder.this);
     }
 
-    public static RecipeListViewHolder getInstance(View itemView) {
+    public static RecipeListViewHolder newInstance(View itemView) {
         return new RecipeListViewHolder(itemView);
     }
 
