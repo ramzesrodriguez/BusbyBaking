@@ -28,7 +28,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsViewHold
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         final View view = layoutInflater.inflate(R.layout.ingredient_item, viewGroup, false);
 
-        return IngredientsViewHolder.newInstance(view);
+        return IngredientsViewHolder.newInstance(view, IngredientsAdapter.this);
     }
 
     @Override
@@ -39,5 +39,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsViewHold
     @Override
     public int getItemCount() {
         return ingredientsList.size();
+    }
+
+    public Ingredients getIngredient(int position) {
+        return ingredientsList.get(position);
     }
 }

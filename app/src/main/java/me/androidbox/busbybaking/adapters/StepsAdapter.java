@@ -19,12 +19,16 @@ import me.androidbox.busbybaking.recipedetail.StepsViewHolder;
 public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
     private List<Steps> stepsList = Collections.emptyList();
 
+    public StepsAdapter(List<Steps> stepsList) {
+        this.stepsList = stepsList;
+    }
+
     @Override
     public StepsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         final View view = layoutInflater.inflate(R.layout.steps_items, viewGroup, false);
 
-        return StepsViewHolder.newInstance(view);
+        return StepsViewHolder.newInstance(view, StepsAdapter.this);
     }
 
     @Override
@@ -35,5 +39,9 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
     @Override
     public int getItemCount() {
         return stepsList.size();
+    }
+
+    public Steps getSteps(int position) {
+        return stepsList.get(position);
     }
 }

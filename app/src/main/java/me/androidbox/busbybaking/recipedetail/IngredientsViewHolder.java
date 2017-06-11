@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import me.androidbox.busbybaking.R;
+import me.androidbox.busbybaking.adapters.IngredientsAdapter;
 import me.androidbox.busbybaking.model.Ingredients;
 import timber.log.Timber;
 
@@ -21,14 +22,16 @@ public class IngredientsViewHolder extends RecyclerView.ViewHolder implements Vi
     @BindView(R.id.tvMeasure) TextView tvMeasure;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
 
-    public IngredientsViewHolder(View itemView) {
-        super(itemView);
+    private IngredientsAdapter ingredientsAdapter;
 
+    public IngredientsViewHolder(View itemView, IngredientsAdapter ingredientsAdapter) {
+        super(itemView);
+        this.ingredientsAdapter = ingredientsAdapter;
         itemView.setOnClickListener(IngredientsViewHolder.this);
     }
 
-    public static IngredientsViewHolder newInstance(View itemView) {
-        return new IngredientsViewHolder(itemView);
+    public static IngredientsViewHolder newInstance(View itemView, IngredientsAdapter ingredientsAdapter) {
+        return new IngredientsViewHolder(itemView, ingredientsAdapter);
     }
 
     public void populateData(@NonNull Ingredients ingredients) {
@@ -40,5 +43,6 @@ public class IngredientsViewHolder extends RecyclerView.ViewHolder implements Vi
     @Override
     public void onClick(View v) {
         Timber.d("onClick: %d", getAdapterPosition());
+        Ingredients ingredients = ingredientsAdapter.getIngredient(getAdapterPosition());
     }
 }

@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
+import me.androidbox.busbybaking.model.Ingredients;
 import me.androidbox.busbybaking.model.Recipe;
 import timber.log.Timber;
 
@@ -20,17 +22,19 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
+    private RecipeAdapter recipeAdapter;
 
-    public RecipeListViewHolder(View itemView) {
+    public RecipeListViewHolder(View itemView, RecipeAdapter recipeAdapter) {
         super(itemView);
+        this.recipeAdapter = recipeAdapter;
 
         ButterKnife.bind(RecipeListViewHolder.this, itemView);
 
         itemView.setOnClickListener(RecipeListViewHolder.this);
     }
 
-    public static RecipeListViewHolder newInstance(View itemView) {
-        return new RecipeListViewHolder(itemView);
+    public static RecipeListViewHolder newInstance(View itemView, RecipeAdapter recipeAdapter) {
+        return new RecipeListViewHolder(itemView, recipeAdapter);
     }
 
     public void populateDate(Recipe recipe) {
@@ -43,6 +47,6 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
         Timber.d("onClick %d", getAdapterPosition());
-
+        Recipe recipe = recipeAdapter.getRecipe(getAdapterPosition());
     }
 }

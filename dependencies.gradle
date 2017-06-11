@@ -17,7 +17,8 @@ ext.versions = [
 		dexmaker_mockito     : '2.2.0',
         support_library      : '25.3.1',
         mockito_android      : '2.8.9',
-        butterknife          : '8.6.0'
+        butterknife          : '8.6.0',
+        dart_henson          : '2.0.2'
 ]
 
 ext.libraries = [
@@ -37,5 +38,9 @@ ext.libraries = [
         cardview             : "com.android.support:cardview-v7:$versions.support_library",
         mockito_android      : "org.mockito:mockito-android:$versions.mockito_android",
         butterknife          : "com.jakewharton:butterknife:$versions.butterknife",
-        butterknife_compiler : "com.jakewharton:butterknife-compiler:$versions.butterknife"
+        butterknife_compiler : "com.jakewharton:butterknife-compiler:$versions.butterknife",
+        dart                 : "com.f2prateek.dart:dart:$versions.dart_henson",
+        dart_processor       : "com.f2prateek.dart:dart-processor:$versions.dart_henson",
+        henson               : "com.f2prateek.dart:henson:$versions.dart_henson",
+        henson_processor     : "com.f2prateek.dart:henson-processor:$versions.dart_henson"
 ]

@@ -61,6 +61,10 @@ dependencies {
     provided libraries.jsr250_api
     annotationProcessor libraries.butterknife_compiler
     compile libraries.butterknife
+    compile libraries.dart
+    annotationProcessor libraries.dart_processor
+    compile libraries.henson
+    annotationProcessor libraries.henson_processor
 
     /* Reactive */
     compile libraries.rxjava

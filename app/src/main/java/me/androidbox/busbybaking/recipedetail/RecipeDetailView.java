@@ -30,4 +30,5 @@ public class RecipeDetailView extends Fragment {
         return inflater.inflate(R.layout.recipe_detail_view, container, false);
     }
 
+
 }

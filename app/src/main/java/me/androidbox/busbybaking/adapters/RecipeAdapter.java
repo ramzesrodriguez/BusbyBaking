@@ -28,7 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         final View view = layoutInflater.inflate(R.layout.recipe_item, viewGroup, false);
 
-        return RecipeListViewHolder.newInstance(view);
+        return RecipeListViewHolder.newInstance(view, RecipeAdapter.this);
     }
 
     @Override
@@ -39,5 +39,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     @Override
     public int getItemCount() {
         return recipeList.size();
+    }
+
+    public Recipe getRecipe(int position) {
+        return recipeList.get(position);
     }
 }
