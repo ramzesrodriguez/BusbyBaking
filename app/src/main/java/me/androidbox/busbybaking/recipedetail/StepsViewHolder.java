@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.StepsAdapter;
 import me.androidbox.busbybaking.model.Steps;
@@ -21,6 +22,9 @@ public class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public StepsViewHolder(View itemView, StepsAdapter stepsAdapter) {
         super(itemView);
+
+        ButterKnife.bind(StepsViewHolder.this, itemView);
+
         this.stepsAdapter = stepsAdapter;
         itemView.setOnClickListener(StepsViewHolder.this);
     }

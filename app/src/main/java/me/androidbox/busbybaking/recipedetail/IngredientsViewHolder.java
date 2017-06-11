@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.IngredientsAdapter;
 import me.androidbox.busbybaking.model.Ingredients;
@@ -26,6 +27,9 @@ public class IngredientsViewHolder extends RecyclerView.ViewHolder implements Vi
 
     public IngredientsViewHolder(View itemView, IngredientsAdapter ingredientsAdapter) {
         super(itemView);
+
+        ButterKnife.bind(IngredientsViewHolder.this, itemView);
+
         this.ingredientsAdapter = ingredientsAdapter;
         itemView.setOnClickListener(IngredientsViewHolder.this);
     }

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
 
+import org.parceler.Parcels;
+
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
 
@@ -19,9 +21,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         Dart.inject(RecipeDetailActivity.this);
 
+        Bundle args = new Bundle();
+        args.putParcelable(RecipeDetailView.RECIPE_KEY, Parcels.wrap(recipe));
+
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.recipe_detail_container, RecipeDetailView.getInstance(), RecipeDetailView.TAG)
+                    .add(R.id.recipe_detail_container, RecipeDetailView.getInstance(args), RecipeDetailView.TAG)
                     .commit();
         }
     }
