@@ -4,17 +4,21 @@
 A baking app that instructs you on how to create many different recipes
 
 # User stories
-* [ ] Download recipes from a API
-* [ ] Display recipes in a list
+* [X] Download recipes from a API
+* [X] Display recipes in a list
 * [ ] Display a detail view of the recipes
 * [ ] Play videos of baking instructions
 
 # Libraries
 * [X] Dagger2
+* [X] Butterknife
 * [X] Retrofit2
 * [X] Mosby
 * [X] Espresso
 * [X] Mockito
 * [X] RxJava
 * [X] Timber
+* [X] Dart
+* [X] Henson
+* [X] Parceler
 
