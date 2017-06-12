@@ -19,7 +19,8 @@ ext.versions = [
         mockito_android      : '2.8.9',
         butterknife          : '8.6.0',
         dart_henson          : '2.0.2',
-        parceler             : '1.1.8'
+        parceler             : '1.1.8',
+		exoplayer            : 'r2.4.1'
 ]
 
 ext.libraries = [
@@ -45,5 +46,6 @@ ext.libraries = [
         henson               : "com.f2prateek.dart:henson:$versions.dart_henson",
         henson_processor     : "com.f2prateek.dart:henson-processor:$versions.dart_henson",
         parceler_api         : "org.parceler:parceler-api:$versions.parceler",
-        parceler             : "org.parceler:parceler:$versions.parceler"
+        parceler             : "org.parceler:parceler:$versions.parceler",
+		exoplayer            : "com.google.android.exoplayer:exoplayer:$versions.exoplayer"
 ]

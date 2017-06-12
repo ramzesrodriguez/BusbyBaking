@@ -73,6 +73,7 @@ dependencies {
     /* Misc */
     compile libraries.parceler_api
     annotationProcessor libraries.parceler
+    compile libraries.exoplayer
 }
 
 jacocoAndroidUnitTestReport {
