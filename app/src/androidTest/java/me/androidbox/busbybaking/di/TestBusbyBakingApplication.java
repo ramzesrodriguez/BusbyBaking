@@ -8,6 +8,7 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
  //   private BusbyBakingComponent testBusbyBakingComponent;
  //   private TestRecipeListComponent testRecipeListComponent;
 
+/*
     @Override
     public BaseBusbyBakingComponent createApplicationComponent() {
         return DaggerTestBusbyBakingComponent.builder()
@@ -15,6 +16,7 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
                 .mockRecipeListModule(new MockRecipeListModule())
                 .build();
     }
+*/
 
 
 

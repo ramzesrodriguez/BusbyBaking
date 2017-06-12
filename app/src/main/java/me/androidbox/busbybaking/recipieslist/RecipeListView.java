@@ -1,6 +1,5 @@
 package me.androidbox.busbybaking.recipieslist;
 
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.hannesdorfmann.mosby3.mvp.MvpFragment;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,6 +34,7 @@ public class RecipeListView
     public static final String TAG = RecipeListView.class.getSimpleName();
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
+    @Inject RecipeItemListener recipeItemListener;
 
     @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
     private Unbinder unbinder;
@@ -49,18 +48,17 @@ public class RecipeListView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BusbyBakingApplication)getActivity()
-                .getApplication())
-                .getApplicationComponent()
-                .inject(this);
-    }
 
+        ((BusbyBakingApplication)getActivity().getApplication())
+                .createRecipeListComponent((MainActivity)getActivity())
+                .inject(RecipeListView.this);
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-/*        ((BusbyBakingApplication)getActivity().getApplication())
-                .releaseRecipeListComponent();*/
+        ((BusbyBakingApplication)getActivity().getApplication())
+                .releaseRecipeListComponent();
     }
 
     @Override
@@ -105,6 +103,8 @@ public class RecipeListView
         Timber.d("displayData: %d", recipeList.size());
 
         setupDataBinding(recipeList);
+
+        recipeItemListener.onRecipeItem();
     }
 
     @Override

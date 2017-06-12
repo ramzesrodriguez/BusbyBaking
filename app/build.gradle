@@ -32,8 +32,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
     compile libraries.recyclerview
     compile libraries.cardview
 
@@ -61,10 +59,21 @@ dependencies {
     provided libraries.jsr250_api
     annotationProcessor libraries.butterknife_compiler
     compile libraries.butterknife
+    compile libraries.dart
+    annotationProcessor libraries.dart_processor
+    compile libraries.henson
+    annotationProcessor libraries.henson_processor
 
     /* Reactive */
     compile libraries.rxjava
     compile libraries.rxandroid
+
+    /* Misc */
+    compile libraries.parceler_api
+    annotationProcessor libraries.parceler
+    compile libraries.exoplayer
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
 }
 
 jacocoAndroidUnitTestReport {

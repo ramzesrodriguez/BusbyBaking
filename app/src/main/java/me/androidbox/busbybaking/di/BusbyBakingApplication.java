@@ -2,6 +2,7 @@ package me.androidbox.busbybaking.di;
 
 import android.app.Application;
 
+import me.androidbox.busbybaking.recipieslist.MainActivity;
 import timber.log.Timber;
 
 /**
@@ -9,8 +10,8 @@ import timber.log.Timber;
  */
 
 public class BusbyBakingApplication extends Application {
-    private BaseBusbyBakingComponent applicationComponent;
-//    private RecipeListComponent recipeListComponent;
+    private BusbyBakingComponent applicationComponent;
+    private RecipeListComponent recipeListComponent;
 
     @Override
     public void onCreate() {
@@ -20,24 +21,23 @@ public class BusbyBakingApplication extends Application {
         applicationComponent = createApplicationComponent();
     }
 
-    public BaseBusbyBakingComponent createApplicationComponent() {
+    public BusbyBakingComponent createApplicationComponent() {
         return DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
-                .recipeListModule(new RecipeListModule())
                 .build();
     }
 
-    public BaseBusbyBakingComponent getApplicationComponent() {
+    public BusbyBakingComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-  /*  public RecipeListComponent createRecipeListComponent() {
-        recipeListComponent = applicationComponent.add(new RecipeListModule());
+    public RecipeListComponent createRecipeListComponent(MainActivity activity) {
+        recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
         return recipeListComponent;
     }
 
     public void releaseRecipeListComponent() {
         recipeListComponent = null;
-    }*/
+    }
 }

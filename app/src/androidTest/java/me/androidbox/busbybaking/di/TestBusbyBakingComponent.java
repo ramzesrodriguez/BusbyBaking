@@ -15,7 +15,7 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewTest;
         MockRecipeListModule.class,
         MockNetworkModule.class
 })
-public interface TestBusbyBakingComponent extends BaseBusbyBakingComponent {
+public interface TestBusbyBakingComponent  {
     void inject(RecipeListViewTest target);
 }
 
