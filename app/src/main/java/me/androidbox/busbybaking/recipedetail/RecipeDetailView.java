@@ -3,15 +3,12 @@ package me.androidbox.busbybaking.recipedetail;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.f2prateek.dart.Dart;
 
 import org.parceler.Parcels;
 
@@ -23,12 +20,13 @@ import me.androidbox.busbybaking.adapters.IngredientsAdapter;
 import me.androidbox.busbybaking.adapters.StepsAdapter;
 import me.androidbox.busbybaking.model.Recipe;
 
+import static me.androidbox.busbybaking.recipedetail.RecipeDetailActivity.RECIPE_KEY;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RecipeDetailView extends Fragment {
     public static final String TAG = RecipeDetailView.class.getSimpleName();
-    public static final String RECIPE_KEY = "recipe_key";
 
     @BindView(R.id.rvIngredients) RecyclerView rvIngredients;
     @BindView(R.id.rvSteps) RecyclerView rvSteps;

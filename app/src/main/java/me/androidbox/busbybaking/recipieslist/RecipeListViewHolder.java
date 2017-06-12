@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipedetail.Henson;
+import me.androidbox.busbybaking.recipe.Henson;
 import timber.log.Timber;
 
 /**

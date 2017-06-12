@@ -12,6 +12,7 @@ import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
+    public static final String RECIPE_KEY = "recipe_key";
     @InjectExtra Recipe recipe;
 
     @Override
@@ -22,7 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Dart.inject(RecipeDetailActivity.this);
 
         Bundle args = new Bundle();
-        args.putParcelable(RecipeDetailView.RECIPE_KEY, Parcels.wrap(recipe));
+        args.putParcelable(RECIPE_KEY, Parcels.wrap(recipe));
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

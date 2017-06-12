@@ -6,6 +6,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -38,6 +46,30 @@ public class AndroidModule {
     @Provides
     public SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    @Singleton
+    @Provides
+    public BandwidthMeter providesBandwidthMeter() {
+        return new DefaultBandwidthMeter();
+    }
+
+    @Singleton
+    @Provides
+    public AdaptiveTrackSelection.Factory providesAdaptiveTrackSelection(BandwidthMeter bandwidthMeter) {
+        return new AdaptiveTrackSelection.Factory(bandwidthMeter);
+    }
+
+    @Singleton
+    @Provides
+    public TrackSelector providesTrackSelector(AdaptiveTrackSelection.Factory factory) {
+        return new DefaultTrackSelector(factory);
+    }
+
+    @Singleton
+    @Provides
+    public SimpleExoPlayer providesSimpleExoPlayer(Context context, TrackSelector trackSelector) {
+        return ExoPlayerFactory.newSimpleInstance(context, trackSelector);
     }
 
     @SuppressWarnings("unchecked")

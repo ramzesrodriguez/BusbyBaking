@@ -7,9 +7,9 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Ingredients {
-    private float quantity;
-    private String measure;
-    private String ingredient;
+    float quantity;
+    String measure;
+    String ingredient;
 
     public float getQuantity() {
         return quantity;

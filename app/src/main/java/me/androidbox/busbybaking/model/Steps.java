@@ -7,10 +7,10 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Steps {
-    private int id;
-    private String shortDescription;
-    private String videoURL;
-    private String thumbnailURL;
+    int id;
+    String shortDescription;
+    String videoURL;
+    String thumbnailURL;
 
     public int getId() {
         return id;
