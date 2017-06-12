@@ -6,7 +6,7 @@ A baking app that instructs you on how to create many different recipes
 # User stories
 * [X] Download recipes from a API
 * [X] Display recipes in a list
-* [ ] Display a detail view of the recipes
+* [X] Display a detail view of the recipes
 * [ ] Play videos of baking instructions
 
 # Libraries
@@ -21,4 +21,5 @@ A baking app that instructs you on how to create many different recipes
 * [X] Dart
 * [X] Henson
 * [X] Parceler
+* [X] ExoPlayer
 
