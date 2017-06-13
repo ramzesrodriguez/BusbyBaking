@@ -3,6 +3,7 @@ package me.androidbox.busbybaking.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import me.androidbox.busbybaking.recipeVideoSteps.RecipeVideoStepsView;
 
 /**
  * Created by steve on 5/27/17.
@@ -10,8 +11,10 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         AndroidModule.class,
-        RecipeListModule.class,
-        NetworkModule.class})
-public interface BusbyBakingComponent extends BaseBusbyBakingComponent {
+        NetworkModule.class,
+        ExoPlayerModule.class})
+public interface BusbyBakingComponent {
+    void inject(RecipeVideoStepsView target);
 
+    RecipeListComponent add(RecipeListModule recipeListModule);
 }

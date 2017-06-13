@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.BusbyBakingApplication;
 import me.androidbox.busbybaking.di.MockAndroidModule;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
@@ -29,6 +30,11 @@ import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import rx.Observable;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
@@ -40,11 +46,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(AndroidJUnit4.class)
 public class RecipeListViewTest {
-    @Inject RecipeListModelImp recipeListModelContract;
+    @Inject RecipeListModelContract recipeListModelContract;
     @Inject RecipesAPI recipesAPI;
 
+
+    private RecipeListModelContract.RecipeGetAllListener mockRecipeListener;
 /*
-    @Mock RecipeListModelContract.RecipeGetAllListener mockRecipeListener;
     @Mock List<Recipe> mockRecipeList;
 */
 
@@ -56,7 +63,8 @@ public class RecipeListViewTest {
 
     @Before
     public void setup() throws Exception {
-        MockitoAnnotations.initMocks(RecipeListViewTest.class);
+        // MockitoAnnotations.initMocks(RecipeListViewTest.class);
+        mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
 
         final Instrumentation instrumentation =
                 InstrumentationRegistry.getInstrumentation();
@@ -74,15 +82,28 @@ public class RecipeListViewTest {
 
     @Test
     public void shouldReturnAListOfRecipes() throws Exception {
-        List<Recipe> mockRecipeList = new ArrayList<>();
-        Mockito.when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(mockRecipeList));
+        List<Recipe> recipeList = new ArrayList<>();
+        Recipe recipe = new Recipe();
+        recipe.setName("Test Brownies");
+        recipe.setServings(10);
+
+        Mockito.when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(recipeList));
+   //     Mockito.doNothing().when(recipeListModelContract.getRecipesFromAPI(mockRecipeListener));
 
         mainActivity.launchActivity(new Intent());
-
-        RecipeListModelContract.RecipeGetAllListener mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
         recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
+/*
+        RecipeListModelContract.RecipeGetAllListener mockRecipeListener
+                = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
+        recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
+*/
 
-        Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(mockRecipeList);
+        onView(withId(R.id.tvRecipeName))
+                .check(matches(withText("Test Brownies")));
+
+/*
+        Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(recipeList);
         Mockito.verify(mockRecipeListener, never()).onRecipeGetAllFailure(anyString());
+*/
     }
 }
