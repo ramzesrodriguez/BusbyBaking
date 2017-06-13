@@ -15,7 +15,10 @@ import com.f2prateek.dart.InjectExtra;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
 
 import org.parceler.Parcels;
 
@@ -38,6 +41,10 @@ public class RecipeVideoStepsView extends Fragment {
     public static final String TAG = RecipeVideoStepsView.class.getSimpleName();
 
     @Inject SimpleExoPlayer simpleExoPlayer;
+    @Inject BandwidthMeter bandwidthMeter;
+    @Inject AdaptiveTrackSelection.Factory factory;
+    @Inject TrackSelector trackSelector;
+
     @BindView(R.id.simpleExoPlayerView) SimpleExoPlayerView simpleExoPlayerView;
     @BindView(R.id.tvDescription) TextView tvDescription;
 
@@ -93,11 +100,12 @@ public class RecipeVideoStepsView extends Fragment {
 
     private void playStepsVideo() {
         simpleExoPlayerView.setPlayer(simpleExoPlayer);
-        Uri uri = new Uri.Builder().appendPath("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4").build();
+        // Uri uri = new Uri.Builder().appendPath("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4").build();
+
+        Uri uri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
 
         MediaSource mediaSource = new ExtractorMediaSource(
                 uri,
-                null,
                 null,
                 null,
                 null,
