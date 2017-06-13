@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.androidbox.busbybaking">
+          package="me.androidbox.busbybaking">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".di.BusbyBakingApplication"
@@ -12,12 +14,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".recipieslist.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".recipedetail.RecipeDetailActivity"></activity>
+        <activity android:name=".recipedetail.RecipeDetailActivity">
+        </activity>
+        <activity android:name=".recipeVideoSteps.RecipeVideoStepsActivity">
+        </activity>
     </application>
 
 </manifest>

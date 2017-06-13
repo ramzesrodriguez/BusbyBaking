@@ -2,6 +2,8 @@ package me.androidbox.busbybaking.recipieslist;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.androidbox.busbybaking.R;
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.di.BusbyBakingApplication;
 import me.androidbox.busbybaking.model.Recipe;
 import timber.log.Timber;
@@ -22,15 +28,19 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class RecipeListView
-        extends MvpFragment<RecipeListPresenterContract, RecipeListPresenterImp>
+        extends MvpFragment<RecipeListViewContract, RecipeListPresenterImp>
         implements RecipeListViewContract {
 
     public static final String TAG = RecipeListView.class.getSimpleName();
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
+    @Inject RecipeItemListener recipeItemListener;
+
+    @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
+    private Unbinder unbinder;
+    private RecipeAdapter recipeAdapter;
 
     public RecipeListView() {}
-
     public static RecipeListView newInstance() {
         return new RecipeListView();
     }
@@ -38,16 +48,10 @@ public class RecipeListView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BusbyBakingApplication)getActivity().getApplication())
-                .createRecipeListComponent()
-                .inject(RecipeListView.this);
 
-        if(recipeListPresenterContract != null) {
-            Timber.d("recipeListPresenterContract != null");
-        }
-        else {
-            Timber.e("recipeListPresenterContract == null");
-        }
+        ((BusbyBakingApplication)getActivity().getApplication())
+                .createRecipeListComponent((MainActivity)getActivity())
+                .inject(RecipeListView.this);
     }
 
     @Override
@@ -60,7 +64,33 @@ public class RecipeListView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.recipe_list_view, container, false);
+        final View view = inflater.inflate(R.layout.recipe_list_view, container, false);
+
+        unbinder = ButterKnife.bind(RecipeListView.this, view);
+
+        if(recipeListPresenterContract != null) {
+            Timber.d("recipeListPresenterContract != null");
+            recipeListPresenterContract.retrieveAllRecipes();
+        }
+        else {
+            Timber.e("recipeListPresenterContract == null");
+        }
+
+        return view;
+    }
+
+    private void setupDataBinding(List<Recipe> recipeList) {
+        recipeAdapter = new RecipeAdapter(recipeList);
+        RecyclerView.LayoutManager layoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rvRecipeList.setLayoutManager(layoutManager);
+        rvRecipeList.setAdapter(recipeAdapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -69,12 +99,16 @@ public class RecipeListView
     }
 
     @Override
-    public void displayData(List<Recipe> recipeList) {
+    public void displayRecipeData(List<Recipe> recipeList) {
         Timber.d("displayData: %d", recipeList.size());
+
+        setupDataBinding(recipeList);
+
+        recipeItemListener.onRecipeItem();
     }
 
     @Override
-    public void displayError(String error) {
+    public void displayRecipeError(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 }

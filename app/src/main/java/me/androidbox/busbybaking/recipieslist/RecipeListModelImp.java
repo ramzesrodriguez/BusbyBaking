@@ -1,9 +1,12 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.internal.Preconditions;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import rx.Subscriber;
@@ -16,15 +19,15 @@ import timber.log.Timber;
  * Created by steve on 5/27/17.
  */
 
-public class RecipeListModuleImp
-        implements RecipeListModuleContract {
+public class RecipeListModelImp
+        implements RecipeListModelContract {
 
     private Subscription subscription;
     private RecipesAPI recipesAPI;
 
     @Inject
-    public RecipeListModuleImp(RecipesAPI recipesAPI) {
-        this.recipesAPI = recipesAPI;
+    public RecipeListModelImp(@NonNull RecipesAPI recipesAPI) {
+        this.recipesAPI = Preconditions.checkNotNull(recipesAPI);
     }
 
     @Override
@@ -54,7 +57,6 @@ public class RecipeListModuleImp
 
     @Override
     public void startup() {
-
     }
 
     @Override

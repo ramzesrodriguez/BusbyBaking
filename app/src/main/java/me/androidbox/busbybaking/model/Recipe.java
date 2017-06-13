@@ -1,18 +1,20 @@
 package me.androidbox.busbybaking.model;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 /**
  * Created by steve on 5/24/17.
  */
-
+@Parcel
 public class Recipe {
-    private int id;
-    private String name;
-    private List<Ingredients> ingredients;
-    private List<Steps> steps;
-    private int servings;
-    private String image;
+    int id;
+    String name;
+    List<Ingredients> ingredients;
+    List<Steps> steps;
+    int servings;
+    String image;
 
     public int getId() {
         return id;
@@ -36,5 +38,13 @@ public class Recipe {
 
     public String getImage() {
         return image;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
     }
 }
