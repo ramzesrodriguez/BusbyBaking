@@ -11,7 +11,8 @@ import me.androidbox.busbybaking.recipeVideoSteps.RecipeVideoStepsView;
 @Singleton
 @Component(modules = {
         AndroidModule.class,
-        NetworkModule.class})
+        NetworkModule.class,
+        ExoPlayerModule.class})
 public interface BusbyBakingComponent {
     void inject(RecipeVideoStepsView target);
 
