@@ -8,11 +8,17 @@ import android.preference.PreferenceManager;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import javax.inject.Singleton;
 
@@ -48,32 +54,8 @@ public class AndroidModule {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    @Singleton
-    @Provides
-    public BandwidthMeter providesBandwidthMeter() {
-        return new DefaultBandwidthMeter();
-    }
-
-    @Singleton
-    @Provides
-    public AdaptiveTrackSelection.Factory providesAdaptiveTrackSelection(BandwidthMeter bandwidthMeter) {
-        return new AdaptiveTrackSelection.Factory(bandwidthMeter);
-    }
-
-    @Singleton
-    @Provides
-    public TrackSelector providesTrackSelector(AdaptiveTrackSelection.Factory factory) {
-        return new DefaultTrackSelector(factory);
-    }
-
-    @Singleton
-    @Provides
-    public SimpleExoPlayer providesSimpleExoPlayer(Context context, TrackSelector trackSelector) {
-        return ExoPlayerFactory.newSimpleInstance(context, trackSelector);
-    }
-
     @SuppressWarnings("unchecked")
-    public <T> T getSystemServices(Context context, String serviceName) {
+    public <T> T getSystemServices(String serviceName) {
         return (T)context.getSystemService(serviceName);
     }
 }

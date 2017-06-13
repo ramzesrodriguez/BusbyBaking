@@ -8,14 +8,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.TextView;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.util.UriUtil;
+import com.google.android.exoplayer2.util.Util;
 
 import org.parceler.Parcels;
 
@@ -38,6 +46,12 @@ public class RecipeVideoStepsView extends Fragment {
     public static final String TAG = RecipeVideoStepsView.class.getSimpleName();
 
     @Inject SimpleExoPlayer simpleExoPlayer;
+    @Inject BandwidthMeter bandwidthMeter;
+    @Inject AdaptiveTrackSelection.Factory factory;
+    @Inject TrackSelector trackSelector;
+    @Inject DataSource.Factory dataSourceFactory;
+    @Inject ExtractorsFactory extractorsFactory;
+
     @BindView(R.id.simpleExoPlayerView) SimpleExoPlayerView simpleExoPlayerView;
     @BindView(R.id.tvDescription) TextView tvDescription;
 
@@ -72,6 +86,11 @@ public class RecipeVideoStepsView extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -88,21 +107,26 @@ public class RecipeVideoStepsView extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.d("onDestoryView");
         unbinder.unbind();
     }
 
     private void playStepsVideo() {
         simpleExoPlayerView.setPlayer(simpleExoPlayer);
-        Uri uri = new Uri.Builder().appendPath("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4").build();
 
-        MediaSource mediaSource = new ExtractorMediaSource(
-                uri,
-                null,
-                null,
-                null,
-                null,
-                null);
+        if(URLUtil.isValidUrl(steps.getVideoURL())) {
+            Timber.d(steps.getVideoURL());
 
-        simpleExoPlayer.prepare(mediaSource);
+            Uri uri = Uri.parse(steps.getVideoURL()); //  "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+
+            MediaSource mediaSource = new ExtractorMediaSource(
+                    uri,
+                    dataSourceFactory,
+                    extractorsFactory,
+                    null,
+                    null);
+
+            simpleExoPlayer.prepare(mediaSource);
+        }
     }
 }
