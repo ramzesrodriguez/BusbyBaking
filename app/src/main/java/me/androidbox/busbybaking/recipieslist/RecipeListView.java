@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
@@ -112,3 +114,66 @@ public class RecipeListView
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 }
+
+/*
+
+public class OptInNotificationViewFragment
+        extends BaseMvpFragment<OptInNotificationViewContract, OptInNotificationPresenterImp>
+        implements OptInNotificationViewContract {
+
+    public static final String TAG = OptInNotificationViewFragment.class.getSimpleName();
+
+    @Inject OptInFragmentListener optInFragmentListener;
+    @Inject OptInNotificationPresenterImp optInNotificationPresenter;
+    @Inject IBaseActivityNavigator activityNavigator;
+
+    public OptInNotificationViewFragment() {}
+
+    public static OptInNotificationViewFragment newInstance() {
+        return new OptInNotificationViewFragment();
+    }
+
+    @Override
+    public OptInNotificationPresenterImp createPresenter() {
+        return optInNotificationPresenter;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.traveler_notification_opt_in;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @OnClick(R2.id.button_traveler_turn_on_notification)
+    public void turnOnNotification() {
+        optInNotificationPresenter.displayApplicationSettingsNotification();
+    }
+
+    @OnClick(R2.id.button_traveler_not_now)
+    public void enableNotNowForNotifications(){
+        optInNotificationPresenter.setLastCheckedDateForNotifications();
+    }
+
+    @Override
+    public void displayOptInNotificationSettings() {
+        if(activityNavigator != null) {
+            activityNavigator.openAppNotificationsSettings(getActivity());
+        }
+    }
+
+    @Override
+    public void closeScreen() {
+        optInFragmentListener.onCloseOptInNotification();
+    }
+}
+
+*/
