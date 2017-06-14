@@ -12,7 +12,22 @@ import static org.junit.Assert.*;
  * Created by smason on 6/14/2017 AD.
  */
 public class RecipeListViewTest {
+    private RecipeListView fragment;
+    @Mock RecipeListPresenterContract presenter;
 
+
+    @Before
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(RecipeListViewTest.this);
+
+        fragment = RecipeListView.newInstance();
+        fragment.recipeListPresenterContract = presenter;
+    }
+
+    @Test
+    public void testFragmentNotNull() throws Exception {
+        assertNotNull(fragment);
+    }
 }
 
 
