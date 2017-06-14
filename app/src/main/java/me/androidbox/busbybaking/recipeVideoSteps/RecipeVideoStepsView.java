@@ -111,6 +111,14 @@ public class RecipeVideoStepsView extends Fragment {
         unbinder.unbind();
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.d("onStop");
+        // simpleExoPlayer.release();
+    }
+
     private void playStepsVideo() {
         simpleExoPlayerView.setPlayer(simpleExoPlayer);
 

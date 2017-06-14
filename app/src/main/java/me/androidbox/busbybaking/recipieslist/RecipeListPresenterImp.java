@@ -46,3 +46,34 @@ public class RecipeListPresenterImp
         }
     }
 }
+
+public class OptInNotificationPresenterImp
+        extends BaseMvpPresenter<OptInNotificationViewContract>
+        implements OptInNotificationPresenterContract {
+
+    private final IUserAchievementsRepository userAchievementsRepository;
+
+    public OptInNotificationPresenterImp(
+            @Nonnull IUserAchievementsRepository userAchievementsRepository,
+            ISchedulerFactory schedulerFactory) {
+        super(schedulerFactory);
+
+        this.userAchievementsRepository = Preconditions.checkNotNull(userAchievementsRepository);
+    }
+
+    @Override
+    public void displayApplicationSettingsNotification() {
+        if (getView() != null && isViewAttached()) {
+            getView().displayOptInNotificationSettings();
+            getView().closeScreen();
+        }
+    }
+
+    @Override
+    public void setLastCheckedDateForNotifications() {
+        userAchievementsRepository.setTravelerOptInNotificationLastCheckedDate(Clocks.today());
+        if (getView() != null && isViewAttached()) {
+            getView().closeScreen();
+        }
+    }
+}
