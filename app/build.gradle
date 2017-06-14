@@ -34,7 +34,6 @@ dependencies {
     })
     compile libraries.recyclerview
     compile libraries.cardview
-
     /* Instrumentation and unit Testing */
     androidTestCompile libraries.mockito_core
     androidTestCompile libraries.dagger
@@ -42,18 +41,14 @@ dependencies {
     androidTestCompile libraries.mockito_android
     testCompile libraries.mockito_core
     testCompile 'junit:junit:4.12'
-
     /* MVP */
     compile libraries.mosbyMvp
-
     /* Networking */
     compile libraries.retrofit2
     compile libraries.retrofit2_gson
     compile libraries.adapter_rxjava
-
     /* Logging */
     compile libraries.timber
-
     /* Dependency Injection */
     annotationProcessor libraries.dagger_compiler
     compile libraries.dagger
@@ -64,17 +59,16 @@ dependencies {
     annotationProcessor libraries.dart_processor
     compile libraries.henson
     annotationProcessor libraries.henson_processor
-
     /* Reactive */
     compile libraries.rxjava
     compile libraries.rxandroid
-
     /* Misc */
     compile libraries.parceler_api
     annotationProcessor libraries.parceler
     compile libraries.exoplayer
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
 }
 
 jacocoAndroidUnitTestReport {
