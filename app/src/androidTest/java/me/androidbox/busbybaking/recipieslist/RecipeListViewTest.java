@@ -1,20 +1,15 @@
 package me.androidbox.busbybaking.recipieslist;
 
-import android.app.Instrumentation;
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.core.deps.guava.base.Verify;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +17,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import me.androidbox.busbybaking.R;
-import me.androidbox.busbybaking.di.BusbyBakingApplication;
-import me.androidbox.busbybaking.di.MockAndroidModule;
-import me.androidbox.busbybaking.di.MockRecipeListModule;
-import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import rx.Observable;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by steve on 5/31/17.
@@ -59,12 +46,14 @@ public class RecipeListViewTest {
             new ActivityTestRule<>(
                     MainActivity.class,
                     true,
-                    false);
+                    true);
 
     @Before
     public void setup() throws Exception {
+        mainActivity.launchActivity(new Intent());
+
         // MockitoAnnotations.initMocks(RecipeListViewTest.class);
-        mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
+ /*       mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
 
         final Instrumentation instrumentation =
                 InstrumentationRegistry.getInstrumentation();
@@ -78,9 +67,16 @@ public class RecipeListViewTest {
                 (TestBusbyBakingComponent)busbyBakingApplication.getApplicationComponent();
 
         component.inject(RecipeListViewTest.this);
+*/
     }
 
     @Test
+    public void testShouldDisplayDetailOfCooking() throws Exception {
+        onView(withId(R.id.rvRecipeList)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
+        onView(withId(R.id.rvRecipeList)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    }
+
     public void shouldReturnAListOfRecipes() throws Exception {
         List<Recipe> recipeList = new ArrayList<>();
         Recipe recipe = new Recipe();
