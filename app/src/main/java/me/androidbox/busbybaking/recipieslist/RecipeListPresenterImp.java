@@ -46,6 +46,7 @@ public class RecipeListPresenterImp
         }
     }
 }
+/*
 
 public class OptInNotificationPresenterImp
         extends BaseMvpPresenter<OptInNotificationViewContract>
@@ -76,4 +77,4 @@ public class OptInNotificationPresenterImp
             getView().closeScreen();
         }
     }
-}
+}*/

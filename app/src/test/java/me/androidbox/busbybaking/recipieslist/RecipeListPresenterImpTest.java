@@ -2,10 +2,7 @@ package me.androidbox.busbybaking.recipieslist;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.internal.stubbing.answers.DoesNothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +13,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by smason on 6/14/2017 AD.
  */
 public class RecipeListPresenterImpTest {
 
-    RecipeListModelContract recipeListModelContract;
-    RecipeListViewContract recipeListViewContract;
+    private RecipeListModelContract recipeListModelContract;
+    private RecipeListViewContract recipeListViewContract;
     private RecipeListPresenterImp recipeListPresenterContract;
 
     @Before
@@ -48,36 +44,32 @@ public class RecipeListPresenterImpTest {
     }
 
     @Test
-    public void testOnRecipeGetAllSuccess() {
-        List<Recipe> recipeList = new ArrayList<>();
-        verify(recipeListPresenterContract, times(1)).getView().displayRecipeData(recipeList);
+    public void testShouldRetrieveAllRecipes() throws Exception {
+        recipeListPresenterContract.retrieveAllRecipes();
+
+        verify(recipeListModelContract, times(1))
+                .getRecipesFromAPI(recipeListPresenterContract);
     }
 
     @Test
-    public void testShouldRetrieveAllRecipes() throws Exception {
-      //  when(recipeListModelContract.getRecipesFromAPI(this));
+    public void testOnRecipeGetAllSuccess() throws Exception {
+        List<Recipe> recipeList = new ArrayList<>();
+        recipeListPresenterContract.onRecipeGetAllSuccess(recipeList);
+
+        verify(recipeListViewContract, times(1))
+                .displayRecipeData(recipeList);
     }
 
+    @Test
+    public void testOnRecipeGetAllFailure() throws Exception {
+        recipeListPresenterContract.onRecipeGetAllFailure(anyString());
 
+        verify(recipeListViewContract, times(1))
+                .displayRecipeError(anyString());
+    }
 }
 
-
-package com.agoda.mobile.core.screens.nha.optinnotification;
-
-        import com.agoda.mobile.consumer.data.repository.IUserAchievementsRepository;
-        import com.agoda.mobile.consumer.data.rx.ISchedulerFactory;
-        import com.agoda.mobile.core.time.ClocksMockAccessor;
-
-        import org.junit.Before;
-        import org.junit.Test;
-        import org.mockito.Mockito;
-        import org.threeten.bp.LocalDate;
-        import org.threeten.bp.LocalDateTime;
-        import org.threeten.bp.ZoneOffset;
-
-        import static org.junit.Assert.assertNotNull;
-        import static org.mockito.Mockito.times;
-
+/*
 public class OptInNotificationPresenterImpTest {
 
     private IUserAchievementsRepository userAchievementsRepository;
@@ -125,4 +117,4 @@ public class OptInNotificationPresenterImpTest {
         Mockito.verify(userAchievementsRepository, times(1)).setTravelerOptInNotificationLastCheckedDate(today);
         Mockito.verify(optInNotificationViewContract, times(1)).closeScreen();
     }
-}
+}*/
