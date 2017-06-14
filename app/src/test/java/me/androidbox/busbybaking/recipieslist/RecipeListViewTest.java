@@ -24,6 +24,8 @@ public class RecipeListViewTest {
         fragment.recipeListPresenterContract = presenter;
     }
 
+
+
     @Test
     public void testFragmentNotNull() throws Exception {
         assertNotNull(fragment);
