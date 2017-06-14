@@ -7,7 +7,7 @@ A baking app that instructs you on how to create many different recipes
 * [X] Download recipes from a API
 * [X] Display recipes in a list
 * [X] Display a detail view of the recipes
-* [ ] Play videos of baking instructions
+* [X] Play videos of baking instructions
 
 # Libraries
 * [X] Dagger2
