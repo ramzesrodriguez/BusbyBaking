@@ -115,6 +115,7 @@ public class RecipeListView
     }
 }
 
+/*
 
 public class OptInNotificationViewFragment
         extends BaseMvpFragment<OptInNotificationViewContract, OptInNotificationPresenterImp>
@@ -175,3 +176,4 @@ public class OptInNotificationViewFragment
     }
 }
 
+*/

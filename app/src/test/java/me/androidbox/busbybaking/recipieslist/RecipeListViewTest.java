@@ -16,6 +16,7 @@ public class RecipeListViewTest {
 }
 
 
+/*
 
 public class OptInNotificationViewFragmentTest {
 
@@ -62,4 +63,4 @@ public class OptInNotificationViewFragmentTest {
 
         Mockito.verify(optInFragmentListener).onCloseOptInNotification();
     }
-}
+}*/
