@@ -27,6 +27,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by steve on 5/31/17.
@@ -74,7 +75,16 @@ public class RecipeListViewTest {
     public void testShouldDisplayDetailOfCooking() throws Exception {
         onView(withId(R.id.rvRecipeList)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
- //       onView(withId(R.id.rvRecipeList)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        try{
+            sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withId(R.id.rvRecipeList)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recipe_detail_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.rvSteps)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recipe_video_steps_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     public void shouldReturnAListOfRecipes() throws Exception {

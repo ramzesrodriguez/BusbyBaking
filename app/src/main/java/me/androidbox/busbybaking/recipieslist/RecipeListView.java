@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.os.Bundle;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
