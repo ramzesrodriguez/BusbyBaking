@@ -12,6 +12,7 @@ import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipe.Henson;
+import me.androidbox.busbybaking.services.RecipeService;
 import timber.log.Timber;
 
 /**
@@ -58,6 +59,8 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
                 .build();
 
         context.startActivity(intent);
+
+        RecipeService.startActionRecipeGet(context);
 
     }
 }

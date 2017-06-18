@@ -1,9 +1,6 @@
 package me.androidbox.busbybaking.di;
 
-import javax.inject.Singleton;
-
-import dagger.Subcomponent;
-import me.androidbox.busbybaking.recipieslist.RecipeListViewTest;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 
 /**
  * Created by steve on 6/2/17.
@@ -11,5 +8,5 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewTest;
 /*@Singleton
 @Subcomponent(modules = {MockRecipeListModule.class})*/
 public interface TestRecipeListComponent {
-    void inject(RecipeListViewTest target);
+    void inject(RecipeListViewAndroidTest target);
 }
