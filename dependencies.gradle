@@ -1,7 +1,7 @@
 /** All dependencies */
 
 ext.versions = [
-		minSdk		: 17,
+		minSdk		: 18,
 		targetSdk	: 25,
 
 		/* Library Versions */
@@ -20,7 +20,8 @@ ext.versions = [
         butterknife          : '8.6.0',
         dart_henson          : '2.0.2',
         parceler             : '1.1.8',
-		exoplayer            : 'r2.4.1'
+		exoplayer            : 'r2.4.1',
+		uiautomator          : '2.1.1'
 ]
 
 ext.libraries = [
@@ -47,5 +48,6 @@ ext.libraries = [
         henson_processor     : "com.f2prateek.dart:henson-processor:$versions.dart_henson",
         parceler_api         : "org.parceler:parceler-api:$versions.parceler",
         parceler             : "org.parceler:parceler:$versions.parceler",
-		exoplayer            : "com.google.android.exoplayer:exoplayer:$versions.exoplayer"
+		exoplayer            : "com.google.android.exoplayer:exoplayer:$versions.exoplayer",
+		uiautomator          : "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiautomator"
 ]

@@ -6,14 +6,82 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import me.androidbox.busbybaking.model.Recipe;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by smason on 6/14/2017 AD.
  */
 public class RecipeListViewTest {
+    private RecipeListView fragment;
+    @Mock RecipeListPresenterContract presenter;
+    @Mock RecipeItemClickListener recipeItemClickListener;
+    @Mock List<Recipe> recipe;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(RecipeListViewTest.this);
+        fragment = RecipeListView.newInstance();
+    }
+
+    @Test
+    public void testShouldGetAllRecipes() {
+        fragment.displayRecipeData(recipe);
+        RecipeListView spy = Mockito.spy(fragment);
+
+        verify(recipeItemClickListener, times(1)).onRecipeItemClick();
+    }
+
+
+/*
+    public void displayRecipeData(List<Recipe> recipeList) {
+        Timber.d("displayData: %d", recipeList.size());
+
+        setupDataBinding(recipeList);
+
+        recipeItemClickListener.onRecipeItem();
+    }
+*/
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -21,8 +89,7 @@ public class RecipeListViewTest {
 public class OptInNotificationViewFragmentTest {
 
     private OptInNotificationViewFragment fragment;
-    @Mock
-    OptInNotificationPresenterImp presenter;
+    @Mock OptInNotificationPresenterImp presenter;
     @Mock IBaseActivityNavigator activityNavigator;
     @Mock OptInFragmentListener optInFragmentListener;
 

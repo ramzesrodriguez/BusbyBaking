@@ -32,7 +32,9 @@
                 android:resource="@xml/busby_baking_widget_provider_info" />
         </receiver>
 
-        <service android:name=".services.RecipeService"/>
+        <service android:name=".services.RecipeService">
+
+        </service>
 
     </application>
 

@@ -32,7 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  * Created by steve on 5/31/17.
  */
 @RunWith(AndroidJUnit4.class)
-public class RecipeListViewTest {
+public class RecipeListViewAndroidTest {
     @Inject RecipeListModelContract recipeListModelContract;
     @Inject RecipesAPI recipesAPI;
 
@@ -52,7 +52,7 @@ public class RecipeListViewTest {
     public void setup() throws Exception {
         mainActivity.launchActivity(new Intent());
 
-        // MockitoAnnotations.initMocks(RecipeListViewTest.class);
+        // MockitoAnnotations.initMocks(RecipeListViewAndroidTest.class);
  /*       mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
 
         final Instrumentation instrumentation =
@@ -66,7 +66,7 @@ public class RecipeListViewTest {
         TestBusbyBakingComponent component =
                 (TestBusbyBakingComponent)busbyBakingApplication.getApplicationComponent();
 
-        component.inject(RecipeListViewTest.this);
+        component.inject(RecipeListViewAndroidTest.this);
 */
     }
 

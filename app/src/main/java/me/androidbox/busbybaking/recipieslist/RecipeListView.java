@@ -34,13 +34,15 @@ public class RecipeListView
     public static final String TAG = RecipeListView.class.getSimpleName();
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
-    @Inject RecipeItemListener recipeItemListener;
+    @Inject
+    RecipeItemClickListener recipeItemClickListener;
 
     @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
     private Unbinder unbinder;
     private RecipeAdapter recipeAdapter;
 
     public RecipeListView() {}
+
     public static RecipeListView newInstance() {
         return new RecipeListView();
     }
@@ -50,7 +52,7 @@ public class RecipeListView
         super.onCreate(savedInstanceState);
 
         ((BusbyBakingApplication)getActivity().getApplication())
-                .createRecipeListComponent((MainActivity)getActivity())
+                .createRecipeListComponent(getActivity())
                 .inject(RecipeListView.this);
     }
 
@@ -88,6 +90,15 @@ public class RecipeListView
     }
 
     @Override
+    public void displayRecipeData(List<Recipe> recipeList) {
+        Timber.d("displayData: %d", recipeList.size());
+
+        setupDataBinding(recipeList);
+
+        recipeItemClickListener.onRecipeItemClick();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -96,15 +107,6 @@ public class RecipeListView
     @Override
     public RecipeListPresenterImp createPresenter() {
         return (RecipeListPresenterImp)recipeListPresenterContract;
-    }
-
-    @Override
-    public void displayRecipeData(List<Recipe> recipeList) {
-        Timber.d("displayData: %d", recipeList.size());
-
-        setupDataBinding(recipeList);
-
-        recipeItemListener.onRecipeItem();
     }
 
     @Override
