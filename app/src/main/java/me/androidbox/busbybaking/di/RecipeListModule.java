@@ -6,8 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import me.androidbox.busbybaking.recipieslist.MainActivity;
-import me.androidbox.busbybaking.recipieslist.RecipeItemListener;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
@@ -18,16 +17,19 @@ import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
  */
 @Module
 public class RecipeListModule {
-    private MainActivity mainActivity;
+    private Activity activity;
 
-    public RecipeListModule(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public RecipeListModule() {
+    }
+
+    public RecipeListModule(Activity activity) {
+        this.activity = activity;
     }
 
     @RecipeListScope
     @Provides
-    public RecipeItemListener providesRecipeListMainActivity() {
-        return this.mainActivity;
+    public RecipeItemClickListener providesRecipeListMainActivity() {
+        return (RecipeItemClickListener)this.activity;
     }
 
     @RecipeListScope

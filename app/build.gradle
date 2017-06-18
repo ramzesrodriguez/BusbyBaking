@@ -38,9 +38,11 @@ dependencies {
     androidTestCompile libraries.mockito_core
     androidTestCompile libraries.dagger
     androidTestAnnotationProcessor libraries.dagger_compiler
+    androidTestCompile libraries.uiautomator
     androidTestCompile libraries.mockito_android
-    testCompile libraries.mockito_core
+    testImplementation libraries.mockito_core
     testCompile 'junit:junit:4.12'
+
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */

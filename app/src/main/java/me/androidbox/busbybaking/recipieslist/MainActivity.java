@@ -6,7 +6,7 @@ import android.os.Bundle;
 import me.androidbox.busbybaking.R;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements RecipeItemListener {
+public class MainActivity extends AppCompatActivity implements RecipeItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements RecipeItemListene
     }
 
     @Override
-    public void onRecipeItem() {
+    public void onRecipeItemClick() {
         Timber.d("onRecipeItem");
     }
 }
