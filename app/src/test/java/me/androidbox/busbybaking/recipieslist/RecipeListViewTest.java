@@ -11,8 +11,11 @@ import java.util.List;
 import me.androidbox.busbybaking.model.Recipe;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by smason on 6/14/2017 AD.
@@ -31,8 +34,10 @@ public class RecipeListViewTest {
 
     @Test
     public void testShouldGetAllRecipes() {
-        fragment.displayRecipeData(recipe);
         RecipeListView spy = Mockito.spy(fragment);
+        doNothing().when(spy).setupDataBinding(recipe);
+
+        fragment.displayRecipeData(recipe);
 
         verify(recipeItemClickListener, times(1)).onRecipeItemClick();
     }

@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,7 +81,8 @@ public class RecipeListView
         return view;
     }
 
-    private void setupDataBinding(List<Recipe> recipeList) {
+    @VisibleForTesting
+    protected void setupDataBinding(List<Recipe> recipeList) {
         recipeAdapter = new RecipeAdapter(recipeList);
         RecyclerView.LayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
