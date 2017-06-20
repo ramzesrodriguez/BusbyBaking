@@ -90,6 +90,8 @@ public class RecipeListView
         rvRecipeList.setAdapter(recipeAdapter);
     }
 
+    /* TODO TRY TO TEST THIS METHOD AND TRYING TO MOCK THE setupDataBinding AS I DON'T WANT TO CALL THAT
+     * AS THE APP WILL CRASH */
     @Override
     public void displayRecipeData(List<Recipe> recipeList) {
         Timber.d("displayData: %d", recipeList.size());

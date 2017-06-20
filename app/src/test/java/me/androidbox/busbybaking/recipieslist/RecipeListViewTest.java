@@ -12,10 +12,8 @@ import me.androidbox.busbybaking.model.Recipe;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by smason on 6/14/2017 AD.
@@ -32,6 +30,8 @@ public class RecipeListViewTest {
         fragment = RecipeListView.newInstance();
     }
 
+    /* TODO Trying to test displayRecipeData. However, the app will crash because
+       it will call setupDataBinding() which I don't want it to do I am trying to mock that call */
     @Test
     public void testShouldGetAllRecipes() {
         RecipeListView spy = Mockito.spy(fragment);
@@ -58,6 +58,27 @@ public class RecipeListViewTest {
         assertNotNull(fragment);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
