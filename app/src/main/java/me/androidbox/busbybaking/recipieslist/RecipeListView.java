@@ -36,10 +36,10 @@ public class RecipeListView
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
     @Inject RecipeItemClickListener recipeItemClickListener;
+    @Inject RecipeAdapter recipeAdapter;
 
     @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
     private Unbinder unbinder;
-    private RecipeAdapter recipeAdapter;
 
     public RecipeListView() {}
 
@@ -83,7 +83,7 @@ public class RecipeListView
 
     @VisibleForTesting
     protected void setupDataBinding(List<Recipe> recipeList) {
-        recipeAdapter = new RecipeAdapter(recipeList);
+        recipeAdapter.fillRecipeData(recipeList);
         RecyclerView.LayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvRecipeList.setLayoutManager(layoutManager);
