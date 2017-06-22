@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -73,6 +74,7 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Timber.d("onCreate");
 
         final Bundle bundle = getArguments();
         steps = Parcels.unwrap(bundle.getParcelable(STEPS_KEY));
@@ -90,6 +92,7 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Timber.d("onDestroy");
     }
 
     @Override
@@ -102,12 +105,6 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
         tvDescription.setText(steps.getShortDescription());
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        playStepsVideo();
     }
 
     @Override
@@ -134,7 +131,7 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
         if(URLUtil.isValidUrl(steps.getVideoURL())) {
             Timber.d(steps.getVideoURL());
 
-            Uri uri = Uri.parse(steps.getVideoURL()); //  "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+            Uri uri = Uri.parse(steps.getVideoURL());
 
             simpleExoPlayerView.setPlayer(simpleExoPlayer);
 
@@ -148,7 +145,19 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
             simpleExoPlayer.prepare(mediaSource);
             simpleExoPlayer.setPlayWhenReady(true);
         }
+        else {
+            Timber.e("playStepsVideo no video url");
+            Toast.makeText(getActivity(), "Cannot play video no url available", Toast.LENGTH_LONG).show();
+        }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timber.d("onStart");
+        playStepsVideo();
+    }
+
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object o) {
