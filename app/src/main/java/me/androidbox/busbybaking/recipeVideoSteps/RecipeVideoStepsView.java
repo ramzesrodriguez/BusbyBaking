@@ -1,6 +1,5 @@
 package me.androidbox.busbybaking.recipeVideoSteps;
 
-import android.app.Application;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,20 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.f2prateek.dart.Dart;
-import com.f2prateek.dart.InjectExtra;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.util.UriUtil;
-import com.google.android.exoplayer2.util.Util;
 
 import org.parceler.Parcels;
 
@@ -42,7 +44,7 @@ import static me.androidbox.busbybaking.recipeVideoSteps.RecipeVideoStepsActivit
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipeVideoStepsView extends Fragment {
+public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventListener {
     public static final String TAG = RecipeVideoStepsView.class.getSimpleName();
 
     @Inject SimpleExoPlayer simpleExoPlayer;
@@ -72,6 +74,7 @@ public class RecipeVideoStepsView extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Timber.d("onCreate");
 
         final Bundle bundle = getArguments();
         steps = Parcels.unwrap(bundle.getParcelable(STEPS_KEY));
@@ -80,14 +83,16 @@ public class RecipeVideoStepsView extends Fragment {
                 .getApplicationComponent()
                 .inject(RecipeVideoStepsView.this);
 
-        if(simpleExoPlayer == null) {
-            Timber.e("simpleExoPlayer == null");
+        if(simpleExoPlayer != null) {
+            Timber.d("simpleExoPlayer != null");
+            simpleExoPlayer.addListener(RecipeVideoStepsView.this);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Timber.d("onDestroy");
     }
 
     @Override
@@ -99,8 +104,6 @@ public class RecipeVideoStepsView extends Fragment {
 
         tvDescription.setText(steps.getShortDescription());
 
-        playStepsVideo();
-
         return view;
     }
 
@@ -111,21 +114,26 @@ public class RecipeVideoStepsView extends Fragment {
         unbinder.unbind();
     }
 
+    private void releaseMediaResources() {
+        simpleExoPlayer.stop();
+        simpleExoPlayer.release();
+        simpleExoPlayer = null;
+    }
 
     @Override
     public void onStop() {
         super.onStop();
         Timber.d("onStop");
-        // simpleExoPlayer.release();
+        releaseMediaResources();
     }
 
     private void playStepsVideo() {
-        simpleExoPlayerView.setPlayer(simpleExoPlayer);
-
         if(URLUtil.isValidUrl(steps.getVideoURL())) {
             Timber.d(steps.getVideoURL());
 
-            Uri uri = Uri.parse(steps.getVideoURL()); //  "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+            Uri uri = Uri.parse(steps.getVideoURL());
+
+            simpleExoPlayerView.setPlayer(simpleExoPlayer);
 
             MediaSource mediaSource = new ExtractorMediaSource(
                     uri,
@@ -135,6 +143,59 @@ public class RecipeVideoStepsView extends Fragment {
                     null);
 
             simpleExoPlayer.prepare(mediaSource);
+            simpleExoPlayer.setPlayWhenReady(true);
         }
+        else {
+            Timber.e("playStepsVideo no video url");
+            Toast.makeText(getActivity(), "Cannot play video no url available", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timber.d("onStart");
+        playStepsVideo();
+    }
+
+
+    @Override
+    public void onTimelineChanged(Timeline timeline, Object o) {
+
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray) {
+
+    }
+
+    @Override
+    public void onLoadingChanged(boolean b) {
+
+    }
+
+    @Override
+    public void onPlayerStateChanged(boolean playWhenReady, int playBackState) {
+        if((simpleExoPlayer.getPlaybackState() == ExoPlayer.STATE_READY) && playWhenReady) {
+            Timber.d("onPlayerStateChanged: PLAYING");
+        }
+        else {
+            Timber.d("onPlayerStateChanged: PAUSED");
+        }
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException e) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity() {
+
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
     }
 }

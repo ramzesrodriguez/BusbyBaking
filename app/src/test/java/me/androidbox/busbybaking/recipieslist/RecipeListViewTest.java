@@ -8,9 +8,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.model.Recipe;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -18,41 +20,77 @@ import static org.mockito.Mockito.verify;
  * Created by smason on 6/14/2017 AD.
  */
 public class RecipeListViewTest {
-    private RecipeListView fragment;
     @Mock RecipeListPresenterContract presenter;
     @Mock RecipeItemClickListener recipeItemClickListener;
     @Mock List<Recipe> recipe;
+    @Mock RecipeAdapter recipeAdapter;
+    private RecipeListView fragment;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(RecipeListViewTest.this);
         fragment = RecipeListView.newInstance();
+        fragment.recipeItemClickListener = recipeItemClickListener;
+        fragment.recipeListPresenterContract = presenter;
+        fragment.recipeAdapter = recipeAdapter;
+    }
+
+    @Test
+    public void testFragmentShouldNotBeNull() {
+        assertNotNull(fragment);
+    }
+
+    @Test
+    public void testRecipeItemClickListenerShouldNotBeNull() {
+        assertNotNull(fragment.recipeItemClickListener);
     }
 
     @Test
     public void testShouldGetAllRecipes() {
-        fragment.displayRecipeData(recipe);
         RecipeListView spy = Mockito.spy(fragment);
+        doNothing().when(spy).fillAdapter(recipe);
 
+        spy.displayRecipeData(recipe);
+
+        verify(spy, times(1)).fillAdapter(recipe);
         verify(recipeItemClickListener, times(1)).onRecipeItemClick();
     }
 
+    @Test
+    public void testShouldCallGetAllRecipes() {
+        fragment.getAllRecipes();
 
-/*
-    public void displayRecipeData(List<Recipe> recipeList) {
-        Timber.d("displayData: %d", recipeList.size());
-
-        setupDataBinding(recipeList);
-
-        recipeItemClickListener.onRecipeItem();
+        verify(presenter, times(1)).retrieveAllRecipes();
     }
-*/
 
     @Test
-    public void testFragmentNotNull() throws Exception {
-        assertNotNull(fragment);
+    public void testShouldFillAdapter() {
+        fragment.fillAdapter(recipe);
+
+        verify(recipeAdapter, times(1)).fillRecipeData(recipe);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

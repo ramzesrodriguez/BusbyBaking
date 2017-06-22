@@ -34,13 +34,13 @@ dependencies {
     })
     compile libraries.recyclerview
     compile libraries.cardview
-    /* Instrumentation and unit Testing */
+    /** Instrumentation and unit Testing */
     androidTestCompile libraries.mockito_core
     androidTestCompile libraries.dagger
     androidTestAnnotationProcessor libraries.dagger_compiler
     androidTestCompile libraries.uiautomator
     androidTestCompile libraries.mockito_android
-    testImplementation libraries.mockito_core
+    testCompile libraries.mockito_core
     testCompile 'junit:junit:4.12'
 
     /* MVP */

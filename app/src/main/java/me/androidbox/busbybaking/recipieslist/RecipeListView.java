@@ -1,6 +1,8 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,15 +37,21 @@ public class RecipeListView
 
     @Inject RecipeListPresenterContract recipeListPresenterContract;
     @Inject RecipeItemClickListener recipeItemClickListener;
+    @Inject RecipeAdapter recipeAdapter;
 
     @BindView(R.id.rvRecipeList) RecyclerView rvRecipeList;
     private Unbinder unbinder;
-    private RecipeAdapter recipeAdapter;
 
     public RecipeListView() {}
 
     public static RecipeListView newInstance() {
         return new RecipeListView();
+    }
+
+    @Override
+    @NonNull
+    public RecipeListPresenterImp createPresenter() {
+        return (RecipeListPresenterImp)recipeListPresenterContract;
     }
 
     @Override
@@ -69,32 +77,40 @@ public class RecipeListView
 
         unbinder = ButterKnife.bind(RecipeListView.this, view);
 
-        if(recipeListPresenterContract != null) {
-            Timber.d("recipeListPresenterContract != null");
-            recipeListPresenterContract.retrieveAllRecipes();
-        }
-        else {
-            Timber.e("recipeListPresenterContract == null");
-        }
+        setupDataBinding();
+        getAllRecipes();
 
         return view;
     }
 
-    private void setupDataBinding(List<Recipe> recipeList) {
-        recipeAdapter = new RecipeAdapter(recipeList);
+    private void setupDataBinding() {
         RecyclerView.LayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvRecipeList.setLayoutManager(layoutManager);
         rvRecipeList.setAdapter(recipeAdapter);
     }
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    void fillAdapter(List<Recipe> recipeList) {
+        recipeAdapter.fillRecipeData(recipeList);
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    void getAllRecipes() {
+        recipeListPresenterContract.retrieveAllRecipes();
+    }
+
     @Override
     public void displayRecipeData(List<Recipe> recipeList) {
         Timber.d("displayData: %d", recipeList.size());
 
-        setupDataBinding(recipeList);
-
+        fillAdapter(recipeList);
         recipeItemClickListener.onRecipeItemClick();
+    }
+
+    @Override
+    public void displayRecipeError(String error) {
+        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -102,17 +118,49 @@ public class RecipeListView
         super.onDestroyView();
         unbinder.unbind();
     }
-
-    @Override
-    public RecipeListPresenterImp createPresenter() {
-        return (RecipeListPresenterImp)recipeListPresenterContract;
-    }
-
-    @Override
-    public void displayRecipeError(String error) {
-        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 

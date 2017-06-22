@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,8 +20,8 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     private List<Recipe> recipeList = Collections.emptyList();
 
-    public RecipeAdapter(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
+    public RecipeAdapter() {
+        recipeList = new ArrayList<>();
     }
 
     @Override
@@ -43,5 +44,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
 
     public Recipe getRecipe(int position) {
         return recipeList.get(position);
+    }
+
+    public void fillRecipeData(List<Recipe> recipes) {
+        recipeList.clear();
+        recipeList.addAll(recipes);
+        notifyDataSetChanged();
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import dagger.Module;
 import dagger.Provides;
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
@@ -42,5 +43,11 @@ public class RecipeListModule {
     @Provides
     public RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
         return new RecipeListPresenterImp(recipeListModelContract);
+    }
+
+    @RecipeListScope
+    @Provides
+    public RecipeAdapter providesRecipeAdapter() {
+        return new RecipeAdapter();
     }
 }
