@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import java.util.List;
 
