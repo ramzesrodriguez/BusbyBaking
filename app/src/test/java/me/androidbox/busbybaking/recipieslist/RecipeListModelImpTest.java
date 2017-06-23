@@ -5,11 +5,16 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
+import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
+import rx.Observable;
 import rx.Subscription;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -23,6 +28,7 @@ public class RecipeListModelImpTest {
     @Mock Subscription subscription;
     @Mock RecipesAPI recipesAPI;
     @Mock RecipeListModelContract.RecipeGetAllListener recipeGetAllListener;
+    @Mock List<Recipe> recipes;
     private RecipeListModelContract recipeListModel;
 
     @Before
@@ -57,7 +63,11 @@ public class RecipeListModelImpTest {
     public void testGetRecipesFromAPI() {
         RecipeListModelContract recipeListModelSpy = spy(recipeListModel);
         RecipesAPI recipeApiSpy = spy(recipesAPI);
-        doNothing().when(recipeApiSpy).getAllRecipes();
+
+/*
+        when(recipeApiSpy.getAllRecipes()).thenReturn(Observable.just(recipes));
+        doReturn(Observable.just(Subscription.class)).when(recipeApiSpy).getAllRecipes();
+*/
 
         recipeListModelSpy.getRecipesFromAPI(recipeGetAllListener);
 
