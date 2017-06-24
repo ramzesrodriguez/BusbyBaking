@@ -1,8 +1,7 @@
 package me.androidbox.busbybaking.recipieslist.di;
 
-
-
 import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
@@ -20,12 +19,12 @@ public class MockRecipeSchedulersModule {
         return new RecipeSchedulers() {
             @Override
             public Scheduler getBackgroundScheduler() {
-                return Schedulers.trampoline();
+                return Schedulers.immediate();
             }
 
             @Override
             public Scheduler getUIScheduler() {
-                return Schedulers.trampoline();
+                return Schedulers.immediate();
             }
         };
     }
