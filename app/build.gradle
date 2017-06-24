@@ -27,6 +27,14 @@ android {
     }
 }
 
+
+/*
+android.applicationVariants.all {
+    def aptOutputDir = new File(buildDir, "generated/source/apt/${it.unitTestVariant.dirName}")
+    it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+}
+*/
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -42,6 +50,8 @@ dependencies {
     androidTestCompile libraries.mockito_android
     testCompile libraries.mockito_core
     testCompile 'junit:junit:4.12'
+    testAnnotationProcessor libraries.dagger_compiler
+    testCompile libraries.dagger
 
     /* MVP */
     compile libraries.mosbyMvp
@@ -70,6 +80,7 @@ dependencies {
     compile libraries.exoplayer
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
 }
 

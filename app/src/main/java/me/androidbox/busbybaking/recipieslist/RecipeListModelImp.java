@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import java.util.List;
 
@@ -24,17 +25,19 @@ public class RecipeListModelImp
 
     private Subscription subscription;
     private RecipesAPI recipesAPI;
+    private RecipeSchedulers recipeSchedulers;
 
     @Inject
-    public RecipeListModelImp(@NonNull RecipesAPI recipesAPI) {
+    public RecipeListModelImp(@NonNull RecipesAPI recipesAPI, @NonNull RecipeSchedulers recipeSchedulers) {
         this.recipesAPI = Preconditions.checkNotNull(recipesAPI);
+        this.recipeSchedulers = Preconditions.checkNotNull(recipeSchedulers);
     }
 
     @Override
     public void getRecipesFromAPI(final RecipeGetAllListener recipeGetAllListener) {
         subscription = recipesAPI.getAllRecipes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(recipeSchedulers.getBackgroundScheduler())
+                .observeOn(recipeSchedulers.getUIScheduler())
                 .subscribe(new Subscriber<List<Recipe>>() {
                     @Override
                     public void onCompleted() {
