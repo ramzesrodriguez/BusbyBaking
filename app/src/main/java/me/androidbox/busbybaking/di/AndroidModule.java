@@ -6,24 +6,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by steve on 5/29/17.
@@ -32,26 +22,42 @@ import dagger.Provides;
 public class AndroidModule {
     private final Context context;
 
-    public AndroidModule(Application application) {
+    AndroidModule(Application application) {
         this.context = application;
     }
 
     @Singleton
     @Provides
-    public Context providesContext() {
+    Context providesContext() {
         return context;
     }
 
     @Singleton
     @Provides
-    public Resources providesResources() {
+    Resources providesResources() {
         return context.getResources();
     }
 
     @Singleton
     @Provides
-    public SharedPreferences providesSharedPreferences() {
+    SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    @Singleton
+    @Provides
+    RecipeSchedulers providesRecipeSchedulers() {
+        return new RecipeSchedulers() {
+            @Override
+            public Scheduler getBackgroundScheduler() {
+                return Schedulers.io();
+            }
+
+            @Override
+            public Scheduler getUIScheduler() {
+                return AndroidSchedulers.mainThread();
+            }
+        };
     }
 
     @SuppressWarnings("unchecked")

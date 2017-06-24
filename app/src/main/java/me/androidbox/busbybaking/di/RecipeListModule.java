@@ -12,6 +12,7 @@ import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
+import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 
 /**
  * Created by steve on 5/27/17.
@@ -29,25 +30,25 @@ public class RecipeListModule {
 
     @RecipeListScope
     @Provides
-    public RecipeItemClickListener providesRecipeListMainActivity() {
+    RecipeItemClickListener providesRecipeListMainActivity() {
         return (RecipeItemClickListener)this.activity;
     }
 
     @RecipeListScope
     @Provides
-    public RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI) {
-        return new RecipeListModelImp(recipesAPI);
+    RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
+        return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
     @RecipeListScope
     @Provides
-    public RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
+    RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
         return new RecipeListPresenterImp(recipeListModelContract);
     }
 
     @RecipeListScope
     @Provides
-    public RecipeAdapter providesRecipeAdapter() {
+    RecipeAdapter providesRecipeAdapter() {
         return new RecipeAdapter();
     }
 }
