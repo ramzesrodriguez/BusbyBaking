@@ -38,6 +38,7 @@ public class RecipeListModelImpTest {
 
     @Before
     public void setup() {
+
         TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
                 .mockRecipeSchedulersModule(new MockRecipeSchedulersModule())
                 .build();
