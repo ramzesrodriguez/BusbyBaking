@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.auto.factory.AutoFactory;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.androidbox.busbybaking.R;
@@ -18,7 +20,7 @@ import timber.log.Timber;
 /**
  * Created by steve on 6/7/17.
  */
-
+@AutoFactory(implementing = RecipeListViewHolderFactory.class)
 public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Context context;
 

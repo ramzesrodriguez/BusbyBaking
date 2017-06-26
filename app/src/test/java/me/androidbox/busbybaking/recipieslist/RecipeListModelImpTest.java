@@ -76,7 +76,7 @@ public class RecipeListModelImpTest {
     public void testShouldFailToGetRecipesFromAPI() {
         when(recipesAPI.getAllRecipes())
                 .thenReturn(Observable.<List<Recipe>>error(
-                        new Throwable(new RuntimeException("Failed to get movies"))));
+                        new Throwable(new RuntimeException("Failed to get recipes"))));
 
         recipeListModel.getRecipesFromAPI(recipeGetAllListener);
 

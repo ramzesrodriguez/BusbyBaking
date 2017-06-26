@@ -50,7 +50,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testAnnotationProcessor libraries.dagger_compiler
     testCompile libraries.dagger
-
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */
@@ -80,6 +79,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
+    compile 'com.google.auto.factory:auto-factory:1.0-beta5'
 }
 
 jacocoAndroidUnitTestReport {
