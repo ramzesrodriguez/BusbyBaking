@@ -15,7 +15,7 @@ import timber.log.Timber;
 /**
  * Created by steve on 6/7/17.
  */
-@AutoFactory(implementing = RecipeListViewHolderFactory.class)
+@AutoFactory(implementing = IRecipeListViewHolderFactory.class)
 public class RecipeListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;

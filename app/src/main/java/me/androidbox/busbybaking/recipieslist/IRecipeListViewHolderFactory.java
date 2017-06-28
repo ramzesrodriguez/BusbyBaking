@@ -6,6 +6,6 @@ import android.view.ViewGroup;
 /**
  * Created by smason on 6/26/2017 AD.
  */
-public interface RecipeListViewHolderFactory {
+public interface IRecipeListViewHolderFactory {
     RecyclerView.ViewHolder createViewHolder(ViewGroup parent);
 }

@@ -1,7 +1,6 @@
 package me.androidbox.busbybaking.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipe.Henson;
+import me.androidbox.busbybaking.recipieslist.IRecipeListViewHolderFactory;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
-import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
-import me.androidbox.busbybaking.services.RecipeService;
 import timber.log.Timber;
 
 /**
@@ -41,9 +36,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> im
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         final View view = layoutInflater.inflate(R.layout.recipe_item, viewGroup, false);
 
-         final RecipeListViewHolder recipeListViewHolder = RecipeListViewHolder.newInstance(view);
+        // final RecipeListViewHolder recipeListViewHolder = RecipeListViewHolder.newInstance(view);
 
-     //   final RecipeListViewHolder recipeListViewHolder = RecipeListViewHolderFactory().
+        final RecipeListViewHolder recipeListViewHolder = new IRecipeListViewHolderFactory().createViewHolder(viewGroup);
 
         recipeListViewHolder.itemView.setOnClickListener(RecipeAdapter.this);
 
