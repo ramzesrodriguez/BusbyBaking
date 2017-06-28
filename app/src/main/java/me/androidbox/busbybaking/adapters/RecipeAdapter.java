@@ -12,8 +12,8 @@ import java.util.List;
 
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipieslist.IRecipeListViewHolderFactory;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import timber.log.Timber;
 
 /**
@@ -38,7 +38,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> im
 
         // final RecipeListViewHolder recipeListViewHolder = RecipeListViewHolder.newInstance(view);
 
-        final RecipeListViewHolder recipeListViewHolder = new IRecipeListViewHolderFactory().createViewHolder(viewGroup);
+        final RecipeListViewHolder recipeListViewHolder = new RecipeListViewHolderFactory().createViewHolder(viewGroup);
 
         recipeListViewHolder.itemView.setOnClickListener(RecipeAdapter.this);
 
