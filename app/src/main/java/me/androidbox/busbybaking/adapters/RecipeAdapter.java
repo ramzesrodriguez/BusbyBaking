@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +13,17 @@ import java.util.List;
 
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
+import me.androidbox.busbybaking.recipe.Henson;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+import me.androidbox.busbybaking.services.RecipeService;
 import timber.log.Timber;
 
 /**
  * Created by steve on 6/7/17.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> implements View.OnClickListener {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     private List<Recipe> recipeList = Collections.emptyList();
 
     private Context context;
@@ -32,15 +35,24 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> im
     @Override
     public RecipeListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         this.context = viewGroup.getContext();
-
-        final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        final View view = layoutInflater.inflate(R.layout.recipe_item, viewGroup, false);
-
-        // final RecipeListViewHolder recipeListViewHolder = RecipeListViewHolder.newInstance(view);
-
         final RecipeListViewHolder recipeListViewHolder = new RecipeListViewHolderFactory().createViewHolder(viewGroup);
 
-        recipeListViewHolder.itemView.setOnClickListener(RecipeAdapter.this);
+        recipeListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
+
+                final Intent intent = Henson.with(context)
+                        .gotoRecipeDetailActivity()
+                        .recipe(getRecipe(recipeListViewHolder.getAdapterPosition()))
+                        .build();
+
+                context.startActivity(intent);
+
+                RecipeService.startActionRecipeGet(context);
+
+            }
+        });
 
         return recipeListViewHolder;
     }
@@ -63,22 +75,5 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> im
         recipeList.clear();
         recipeList.addAll(recipes);
         notifyDataSetChanged();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Timber.d("onClick");
-
-/*
-        final Intent intent = Henson.with(context)
-                .gotoRecipeDetailActivity()
-                .recipe(recipe)
-                .build();
-
-        context.startActivity(intent);
-
-        RecipeService.startActionRecipeGet(context);
-*/
-
     }
 }
