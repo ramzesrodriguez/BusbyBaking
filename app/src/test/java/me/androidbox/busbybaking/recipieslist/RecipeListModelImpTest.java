@@ -18,6 +18,8 @@ import rx.Observable;
 import rx.Subscription;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,11 +69,20 @@ public class RecipeListModelImpTest {
 
         verify(recipesAPI, times(1)).getAllRecipes();
         verify(recipeGetAllListener, times(1)).onRecipeGetAllSuccess(recipes);
+        verify(recipeGetAllListener, never()).onRecipeGetAllFailure(anyString());
     }
 
     @Test
     public void testShouldFailToGetRecipesFromAPI() {
+        when(recipesAPI.getAllRecipes())
+                .thenReturn(Observable.<List<Recipe>>error(
+                        new Throwable(new RuntimeException("Failed to get recipes"))));
 
+        recipeListModel.getRecipesFromAPI(recipeGetAllListener);
+
+        verify(recipesAPI, times(1)).getAllRecipes();
+        verify(recipeGetAllListener, times(1)).onRecipeGetAllFailure(anyString());
+        verify(recipeGetAllListener, never()).onRecipeGetAllSuccess(recipes);
     }
 
     @Test
