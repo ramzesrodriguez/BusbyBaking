@@ -1,9 +1,12 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import me.androidbox.busbybaking.R;
+import me.androidbox.busbybaking.model.Recipe;
+import me.androidbox.busbybaking.recipe.Henson;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements RecipeItemClickListener {
@@ -21,7 +24,13 @@ public class MainActivity extends AppCompatActivity implements RecipeItemClickLi
     }
 
     @Override
-    public void onRecipeItemClick() {
-        Timber.d("onRecipeItem");
+    public void onRecipeItemClick(Recipe recipe) {
+        Timber.d("onRecipeItemClick");
+        final Intent intent = Henson.with(MainActivity.this)
+                .gotoRecipeDetailActivity()
+                .recipe(recipe)
+                .build();
+
+        startActivity(intent);
     }
 }

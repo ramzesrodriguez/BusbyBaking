@@ -21,7 +21,6 @@ import static org.mockito.Mockito.verify;
  */
 public class RecipeListViewTest {
     @Mock RecipeListPresenterContract presenter;
-    @Mock RecipeItemClickListener recipeItemClickListener;
     @Mock List<Recipe> recipe;
     @Mock RecipeAdapter recipeAdapter;
     private RecipeListView fragment;
@@ -30,7 +29,6 @@ public class RecipeListViewTest {
     public void setup() {
         MockitoAnnotations.initMocks(RecipeListViewTest.this);
         fragment = RecipeListView.newInstance();
-        fragment.recipeItemClickListener = recipeItemClickListener;
         fragment.recipeListPresenterContract = presenter;
         fragment.recipeAdapter = recipeAdapter;
     }
@@ -41,11 +39,6 @@ public class RecipeListViewTest {
     }
 
     @Test
-    public void testRecipeItemClickListenerShouldNotBeNull() {
-        assertNotNull(fragment.recipeItemClickListener);
-    }
-
-    @Test
     public void testShouldGetAllRecipes() {
         RecipeListView spy = Mockito.spy(fragment);
         doNothing().when(spy).fillAdapter(recipe);
@@ -53,7 +46,6 @@ public class RecipeListViewTest {
         spy.displayRecipeData(recipe);
 
         verify(spy, times(1)).fillAdapter(recipe);
-        verify(recipeItemClickListener, times(1)).onRecipeItemClick();
     }
 
     @Test

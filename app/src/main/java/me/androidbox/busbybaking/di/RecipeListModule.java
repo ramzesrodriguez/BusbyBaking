@@ -11,6 +11,7 @@ import dagger.multibindings.IntoMap;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
+import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelImp;
@@ -25,19 +26,19 @@ import me.androidbox.busbybaking.utils.Constants;
  */
 @Module
 public class RecipeListModule {
-    private Activity activity;
+    private MainActivity activity;
 
     public RecipeListModule() {
     }
 
-    public RecipeListModule(Activity activity) {
+    public RecipeListModule(MainActivity activity) {
         this.activity = activity;
     }
 
     @RecipeListScope
     @Provides
-    RecipeItemClickListener providesRecipeListMainActivity() {
-        return (RecipeItemClickListener)this.activity;
+    MainActivity providesRecipeListMainActivity() {
+        return this.activity;
     }
 
     @RecipeListScope
@@ -54,8 +55,8 @@ public class RecipeListModule {
 
     @RecipeListScope
     @Provides
-    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
-        return new RecipeAdapter(viewHolderFactories);
+    RecipeAdapter providesRecipeAdapter(MainActivity activity, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+        return new RecipeAdapter(activity, viewHolderFactories);
     }
 
     @Provides

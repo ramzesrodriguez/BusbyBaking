@@ -21,7 +21,8 @@ ext.versions = [
         dart_henson          : '2.0.2',
         parceler             : '1.1.8',
 		exoplayer            : 'r2.4.1',
-		uiautomator          : '2.1.1'
+		uiautomator          : '2.1.1',
+		robolectric          : '3.3.2'
 ]
 
 ext.libraries = [
@@ -49,5 +50,6 @@ ext.libraries = [
         parceler_api         : "org.parceler:parceler-api:$versions.parceler",
         parceler             : "org.parceler:parceler:$versions.parceler",
 		exoplayer            : "com.google.android.exoplayer:exoplayer:$versions.exoplayer",
-		uiautomator          : "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiautomator"
+		uiautomator          : "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiautomator",
+		robolectric          : "org.robolectric:robolectric:$versions.robolectric"
 ]

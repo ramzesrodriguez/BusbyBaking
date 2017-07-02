@@ -3,6 +3,7 @@ package me.androidbox.busbybaking.di;
 import android.app.Activity;
 import android.app.Application;
 
+import me.androidbox.busbybaking.recipieslist.MainActivity;
 import timber.log.Timber;
 
 /**
@@ -32,7 +33,7 @@ public class BusbyBakingApplication extends Application {
         return applicationComponent;
     }
 
-    public RecipeListComponent createRecipeListComponent(Activity activity) {
+    public RecipeListComponent createRecipeListComponent(MainActivity activity) {
         recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
         return recipeListComponent;
     }

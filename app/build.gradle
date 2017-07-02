@@ -50,6 +50,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testAnnotationProcessor libraries.dagger_compiler
     testCompile libraries.dagger
+    testCompile libraries.robolectric
+
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */
