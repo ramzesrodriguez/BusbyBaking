@@ -56,11 +56,7 @@ public class RecipeListModelImp
     }
 
     @Override
-    public void startup() {
-    }
-
-    @Override
-    public void shutdown() {
+    public void releaseResources() {
         if(subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }

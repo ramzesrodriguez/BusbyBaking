@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import rx.Subscription;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -87,6 +89,22 @@ public class RecipeListModelImpTest {
 
     @Test
     public void testShouldShutdown() {
-        recipeListModel.shutdown();
+        when(subscription.isUnsubscribed()).thenReturn(false);
+        final Field subscriptionField;
+
+        try {
+            subscriptionField = recipeListModel.getClass().getDeclaredField("subscription");
+            subscriptionField.setAccessible(true);
+            subscriptionField.set(recipeListModel, subscription);
+        } catch(NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        catch(IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        recipeListModel.releaseResources();
+
+        verify(subscription, times(1)).unsubscribe();
     }
 }
