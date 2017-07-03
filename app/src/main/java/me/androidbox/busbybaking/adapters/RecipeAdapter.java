@@ -39,7 +39,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
-
                 mainActivity.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()));
             }
         });

@@ -16,6 +16,5 @@ public interface RecipeListModelContract {
     }
     void getRecipesFromAPI(RecipeGetAllListener recipeGetAllListener);
 
-    void startup();
-    void shutdown();
+    void releaseResources();
 }
