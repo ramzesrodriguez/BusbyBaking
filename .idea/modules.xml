@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BusbyBaking.iml" filepath="$PROJECT_DIR$/BusbyBaking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BusbyBaking.iml" filepath="$PROJECT_DIR$/BusbyBaking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/BusbyBaking-BusbyBaking.iml" filepath="$PROJECT_DIR$/app/BusbyBaking-BusbyBaking.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/BusbyBaking-BusbyBaking.iml" filepath="$PROJECT_DIR$/app/BusbyBaking-BusbyBaking.iml" />
     </modules>
   </component>
