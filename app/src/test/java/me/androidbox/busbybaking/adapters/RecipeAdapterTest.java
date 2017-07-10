@@ -113,4 +113,13 @@ public class TravelerChatAdapterTest extends BaseAppRobolectricTest {
     }
 
 }
+
+public class IncomingMessageViewHolder extends MessageViewHolder {
+
+    @BindView(R2.id.avatarView) public UserAvatarView avatarView;
+
+    public IncomingMessageViewHolder(View view) {
+        super(view);
+    }
+}
 */
