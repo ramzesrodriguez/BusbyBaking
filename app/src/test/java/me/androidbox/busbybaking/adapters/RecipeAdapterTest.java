@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
  */
 public class RecipeAdapterTest {
 
-    
+
 }
 /*
 public class TravelerChatAdapterTest extends BaseAppRobolectricTest {
