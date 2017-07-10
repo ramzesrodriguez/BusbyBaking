@@ -1,14 +1,44 @@
 package me.androidbox.busbybaking.adapters;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.Map;
+
+import me.androidbox.busbybaking.recipieslist.MainActivity;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by smason on 7/4/17.
  */
 public class RecipeAdapterTest {
+    private RecipeAdapter recipeAdapter;
+    @Mock MainActivity mainActivity;
+    @Mock Map<Integer, RecipeListViewHolderFactory> viewHolder;
 
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
+    }
 
+    @Test
+    public void testRecipeAdapterShouldNotBeNull() {
+        assertNotNull(recipeAdapter);
+    }
 }
+
+
+
+
+
+
+
+
 /*
 public class TravelerChatAdapterTest extends BaseAppRobolectricTest {
 

@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
@@ -63,6 +65,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     public void fillRecipeData(List<Recipe> recipes) {
         recipeList.clear();
         recipeList.addAll(recipes);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(0, recipeList.size());
     }
 }
