@@ -1,7 +1,12 @@
 package me.androidbox.busbybaking.adapters;
 
+import android.app.Instrumentation;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -15,27 +20,31 @@ import static org.junit.Assert.*;
 /**
  * Created by smason on 7/4/17.
  */
+
 public class RecipeAdapterTest {
     private RecipeAdapter recipeAdapter;
     @Mock MainActivity mainActivity;
     @Mock Map<Integer, RecipeListViewHolderFactory> viewHolder;
+    private Context context;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
+    //    context = Robolectric.ShadowApplication.getInstance().getApplicationContext();
+
     }
 
     @Test
     public void testRecipeAdapterShouldNotBeNull() {
         assertNotNull(recipeAdapter);
     }
+
+    @Test
+    public void testOnBindViewHolder() {
+       // RecyclerView recyclerView = new RecyclerView()
+    }
 }
-
-
-
-
-
 
 
 
