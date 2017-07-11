@@ -9,8 +9,6 @@ import javax.inject.Inject;
 import dagger.internal.Preconditions;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import rx.Subscriber;
-import rx.Subscription;
 import timber.log.Timber;
 
 /**
