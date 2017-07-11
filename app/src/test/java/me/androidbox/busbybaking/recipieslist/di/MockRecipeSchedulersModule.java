@@ -4,9 +4,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
-import rx.Scheduler;
-import rx.schedulers.Schedulers;
+
 
 /**
  * Created by steve on 6/24/17.
@@ -19,12 +20,12 @@ public class MockRecipeSchedulersModule {
         return new RecipeSchedulers() {
             @Override
             public Scheduler getBackgroundScheduler() {
-                return Schedulers.immediate();
+                return Schedulers.trampoline();
             }
 
             @Override
             public Scheduler getUIScheduler() {
-                return Schedulers.immediate();
+                return Schedulers.trampoline();
             }
         };
     }

@@ -7,10 +7,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.internal.Preconditions;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import rx.Subscriber;
-import rx.Subscription;
 import timber.log.Timber;
 
 /**
@@ -20,7 +20,7 @@ import timber.log.Timber;
 public class RecipeListModelImp
         implements RecipeListModelContract {
 
-    private Subscription subscription;
+    private Disposable subscription;
     private RecipesAPI recipesAPI;
     private RecipeSchedulers recipeSchedulers;
 
@@ -35,7 +35,49 @@ public class RecipeListModelImp
         subscription = recipesAPI.getAllRecipes()
                 .subscribeOn(recipeSchedulers.getBackgroundScheduler())
                 .observeOn(recipeSchedulers.getUIScheduler())
-                .subscribe(new Subscriber<List<Recipe>>() {
+                .subscribeWith(new DisposableObserver<List<Recipe>>() {
+                    @Override
+                    protected void onStart() {
+                        Timber.d("onStart");
+                    }
+
+                    @Override
+                    public void onNext(List<Recipe> recipeList) {
+                        Timber.d("onNext %d", recipeList.size());
+                        recipeGetAllListener.onRecipeGetAllSuccess(recipeList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e, "onError %s", e.getMessage());
+                        recipeGetAllListener.onRecipeGetAllFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Timber.d("onComplete");
+                    }
+                });
+    }
+
+    @Override
+    public void releaseResources() {
+        if(subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+        }
+    }
+}
+
+/*
+<a href='https://travis-ci.org/ReactiveX/RxJava/builds'><img src='https://travis-ci.org/ReactiveX/RxJava.svg?branch=2.x'></a>
+[![codecov.io](http://codecov.io/github/ReactiveX/RxJava/coverage.svg?branch=2.x)](https://codecov.io/gh/ReactiveX/RxJava/branch/2.x)
+*/
+
+
+
+        /*new Subscriber<List<Recipe>>() {
+
+
                     @Override
                     public void onCompleted() {
                         Timber.d("onCompleted");
@@ -52,13 +94,4 @@ public class RecipeListModelImp
                         Timber.d("onNext");
                         recipeGetAllListener.onRecipeGetAllSuccess(recipe);
                     }
-                });
-    }
-
-    @Override
-    public void releaseResources() {
-        if(subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
-    }
-}
+                });*/
