@@ -35,7 +35,7 @@ ext.libraries = [
         jsr250_api           : "javax.annotation:jsr250-api:$versions.jsr250_api",
         rxjava               : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
         rxandroid            : "io.reactivex.rxjava2:rxandroid:$versions.rxandroid",
-		adapter_rxjava       : "com.squareup.retrofit2:adapter-rxjava:$versions.adapter_rxjava",
+		adapter_rxjava       : "com.squareup.retrofit2:adapter-rxjava2:$versions.adapter_rxjava",
         mockito_core         : "org.mockito:mockito-core:$versions.mockito_core",
 		dexmaker_mockito     : "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker_mockito",
         recyclerview         : "com.android.support:recyclerview-v7:$versions.support_library",

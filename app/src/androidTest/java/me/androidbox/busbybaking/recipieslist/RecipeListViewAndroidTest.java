@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
