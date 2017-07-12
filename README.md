@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/steve1rm/BusbyBaking.svg?branch=develop)](https://travis-ci.org/steve1rm/BusbyBaking)
-
+[![codecov.io](http://codecov.io/github/ReactiveX/RxJava/coverage.svg?branch=2.x)](https://codecov.io/gh/ReactiveX/RxJava/branch/2.x)
 # BusbyBaking
 A baking app that instructs you on how to create many different recipes
 
