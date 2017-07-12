@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/steve1rm/BusbyBaking.svg?branch=develop)](https://travis-ci.org/steve1rm/BusbyBaking)
+[![Build Status](https://travis-ci.org/steve1rm/BusbyBaking.svg?branch=master)](https://travis-ci.org/steve1rm/BusbyBaking)
 [![codecov.io](https://codecov.io/gh/steve1rm/BusbyBaking/coverage.svg?branch=master)](https://codecov.io/gh/steve1rm/BusbyBaking/branch/master)
 
 # BusbyBaking
