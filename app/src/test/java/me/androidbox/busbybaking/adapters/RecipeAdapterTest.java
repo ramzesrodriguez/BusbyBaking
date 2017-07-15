@@ -1,7 +1,7 @@
 package me.androidbox.busbybaking.adapters;
 
-import android.app.Instrumentation;
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import org.junit.Before;
@@ -9,30 +9,48 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Map;
 
-import me.androidbox.busbybaking.recipieslist.MainActivity;
-import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+import javax.annotation.Nonnull;
 
-import static org.junit.Assert.*;
+import me.androidbox.busbybaking.BuildConfig;
+import me.androidbox.busbybaking.recipieslist.MainActivity;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+import me.androidbox.busbybaking.utils.Constants;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by smason on 7/4/17.
  */
-
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class RecipeAdapterTest {
     private RecipeAdapter recipeAdapter;
+    private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
+    private Context context;
     @Mock MainActivity mainActivity;
     @Mock Map<Integer, RecipeListViewHolderFactory> viewHolder;
-    private Context context;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
-    //    context = Robolectric.ShadowApplication.getInstance().getApplicationContext();
+/*
+        mainActivity = Robolectric.buildActivity(MainActivity.class)
+                .create()
+                .resume()
+                .get();
+*/
 
+        assertNotNull(mainActivity);
+        context = ShadowApplication.getInstance().getApplicationContext();
+        viewHolderFactories =
+        recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
     }
 
     @Test
@@ -42,7 +60,18 @@ public class RecipeAdapterTest {
 
     @Test
     public void testOnBindViewHolder() {
-       // RecyclerView recyclerView = new RecyclerView()
+        RecyclerView recyclerView = createRecyclerView();
+        assertNotNull(recyclerView);
+
+        RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(recyclerView);
+        assertNotNull(recipeListViewHolder);
+    }
+
+    private @Nonnull RecyclerView createRecyclerView() {
+        final RecyclerView recyclerView = new RecyclerView(context);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        return recyclerView;
     }
 }
 
