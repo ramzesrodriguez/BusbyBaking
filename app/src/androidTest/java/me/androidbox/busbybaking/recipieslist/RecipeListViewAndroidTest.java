@@ -1,25 +1,31 @@
 package me.androidbox.busbybaking.recipieslist;
 
-import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.androidbox.busbybaking.R;
+import me.androidbox.busbybaking.di.BusbyBakingApplication;
+import me.androidbox.busbybaking.di.DaggerTestBusbyBakingComponent;
+import me.androidbox.busbybaking.di.MockRecipeListModule;
+import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import io.reactivex.Observable;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -28,6 +34,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static java.lang.Thread.sleep;
+import static org.hamcrest.Matchers.allOf;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by steve on 5/31/17.
@@ -37,38 +46,40 @@ public class RecipeListViewAndroidTest {
     @Inject RecipeListModelContract recipeListModelContract;
     @Inject RecipesAPI recipesAPI;
 
-
-    private RecipeListModelContract.RecipeGetAllListener mockRecipeListener;
-/*
+    @Mock RecipeListModelContract.RecipeGetAllListener mockRecipeListener;
     @Mock List<Recipe> mockRecipeList;
+ //   @Mock RecipesAPI recipesAPI;
+/*
+
+    @Rule
+    public DaggerMockRule<TestBusbyBakingComponent> daggerMockRule =
+            new DaggerMockRule<>(TestBusbyBakingComponent.class, new MockRecipeListModule())
+            .set(componet -> stub().setComponent(componet));
 */
 
+    private BusbyBakingApplication getApplication() {
+        return (BusbyBakingApplication) InstrumentationRegistry.getInstrumentation()
+                .getTargetContext().getApplicationContext();
+    }
+
+    @Rule
     public ActivityTestRule<MainActivity> mainActivity =
             new ActivityTestRule<>(
                     MainActivity.class,
                     true,
-                    true);
+                    false);
 
     @Before
     public void setup() throws Exception {
-        mainActivity.launchActivity(new Intent());
+        MockitoAnnotations.initMocks(this);
 
-        // MockitoAnnotations.initMocks(RecipeListViewAndroidTest.class);
- /*       mockRecipeListener = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
+        TestBusbyBakingComponent testBusbyBakingComponent = DaggerTestBusbyBakingComponent.builder()
+                .mockRecipeListModule(new MockRecipeListModule())
+                .build();
 
-        final Instrumentation instrumentation =
-                InstrumentationRegistry.getInstrumentation();
+        getApplication().setRecipeListComponent(testBusbyBakingComponent);
 
-        BusbyBakingApplication busbyBakingApplication =
-                (BusbyBakingApplication)instrumentation
-                        .getTargetContext()
-                        .getApplicationContext();
-
-        TestBusbyBakingComponent component =
-                (TestBusbyBakingComponent)busbyBakingApplication.getApplicationComponent();
-
-        component.inject(RecipeListViewAndroidTest.this);
-*/
+        testBusbyBakingComponent.inject(RecipeListViewAndroidTest.this);
     }
 
     @Test
@@ -87,27 +98,39 @@ public class RecipeListViewAndroidTest {
         onView(withId(R.id.recipe_video_steps_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
+    @Test
     public void shouldReturnAListOfRecipes() throws Exception {
         List<Recipe> recipeList = new ArrayList<>();
         Recipe recipe = new Recipe();
         recipe.setName("Test Brownies");
         recipe.setServings(10);
+        recipeList.add(recipe);
 
-        Mockito.when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(recipeList));
+        when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(recipeList));
+        doNothing().when(mockRecipeListener).onRecipeGetAllSuccess(recipeList);
+
+
+
    //     Mockito.doNothing().when(recipeListModelContract.getRecipesFromAPI(mockRecipeListener));
 
-        mainActivity.launchActivity(new Intent());
-        recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
+    //    recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
 /*
         RecipeListModelContract.RecipeGetAllListener mockRecipeListener
                 = Mockito.mock(RecipeListModelContract.RecipeGetAllListener.class);
         recipeListModelContract.getRecipesFromAPI(mockRecipeListener);
 */
 
-        onView(withId(R.id.tvRecipeName))
-                .check(matches(withText("Test Brownies")));
+        mainActivity.launchActivity(null);
 
-/*
+        try{
+            sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(allOf(withId(R.id.tvRecipeName), withText("notfound")));
+
+        /*
         Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(recipeList);
         Mockito.verify(mockRecipeListener, never()).onRecipeGetAllFailure(anyString());
 */

@@ -1,6 +1,5 @@
 package me.androidbox.busbybaking.di;
 
-import android.app.Activity;
 import android.app.Application;
 
 import me.androidbox.busbybaking.recipieslist.MainActivity;
@@ -45,5 +44,9 @@ public class BusbyBakingApplication extends Application {
 
     public void releaseRecipeListComponent() {
         recipeListComponent = null;
+    }
+
+    public void setRecipeListComponent(RecipeListComponent recipeListComponent) {
+        this.recipeListComponent = recipeListComponent;
     }
 }

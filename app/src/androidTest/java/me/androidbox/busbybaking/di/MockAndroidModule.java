@@ -10,6 +10,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
+import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 
 /**
  * Created by steve on 6/1/17.
@@ -21,19 +24,36 @@ public class MockAndroidModule {
 
     @Singleton
     @Provides
-    public Context providesContext() {
+    Context providesContext() {
         return Mockito.mock(Context.class);
     }
 
     @Singleton
     @Provides
-    public Resources providesResources() {
+    Resources providesResources() {
         return Mockito.mock(Resources.class);
     }
 
     @Singleton
     @Provides
-    public SharedPreferences providesSharedPreferences() {
+    SharedPreferences providesSharedPreferences() {
         return Mockito.mock(SharedPreferences.class);
     }
+
+    @Singleton
+    @Provides
+    RecipeSchedulers provideRecipeSchedulers() {
+        return new RecipeSchedulers() {
+            @Override
+            public Scheduler getBackgroundScheduler() {
+                return Schedulers.trampoline();
+            }
+
+            @Override
+            public Scheduler getUIScheduler() {
+                return Schedulers.trampoline();
+            }
+        };
+    }
+
 }

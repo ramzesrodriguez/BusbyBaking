@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.androidbox.busbybaking.di.scopes.RecipeListScope;
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
@@ -18,13 +18,29 @@ import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
 public class MockRecipeListModule {
     @Singleton
     @Provides
-    public RecipeListModelContract providesRecipeListModel() {
+    RecipeListModelContract providesRecipeListModel() {
       return Mockito.mock(RecipeListModelContract.class);
     }
 
     @Singleton
     @Provides
-    public RecipeListPresenterContract providesRecipeListPresenter() {
+    RecipeListPresenterContract providesRecipeListPresenter() {
         return Mockito.mock(RecipeListPresenterImp.class);
     }
+
+    @Singleton
+    @Provides
+    RecipeAdapter providesRecipeAdapter() {
+        return Mockito.mock(RecipeAdapter.class);
+    }
+
+    /*
+
+    @RecipeListScope
+    @Provides
+    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+        return new RecipeAdapter(activity, viewHolderFactories);
+    }
+*/
+
 }

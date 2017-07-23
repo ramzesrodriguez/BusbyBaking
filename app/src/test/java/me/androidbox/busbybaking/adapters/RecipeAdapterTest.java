@@ -21,7 +21,6 @@ import me.androidbox.busbybaking.BuildConfig;
 import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
-import me.androidbox.busbybaking.utils.Constants;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -36,6 +35,8 @@ public class RecipeAdapterTest {
     private Context context;
     @Mock MainActivity mainActivity;
     @Mock Map<Integer, RecipeListViewHolderFactory> viewHolder;
+    private RecipeListViewHolderFactory recipeListViewHolderFactory;
+    private RecipeListViewHolder recipeListViewHolder;
 
     @Before
     public void setup() {
@@ -49,7 +50,6 @@ public class RecipeAdapterTest {
 
         assertNotNull(mainActivity);
         context = ShadowApplication.getInstance().getApplicationContext();
-        viewHolderFactories =
         recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
     }
 
@@ -62,8 +62,11 @@ public class RecipeAdapterTest {
     public void testOnBindViewHolder() {
         RecyclerView recyclerView = createRecyclerView();
         assertNotNull(recyclerView);
+        recipeListViewHolder = recipeAdapter.onCreateViewHolder(recyclerView, 0);
 
-        RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(recyclerView);
+        recipeListViewHolderFactory = new RecipeListViewHolderFactory();
+        recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(recyclerView);
+
         assertNotNull(recipeListViewHolder);
     }
 
