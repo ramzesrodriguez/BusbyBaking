@@ -17,6 +17,7 @@ import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 import me.androidbox.busbybaking.utils.Constants;
+import timber.log.Timber;
 
 /**
  * Created by steve on 5/27/17.
@@ -41,6 +42,7 @@ public class RecipeListModule {
     @RecipeListScope
     @Provides
     RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
+        Timber.d("providesRecipeListModel");
         return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 

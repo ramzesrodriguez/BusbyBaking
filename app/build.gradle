@@ -86,7 +86,7 @@ dependencies {
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
     provided 'com.google.auto.factory:auto-factory:1.0-beta5'
-    testCompile 'org.robolectric:robolectric:3.4-rc3'
+  //  testCompile 'org.robolectric:robolectric:3.2'
 }
 
 jacocoAndroidUnitTestReport {

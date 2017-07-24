@@ -6,12 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Map;
 
@@ -27,8 +23,8 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by smason on 7/4/17.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+// @RunWith(RobolectricTestRunner.class)
+// @Config(constants = BuildConfig.class)
 public class RecipeAdapterTest {
     private RecipeAdapter recipeAdapter;
     private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
@@ -49,7 +45,7 @@ public class RecipeAdapterTest {
 */
 
         assertNotNull(mainActivity);
-        context = ShadowApplication.getInstance().getApplicationContext();
+     //   context = ShadowApplication.getInstance().getApplicationContext();
         recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
     }
 

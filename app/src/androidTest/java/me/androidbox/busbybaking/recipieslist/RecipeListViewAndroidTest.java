@@ -17,12 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+import dagger.Component;
 import io.reactivex.Observable;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.BusbyBakingApplication;
 import me.androidbox.busbybaking.di.DaggerTestBusbyBakingComponent;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
+import me.androidbox.busbybaking.di.RecipeListComponent;
+import me.androidbox.busbybaking.di.RecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
@@ -57,6 +61,11 @@ public class RecipeListViewAndroidTest {
             .set(componet -> stub().setComponent(componet));
 */
 
+    @Singleton
+    @Component(modules = MockRecipeListModule.class)
+    public interface MockRecipeListModuleComponent extends RecipeListComponent {
+    }
+
     private BusbyBakingApplication getApplication() {
         return (BusbyBakingApplication) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext().getApplicationContext();
@@ -73,6 +82,13 @@ public class RecipeListViewAndroidTest {
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        MockRecipeListModuleComponent testComponent = DaggerRecipeListViewAndroidTest_MockRecipeListModuleComponent.builder()
+                .mockRecipeListModule(new MockRecipeListModule())
+                .build();
+
+        getApplication().setRecipeListComponent(testComponent);
+    //    RecipeListModelContract recipeListModelContract =
+/*
         TestBusbyBakingComponent testBusbyBakingComponent = DaggerTestBusbyBakingComponent.builder()
                 .mockRecipeListModule(new MockRecipeListModule())
                 .build();
@@ -80,6 +96,7 @@ public class RecipeListViewAndroidTest {
         getApplication().setRecipeListComponent(testBusbyBakingComponent);
 
         testBusbyBakingComponent.inject(RecipeListViewAndroidTest.this);
+*/
     }
 
     @Test

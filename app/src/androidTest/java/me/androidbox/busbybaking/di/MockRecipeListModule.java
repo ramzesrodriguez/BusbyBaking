@@ -10,6 +10,7 @@ import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
+import timber.log.Timber;
 
 /**
  * Created by steve on 5/31/17.
@@ -19,7 +20,8 @@ public class MockRecipeListModule {
     @Singleton
     @Provides
     RecipeListModelContract providesRecipeListModel() {
-      return Mockito.mock(RecipeListModelContract.class);
+        Timber.d("mock(RecipeListModelContract");
+        return Mockito.mock(RecipeListModelContract.class);
     }
 
     @Singleton

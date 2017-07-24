@@ -9,6 +9,7 @@ import me.androidbox.busbybaking.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 /**
  * Created by steve on 5/27/17.
@@ -31,6 +32,7 @@ public class NetworkModule {
     @Singleton
     @Provides
     public RecipesAPI providesRecipesAPI() {
+        Timber.d("providesRecipesAPI");
         return getRetrofit(Constants.BASELINE).create(RecipesAPI.class);
     }
 }

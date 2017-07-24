@@ -46,6 +46,7 @@ public class BusbyBakingApplication extends Application {
         recipeListComponent = null;
     }
 
+    /* Used for setting the mock component for AT */
     public void setRecipeListComponent(RecipeListComponent recipeListComponent) {
         this.recipeListComponent = recipeListComponent;
     }
