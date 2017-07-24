@@ -34,6 +34,7 @@ import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -64,6 +65,7 @@ public class RecipeListViewAndroidTest {
     @Singleton
     @Component(modules = MockRecipeListModule.class)
     public interface MockRecipeListModuleComponent extends RecipeListComponent {
+        void inject(RecipeListViewAndroidTest target);
     }
 
     private BusbyBakingApplication getApplication() {
@@ -82,13 +84,21 @@ public class RecipeListViewAndroidTest {
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        testDaggerInject();
+
+        // workingDaggerInject();
+    }
+
+    private void testDaggerInject() {
         MockRecipeListModuleComponent testComponent = DaggerRecipeListViewAndroidTest_MockRecipeListModuleComponent.builder()
                 .mockRecipeListModule(new MockRecipeListModule())
                 .build();
 
         getApplication().setRecipeListComponent(testComponent);
-    //    RecipeListModelContract recipeListModelContract =
-/*
+        testComponent.inject(this);
+    }
+
+    private void workingDaggerInject() {
         TestBusbyBakingComponent testBusbyBakingComponent = DaggerTestBusbyBakingComponent.builder()
                 .mockRecipeListModule(new MockRecipeListModule())
                 .build();
@@ -96,7 +106,6 @@ public class RecipeListViewAndroidTest {
         getApplication().setRecipeListComponent(testBusbyBakingComponent);
 
         testBusbyBakingComponent.inject(RecipeListViewAndroidTest.this);
-*/
     }
 
     @Test
@@ -145,7 +154,7 @@ public class RecipeListViewAndroidTest {
             e.printStackTrace();
         }
 
-        onView(allOf(withId(R.id.tvRecipeName), withText("notfound")));
+        onView(withId(R.id.rvRecipeList)).check(matches(hasDescendant(withText("Test Brownies"))));
 
         /*
         Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(recipeList);
