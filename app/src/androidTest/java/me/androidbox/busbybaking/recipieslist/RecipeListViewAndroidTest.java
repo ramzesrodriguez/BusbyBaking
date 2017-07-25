@@ -34,6 +34,7 @@ import me.androidbox.busbybaking.networkapi.RecipesAPI;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -145,8 +146,7 @@ public class RecipeListViewAndroidTest {
             e.printStackTrace();
         }
 
-        onView(allOf(withId(R.id.tvRecipeName), withText("notfound")));
-
+        onView(withId(R.id.rvRecipeList)).check(matches(hasDescendant(withText("Brownies"))));
         /*
         Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(recipeList);
         Mockito.verify(mockRecipeListener, never()).onRecipeGetAllFailure(anyString());
