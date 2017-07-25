@@ -154,7 +154,7 @@ public class RecipeListViewAndroidTest {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.rvRecipeList)).check(matches(hasDescendant(withText("Test Brownies"))));
+        onView(withId(R.id.rvRecipeList)).check(matches(hasDescendant(withText("Brownies"))));
 
         /*
         Mockito.verify(mockRecipeListener, times(1)).onRecipeGetAllSuccess(recipeList);

@@ -1,5 +1,6 @@
 package me.androidbox.busbybaking.recipieslist;
 
+
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.internal.Preconditions;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import me.androidbox.busbybaking.model.Recipe;
@@ -20,9 +22,10 @@ import timber.log.Timber;
 public class RecipeListModelImp
         implements RecipeListModelContract {
 
-    private Disposable subscription;
+    private Disposable disposable;
     private RecipesAPI recipesAPI;
     private RecipeSchedulers recipeSchedulers;
+    private CompositeDisposable compositeDisposable;
 
     @Inject
     public RecipeListModelImp(@NonNull RecipesAPI recipesAPI, @NonNull RecipeSchedulers recipeSchedulers) {
@@ -32,7 +35,7 @@ public class RecipeListModelImp
 
     @Override
     public void getRecipesFromAPI(final RecipeGetAllListener recipeGetAllListener) {
-        subscription = recipesAPI.getAllRecipes()
+        compositeDisposable.add(recipesAPI.getAllRecipes()
                 .subscribeOn(recipeSchedulers.getBackgroundScheduler())
                 .observeOn(recipeSchedulers.getUIScheduler())
                 .subscribeWith(new DisposableObserver<List<Recipe>>() {
@@ -42,7 +45,7 @@ public class RecipeListModelImp
                     }
 
                     @Override
-                    public void onNext(List<Recipe> recipeList) {
+                    public void onNext(@io.reactivex.annotations.NonNull List<Recipe> recipeList) {
                         Timber.d("onNext %d", recipeList.size());
                         recipeGetAllListener.onRecipeGetAllSuccess(recipeList);
                     }
@@ -57,13 +60,13 @@ public class RecipeListModelImp
                     public void onComplete() {
                         Timber.d("onComplete");
                     }
-                });
+                }));
     }
 
     @Override
     public void releaseResources() {
-        if(subscription != null && !subscription.isDisposed()) {
-            subscription.dispose();
+        if(disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }
