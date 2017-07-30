@@ -19,6 +19,7 @@ public class BusbyBakingApplication extends Application {
         Timber.plant(new Timber.DebugTree());
 
         applicationComponent = createApplicationComponent();
+        recipeListComponent = createRecipeListComponent();
     }
 
     public BusbyBakingComponent createApplicationComponent() {
@@ -26,16 +27,11 @@ public class BusbyBakingApplication extends Application {
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
                 .exoPlayerModule(new ExoPlayerModule())
-                .recipeListModule(new RecipeListModule())
                 .build();
     }
 
     public BusbyBakingComponent busbyApplicationComponent() {
         return applicationComponent;
-    }
-
-    public void busbyApplicationComponent(BusbyBakingComponent applicationComponent) {
-        this.applicationComponent = applicationComponent;
     }
 
     public RecipeListComponent createRecipeListComponent(MainActivity activity) {
@@ -44,7 +40,10 @@ public class BusbyBakingApplication extends Application {
     }
 
     public RecipeListComponent createRecipeListComponent() {
-        // recipeListComponent = applicationComponent.add(new RecipeListModule());
+        return applicationComponent.add(new RecipeListModule());
+    }
+
+    public RecipeListComponent getRecipeListComponent() {
         return recipeListComponent;
     }
 

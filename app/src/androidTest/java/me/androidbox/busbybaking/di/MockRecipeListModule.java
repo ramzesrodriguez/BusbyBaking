@@ -17,20 +17,17 @@ import timber.log.Timber;
  */
 @Module
 public class MockRecipeListModule {
-    @Singleton
     @Provides
     RecipeListModelContract providesRecipeListModel() {
         Timber.d("mock(RecipeListModelContract");
         return Mockito.mock(RecipeListModelContract.class);
     }
 
-    @Singleton
     @Provides
     RecipeListPresenterContract providesRecipeListPresenter() {
         return Mockito.mock(RecipeListPresenterImp.class);
     }
 
-    @Singleton
     @Provides
     RecipeAdapter providesRecipeAdapter() {
         return Mockito.mock(RecipeAdapter.class);

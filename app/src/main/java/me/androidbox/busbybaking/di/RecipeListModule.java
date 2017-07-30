@@ -34,32 +34,32 @@ public class RecipeListModule {
         this.activity = activity;
     }
 
-    @Singleton
+    @RecipeListScope
     @Provides
     MainActivity providesRecipeListMainActivity() {
         return this.activity;
     }
 
-    @Singleton
+    @RecipeListScope
     @Provides
     RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
         Timber.d("providesRecipeListModel");
         return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
-    @Singleton
+    @RecipeListScope
     @Provides
     RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
         return new RecipeListPresenterImp(recipeListModelContract);
     }
 
-    @Singleton
+    @RecipeListScope
     @Provides
     RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
         return new RecipeAdapter(activity, viewHolderFactories);
     }
 
-    @Singleton
+    @RecipeListScope
     @Provides
     @IntoMap
     @IntKey(Constants.RECIPE_LIST)

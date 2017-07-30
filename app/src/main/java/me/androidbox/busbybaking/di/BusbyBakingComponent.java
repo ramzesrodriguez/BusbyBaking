@@ -13,12 +13,9 @@ import me.androidbox.busbybaking.recipieslist.RecipeListView;
 @Component(modules = {
         AndroidModule.class,
         NetworkModule.class,
-        ExoPlayerModule.class,
-        RecipeListModule.class})
+        ExoPlayerModule.class})
 public interface BusbyBakingComponent {
     void inject(RecipeVideoStepsView target);
-    void inject(RecipeListView target);
 
-
-    // RecipeListComponent add(RecipeListModule recipeListModule);
+    RecipeListComponent add(RecipeListModule recipeListModule);
 }

@@ -23,8 +23,6 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.BusbyBakingApplication;
-import me.androidbox.busbybaking.di.DaggerTestBusbyBakingComponent;
-import me.androidbox.busbybaking.di.MockNetworkModule;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
 import me.androidbox.busbybaking.model.Recipe;
@@ -78,9 +76,9 @@ public class RecipeListViewAndroidTest {
         BusbyBakingApplication busbyBakingApplication =
                 (BusbyBakingApplication)instrumentation.getTargetContext().getApplicationContext();
 
-        TestBusbyBakingComponent component = (TestBusbyBakingComponent)busbyBakingApplication.createApplicationComponent();
-        component.inject(this);
+        TestBusbyBakingComponent component = (TestBusbyBakingComponent)busbyBakingApplication;
     }
+
     @Test
     public void testShouldDisplayDetailOfCooking() throws Exception {
         mainActivity.launchActivity(new Intent());
