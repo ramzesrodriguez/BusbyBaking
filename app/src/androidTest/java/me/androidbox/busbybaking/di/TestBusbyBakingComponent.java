@@ -11,11 +11,14 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 
 @Singleton
 @Component(modules = {
-        MockRecipeListModule.class,
         MockNetworkModule.class,
-        MockAndroidModule.class
+        MockAndroidModule.class,
+        MockExoPlayerModule.class,
+        MockRecipeListModule.class
 })
-public interface TestBusbyBakingComponent extends RecipeListComponent {
+public interface TestBusbyBakingComponent extends BusbyBakingComponent{
     void inject(RecipeListViewAndroidTest target);
+
+    // TestRecipeListComponent add(MockRecipeListModule mockRecipeListModule);
 }
 

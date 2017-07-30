@@ -25,7 +25,7 @@ public class RecipeListModelImp
     private Disposable disposable;
     private RecipesAPI recipesAPI;
     private RecipeSchedulers recipeSchedulers;
-    private CompositeDisposable compositeDisposable;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public RecipeListModelImp(@NonNull RecipesAPI recipesAPI, @NonNull RecipeSchedulers recipeSchedulers) {

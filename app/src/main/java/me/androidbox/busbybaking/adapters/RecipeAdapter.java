@@ -25,6 +25,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
     private MainActivity mainActivity;
 
+
     public RecipeAdapter(MainActivity mainActivity, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
         this.recipeList = new ArrayList<>();
         this.viewHolderFactories = viewHolderFactories;

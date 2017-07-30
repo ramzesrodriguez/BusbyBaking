@@ -25,20 +25,26 @@ public class BusbyBakingApplication extends Application {
         return DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
+                .exoPlayerModule(new ExoPlayerModule())
+                .recipeListModule(new RecipeListModule())
                 .build();
     }
 
-    public BusbyBakingComponent getApplicationComponent() {
+    public BusbyBakingComponent busbyApplicationComponent() {
         return applicationComponent;
     }
 
+    public void busbyApplicationComponent(BusbyBakingComponent applicationComponent) {
+        this.applicationComponent = applicationComponent;
+    }
+
     public RecipeListComponent createRecipeListComponent(MainActivity activity) {
-        recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
+       //  recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
         return recipeListComponent;
     }
 
     public RecipeListComponent createRecipeListComponent() {
-        recipeListComponent = applicationComponent.add(new RecipeListModule());
+        // recipeListComponent = applicationComponent.add(new RecipeListModule());
         return recipeListComponent;
     }
 

@@ -20,8 +20,6 @@ import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 @Module
 public class MockAndroidModule {
 
-    public MockAndroidModule() {}
-
     @Singleton
     @Provides
     Context providesContext() {

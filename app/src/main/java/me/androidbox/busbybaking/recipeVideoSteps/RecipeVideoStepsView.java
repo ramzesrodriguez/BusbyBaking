@@ -80,7 +80,7 @@ public class RecipeVideoStepsView extends Fragment implements ExoPlayer.EventLis
         steps = Parcels.unwrap(bundle.getParcelable(STEPS_KEY));
 
         ((BusbyBakingApplication)getActivity().getApplication())
-                .getApplicationComponent()
+                .busbyApplicationComponent()
                 .inject(RecipeVideoStepsView.this);
 
         if(simpleExoPlayer != null) {

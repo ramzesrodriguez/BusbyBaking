@@ -22,6 +22,10 @@ import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 public class AndroidModule {
     private final Context context;
 
+    AndroidModule() {
+        context = null;
+    }
+
     AndroidModule(Application application) {
         this.context = application;
     }

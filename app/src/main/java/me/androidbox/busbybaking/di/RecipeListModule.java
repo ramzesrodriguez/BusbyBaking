@@ -2,6 +2,8 @@ package me.androidbox.busbybaking.di;
 
 import java.util.Map;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntKey;
@@ -26,38 +28,38 @@ import timber.log.Timber;
 public class RecipeListModule {
     private MainActivity activity;
 
-    public RecipeListModule() {
-    }
+    public RecipeListModule() {}
 
     public RecipeListModule(MainActivity activity) {
         this.activity = activity;
     }
 
-    @RecipeListScope
+    @Singleton
     @Provides
     MainActivity providesRecipeListMainActivity() {
         return this.activity;
     }
 
-    @RecipeListScope
+    @Singleton
     @Provides
     RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
         Timber.d("providesRecipeListModel");
         return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
-    @RecipeListScope
+    @Singleton
     @Provides
     RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
         return new RecipeListPresenterImp(recipeListModelContract);
     }
 
-    @RecipeListScope
+    @Singleton
     @Provides
     RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
         return new RecipeAdapter(activity, viewHolderFactories);
     }
 
+    @Singleton
     @Provides
     @IntoMap
     @IntKey(Constants.RECIPE_LIST)
