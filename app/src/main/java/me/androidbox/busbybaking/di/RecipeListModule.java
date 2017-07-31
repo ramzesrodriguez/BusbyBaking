@@ -1,5 +1,7 @@
 package me.androidbox.busbybaking.di;
 
+import android.app.Activity;
+
 import java.util.Map;
 
 import javax.inject.Singleton;
@@ -26,18 +28,18 @@ import timber.log.Timber;
  */
 @Module
 public class RecipeListModule {
-    private MainActivity activity;
+    private Activity activity;
 
     public RecipeListModule() {}
 
-    public RecipeListModule(MainActivity activity) {
+    public RecipeListModule(Activity activity) {
         this.activity = activity;
     }
 
     @RecipeListScope
     @Provides
-    MainActivity providesRecipeListMainActivity() {
-        return this.activity;
+    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+        return new RecipeAdapter(activity, viewHolderFactories);
     }
 
     @RecipeListScope
@@ -55,16 +57,9 @@ public class RecipeListModule {
 
     @RecipeListScope
     @Provides
-    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
-        return new RecipeAdapter(activity, viewHolderFactories);
-    }
-
-    @RecipeListScope
-    @Provides
     @IntoMap
     @IntKey(Constants.RECIPE_LIST)
     RecipeListViewHolderFactory provideRecipeListViewHolder() {
         return new RecipeListViewHolderFactory();
     }
-
 }

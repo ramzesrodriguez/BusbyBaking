@@ -1,8 +1,8 @@
 package me.androidbox.busbybaking.di;
 
+import android.app.Activity;
 import android.app.Application;
 
-import me.androidbox.busbybaking.recipieslist.MainActivity;
 import timber.log.Timber;
 
 /**
@@ -30,25 +30,24 @@ public class BusbyBakingApplication extends Application {
                 .build();
     }
 
-    public BusbyBakingComponent busbyApplicationComponent() {
-        return applicationComponent;
+    public RecipeListComponent createRecipeListComponent(Activity activity) {
+        return recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
     }
 
-    public RecipeListComponent createRecipeListComponent(MainActivity activity) {
-       //  recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
-        return recipeListComponent;
+    public BusbyBakingComponent busbyApplicationComponent() {
+        return applicationComponent;
     }
 
     public RecipeListComponent createRecipeListComponent() {
         return applicationComponent.add(new RecipeListModule());
     }
 
-    public RecipeListComponent getRecipeListComponent() {
-        return recipeListComponent;
-    }
-
     public void releaseRecipeListComponent() {
         recipeListComponent = null;
+    }
+
+    public RecipeListComponent recipeListComponent() {
+        return recipeListComponent;
     }
 
     /* Used for setting the mock component for AT */

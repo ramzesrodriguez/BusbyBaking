@@ -1,5 +1,6 @@
 package me.androidbox.busbybaking.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +26,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
     private MainActivity mainActivity;
 
-
-    public RecipeAdapter(MainActivity mainActivity, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+    public RecipeAdapter(Activity activity, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
         this.recipeList = new ArrayList<>();
         this.viewHolderFactories = viewHolderFactories;
-        this.mainActivity = mainActivity;
+        this.mainActivity = (MainActivity)activity;
     }
 
     @Override
     public RecipeListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        /* Inject the viewholder */
         final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(viewGroup);
 
         recipeListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
