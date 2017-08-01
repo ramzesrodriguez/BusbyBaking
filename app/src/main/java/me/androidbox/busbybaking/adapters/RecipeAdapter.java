@@ -1,6 +1,5 @@
 package me.androidbox.busbybaking.adapters;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipieslist.MainActivity;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import me.androidbox.busbybaking.utils.Constants;
@@ -24,16 +25,17 @@ import timber.log.Timber;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     private List<Recipe> recipeList = Collections.emptyList();
     private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
-    private MainActivity mainActivity;
+    private RecipeItemClickListener recipeItemClickListener;
 
-    public RecipeAdapter(Activity activity, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+    @Inject
+    public RecipeAdapter(RecipeItemClickListener recipeItemClickListener, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
         this.recipeList = new ArrayList<>();
         this.viewHolderFactories = viewHolderFactories;
-        this.mainActivity = (MainActivity)activity;
+        this.recipeItemClickListener = recipeItemClickListener;
     }
 
     @Override
-    public RecipeListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         /* Inject the viewholder */
         final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(viewGroup);
 
@@ -41,7 +43,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
-                mainActivity.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()));
+                recipeItemClickListener.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()), viewGroup.getContext());
             }
         });
 

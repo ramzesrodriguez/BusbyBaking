@@ -46,7 +46,7 @@ public class RecipeAdapterTest {
 
         assertNotNull(mainActivity);
      //   context = ShadowApplication.getInstance().getApplicationContext();
-        recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
+     //   recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
     }
 
     @Test

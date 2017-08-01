@@ -1,15 +1,11 @@
 package me.androidbox.busbybaking.recipieslist;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import me.androidbox.busbybaking.R;
-import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipe.Henson;
-import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements RecipeItemClickListener {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,16 +17,5 @@ public class MainActivity extends AppCompatActivity implements RecipeItemClickLi
                     .add(R.id.main_fragment_container, RecipeListView.newInstance(), RecipeListView.TAG)
                     .commit();
         }
-    }
-
-    @Override
-    public void onRecipeItemClick(Recipe recipe) {
-        Timber.d("onRecipeItemClick");
-        final Intent intent = Henson.with(MainActivity.this)
-                .gotoRecipeDetailActivity()
-                .recipe(recipe)
-                .build();
-
-        startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package me.androidbox.busbybaking.di;
 import android.app.Activity;
 import android.app.Application;
 
+import me.androidbox.busbybaking.recipieslist.MainActivity;
 import timber.log.Timber;
 
 /**
@@ -30,10 +31,6 @@ public class BusbyBakingApplication extends Application {
                 .build();
     }
 
-    public RecipeListComponent createRecipeListComponent(Activity activity) {
-        return recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
-    }
-
     public BusbyBakingComponent busbyApplicationComponent() {
         return applicationComponent;
     }
@@ -42,12 +39,12 @@ public class BusbyBakingApplication extends Application {
         return applicationComponent.add(new RecipeListModule());
     }
 
-    public void releaseRecipeListComponent() {
-        recipeListComponent = null;
-    }
-
     public RecipeListComponent recipeListComponent() {
         return recipeListComponent;
+    }
+
+    public void releaseRecipeListComponent() {
+        recipeListComponent = null;
     }
 
     /* Used for setting the mock component for AT */

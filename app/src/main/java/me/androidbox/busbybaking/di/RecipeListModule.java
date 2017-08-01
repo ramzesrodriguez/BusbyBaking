@@ -1,10 +1,6 @@
 package me.androidbox.busbybaking.di;
 
-import android.app.Activity;
-
 import java.util.Map;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +9,8 @@ import dagger.multibindings.IntoMap;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import me.androidbox.busbybaking.recipieslist.MainActivity;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListenerImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
@@ -28,18 +25,16 @@ import timber.log.Timber;
  */
 @Module
 public class RecipeListModule {
-    private Activity activity;
-
-    public RecipeListModule() {}
-
-    public RecipeListModule(Activity activity) {
-        this.activity = activity;
+    @RecipeListScope
+    @Provides
+    RecipeItemClickListener providesRecipeItemClickListenerImp() {
+        return new RecipeItemClickListenerImp();
     }
 
     @RecipeListScope
     @Provides
-    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
-        return new RecipeAdapter(activity, viewHolderFactories);
+    RecipeAdapter providesRecipeAdapter(RecipeItemClickListener recipeItemClickListener, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+        return new RecipeAdapter(recipeItemClickListener, viewHolderFactories);
     }
 
     @RecipeListScope
