@@ -23,8 +23,10 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.BusbyBakingApplication;
+import me.androidbox.busbybaking.di.MockBusbyBakingApplication;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
+import me.androidbox.busbybaking.di.TestRecipeListComponent;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 
@@ -76,7 +78,11 @@ public class RecipeListViewAndroidTest {
         BusbyBakingApplication busbyBakingApplication =
                 (BusbyBakingApplication)instrumentation.getTargetContext().getApplicationContext();
 
-        TestBusbyBakingComponent component = (TestBusbyBakingComponent)busbyBakingApplication;
+        // TestBusbyBakingComponent component = (TestBusbyBakingComponent)busbyBakingApplication.createRecipeListComponent().;
+
+        MockBusbyBakingApplication mockBusbyBakingApplication = (MockBusbyBakingApplication)instrumentation.getTargetContext().getApplicationContext();
+        TestRecipeListComponent component = mockBusbyBakingApplication.getTestRecipeListComponent().inject(this);
+        component.inject(this);
     }
 
     @Test
