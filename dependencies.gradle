@@ -22,7 +22,8 @@ ext.versions = [
         parceler             : '1.1.8',
 		exoplayer            : 'r2.4.1',
 		uiautomator          : '2.1.1',
-		robolectric          : '3.3.2'
+		robolectric          : '3.3.2',
+		firebase             : '10.2.0'
 ]
 
 ext.libraries = [
@@ -51,5 +52,7 @@ ext.libraries = [
         parceler             : "org.parceler:parceler:$versions.parceler",
 		exoplayer            : "com.google.android.exoplayer:exoplayer:$versions.exoplayer",
 		uiautomator          : "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiautomator",
-		robolectric          : "org.robolectric:robolectric:$versions.robolectric"
+		robolectric          : "org.robolectric:robolectric:$versions.robolectric",
+		firebase_database    : "com.google.firebase:firebase-database:$versions.firebase",
+		firebase_auth        : "com.google.firebase:firebase-auth:$versions.firebase"
 ]

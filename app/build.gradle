@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'jacoco-android'
 
 android {
@@ -89,7 +90,13 @@ dependencies {
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
     provided 'com.google.auto.factory:auto-factory:1.0-beta5'
-  //  testCompile 'org.robolectric:robolectric:3.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    /* Firebase */
+    compile libraries.firebase_database
+    compile libraries.firebase_auth
+
+    //  testCompile 'org.robolectric:robolectric:3.2'
 }
 
 jacocoAndroidUnitTestReport {
@@ -97,3 +104,8 @@ jacocoAndroidUnitTestReport {
     html.enabled true
     xml.enabled true
 }
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'com.google.gms.google-services'

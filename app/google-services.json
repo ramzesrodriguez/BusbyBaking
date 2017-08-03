@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "525515483340",
+    "firebase_url": "https://busbybaking.firebaseio.com",
+    "project_id": "busbybaking",
+    "storage_bucket": "busbybaking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525515483340:android:b206a2157eda70a1",
+        "android_client_info": {
+          "package_name": "me.androidbox.busbybaking.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525515483340-f3v2pefhiop0joabd2k5jp3u77ncn4h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.androidbox.busbybaking.debug",
+            "certificate_hash": "c8c57bc1490a6c809ef52e017e6f409d40f660c5"
+          }
+        },
+        {
+          "client_id": "525515483340-4j32bmlrkl7hmls5rbkc8qtcfbqhpbie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgn8aZtaorM8lw9OGEFJHirISgxfhCG5I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525515483340-4j32bmlrkl7hmls5rbkc8qtcfbqhpbie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
