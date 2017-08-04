@@ -23,7 +23,8 @@ ext.versions = [
 		exoplayer            : 'r2.4.1',
 		uiautomator          : '2.1.1',
 		robolectric          : '3.3.2',
-		firebase             : '10.2.0'
+		firebase             : '10.2.0',
+		eventBus             : '3.0.0'
 ]
 
 ext.libraries = [
@@ -54,5 +55,6 @@ ext.libraries = [
 		uiautomator          : "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiautomator",
 		robolectric          : "org.robolectric:robolectric:$versions.robolectric",
 		firebase_database    : "com.google.firebase:firebase-database:$versions.firebase",
-		firebase_auth        : "com.google.firebase:firebase-auth:$versions.firebase"
+		firebase_auth        : "com.google.firebase:firebase-auth:$versions.firebase",
+		eventBus             : "org.greenrobot:eventbus:$versions.eventbus"
 ]

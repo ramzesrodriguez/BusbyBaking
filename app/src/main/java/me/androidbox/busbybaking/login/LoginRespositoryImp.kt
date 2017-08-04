@@ -8,14 +8,15 @@ import me.androidbox.busbybaking.domain.FirebaseHelper
  */
 class LoginRespositoryImp : LoginRepository {
     private var firebaseHelper: FirebaseHelper
-  //  var databaseReference: DatabaseReference
- //   var myUserReference: DatabaseReference
+    private var databaseReference: DatabaseReference
+    private var myUserReference: DatabaseReference
 
     init {
-  //      firebaseHelper = FirebaseHelper.getInstance()
-  //      databaseReference = firebaseHelper.getDataReference()
-  //      myUserReference = firebaseHelper.getMyUserReference()
+        firebaseHelper = FirebaseHelper.getInstance()
+        databaseReference = firebaseHelper.getDataReference()
+        myUserReference = firebaseHelper.getMyUserReference()
     }
+
     override fun signUp(email: String, password: String) {
 
     }
