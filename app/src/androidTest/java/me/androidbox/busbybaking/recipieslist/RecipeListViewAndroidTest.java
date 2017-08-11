@@ -80,9 +80,11 @@ public class RecipeListViewAndroidTest {
 
         // TestBusbyBakingComponent component = (TestBusbyBakingComponent)busbyBakingApplication.createRecipeListComponent().;
 
+/*
         MockBusbyBakingApplication mockBusbyBakingApplication = (MockBusbyBakingApplication)instrumentation.getTargetContext().getApplicationContext();
         TestRecipeListComponent component = mockBusbyBakingApplication.getTestRecipeListComponent().inject(this);
         component.inject(this);
+*/
     }
 
     @Test

@@ -89,12 +89,12 @@ public class RecipeListView
         rvRecipeList.setAdapter(recipeAdapter);
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    @VisibleForTesting()
     void fillAdapter(List<Recipe> recipeList) {
         recipeAdapter.fillRecipeData(recipeList);
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    @VisibleForTesting()
     void getAllRecipes() {
         recipeListPresenterContract.retrieveAllRecipes();
     }

@@ -1,7 +1,5 @@
 package me.androidbox.busbybaking.di;
 
-import me.androidbox.busbybaking.recipieslist.di.DaggerTestBusbyComponent;
-
 /**
  * Created by steve on 7/29/17.
  */
