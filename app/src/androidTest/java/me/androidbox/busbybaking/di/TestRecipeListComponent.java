@@ -1,7 +1,6 @@
 package me.androidbox.busbybaking.di;
 
 import dagger.Subcomponent;
-import me.androidbox.busbybaking.di.scopes.RecipeListScope;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 
 /**

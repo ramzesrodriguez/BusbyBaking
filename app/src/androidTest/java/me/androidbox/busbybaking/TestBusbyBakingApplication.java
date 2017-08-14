@@ -1,12 +1,16 @@
-package me.androidbox.busbybaking.di;
+package me.androidbox.busbybaking;
 
-import me.androidbox.busbybaking.recipieslist.di.DaggerTestBusbyComponent;
+import me.androidbox.busbybaking.di.BusbyBakingApplication;
+import me.androidbox.busbybaking.di.DaggerTestBusbyBakingComponent;
+import me.androidbox.busbybaking.di.MockRecipeListModule;
+import me.androidbox.busbybaking.di.TestBusbyBakingComponent;
+import me.androidbox.busbybaking.di.TestRecipeListComponent;
 
 /**
  * Created by steve on 7/29/17.
  */
 
-public class MockBusbyBakingApplication extends BusbyBakingApplication {
+public class TestBusbyBakingApplication extends BusbyBakingApplication {
     private TestBusbyBakingComponent testBusbyBakingComponent;
     private TestRecipeListComponent testRecipeListComponent;
 

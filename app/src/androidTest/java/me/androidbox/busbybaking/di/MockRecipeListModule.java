@@ -34,7 +34,6 @@ public class MockRecipeListModule {
     }
 
     /*
-
     @RecipeListScope
     @Provides
     RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
