@@ -13,6 +13,7 @@ import dagger.Provides;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
+import timber.log.Timber;
 
 /**
  * Created by steve on 6/1/17.
@@ -44,14 +45,15 @@ public class MockAndroidModule {
         return new RecipeSchedulers() {
             @Override
             public Scheduler getBackgroundScheduler() {
+                Timber.d("getBackgroundScheduler");
                 return Schedulers.trampoline();
             }
 
             @Override
             public Scheduler getUIScheduler() {
+                Timber.d("getUIScheduler");
                 return Schedulers.trampoline();
             }
         };
     }
-
 }

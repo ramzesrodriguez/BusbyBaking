@@ -30,11 +30,7 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
     }
 
     private TestRecipeListComponent createTestRecipeListComponent() {
-        return testBusbyBakingComponent.add(new MockRecipeListModule());
-    }
-
-    public TestRecipeListComponent getTestRecipeListComponent() {
+        testRecipeListComponent = testBusbyBakingComponent.add(new MockRecipeListModule());
         return testRecipeListComponent;
     }
-
 }

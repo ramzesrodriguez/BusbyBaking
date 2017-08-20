@@ -33,6 +33,7 @@ android {
     dexOptions {
     }
 
+/*
     productFlavors {
         PreVersion3 {
             configurations.all {
@@ -45,6 +46,8 @@ android {
             }
         }
     }
+*/
+
 }
 
 /** Dagger cannot generate class for the test directory without this */

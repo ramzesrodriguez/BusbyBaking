@@ -95,7 +95,8 @@ public class RecipeListModelImpTest {
             subscriptionField = recipeListModel.getClass().getDeclaredField("subscription");
             subscriptionField.setAccessible(true);
             subscriptionField.set(recipeListModel, subscription);
-        } catch(NoSuchFieldException e) {
+        }
+        catch(NoSuchFieldException e) {
             e.printStackTrace();
         }
         catch(IllegalAccessException e) {
