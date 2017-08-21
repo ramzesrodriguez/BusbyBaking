@@ -18,17 +18,16 @@ import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
 import me.androidbox.busbybaking.utils.Constants;
-import timber.log.Timber;
 
 /**
  * Created by steve on 5/31/17.
  */
 @Module
 public class MockRecipeListModule {
+
     @RecipeListScope
     @Provides
     RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
-        Timber.d("mock(RecipeListModelContract");
         return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
@@ -40,7 +39,7 @@ public class MockRecipeListModule {
 
     @RecipeListScope
     @Provides
-    RecipeItemClickListener providesRecipeItemClickListener() {
+    RecipeItemClickListener providesRecipeItemClickListenerImp() {
         return new RecipeItemClickListenerImp();
     }
 
@@ -54,7 +53,8 @@ public class MockRecipeListModule {
     @Provides
     @IntoMap
     @IntKey(Constants.RECIPE_LIST)
-    RecipeListViewHolderFactory providesRecipeListViewHolder() {
+    RecipeListViewHolderFactory provideRecipeListViewHolder() {
         return new RecipeListViewHolderFactory();
     }
+
 }

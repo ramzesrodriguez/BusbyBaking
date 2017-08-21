@@ -11,6 +11,6 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 @RecipeListScope
 @Subcomponent(
         modules = MockRecipeListModule.class)
-public interface TestRecipeListComponent extends  RecipeListComponent {
+public interface TestRecipeListComponent extends  RecipeListComponent{
     void inject(RecipeListViewAndroidTest target);
 }

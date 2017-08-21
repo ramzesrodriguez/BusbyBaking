@@ -17,14 +17,12 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
     @Override
     public TestBusbyBakingComponent createApplicationComponent() {
         testBusbyBakingComponent = createTestBusbyBakingComponent();
-
         return testBusbyBakingComponent;
     }
 
     @Override
     public TestRecipeListComponent createRecipeListComponent() {
         testRecipeListComponent = testBusbyBakingComponent.add(new MockRecipeListModule());
-
         return testRecipeListComponent;
     }
 
