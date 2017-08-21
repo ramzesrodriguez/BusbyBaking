@@ -17,9 +17,20 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
     @Override
     public TestBusbyBakingComponent createApplicationComponent() {
         testBusbyBakingComponent = createTestBusbyBakingComponent();
-        testRecipeListComponent = createTestRecipeListComponent();
 
         return testBusbyBakingComponent;
+    }
+
+    @Override
+    public TestRecipeListComponent createRecipeListComponent() {
+        testRecipeListComponent = testBusbyBakingComponent.add(new MockRecipeListModule());
+
+        return testRecipeListComponent;
+    }
+
+    @Override
+    public TestRecipeListComponent getRecipeListComponent() {
+        return testRecipeListComponent;
     }
 
     private TestBusbyBakingComponent createTestBusbyBakingComponent() {
@@ -27,10 +38,5 @@ public class TestBusbyBakingApplication extends BusbyBakingApplication {
                 .build();
 
         return testBusbyBakingComponent;
-    }
-
-    private TestRecipeListComponent createTestRecipeListComponent() {
-        testRecipeListComponent = testBusbyBakingComponent.add(new MockRecipeListModule());
-        return testRecipeListComponent;
     }
 }

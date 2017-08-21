@@ -1,15 +1,23 @@
 package me.androidbox.busbybaking.di;
 
-import org.mockito.Mockito;
-
-import javax.inject.Singleton;
+import java.util.Map;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntKey;
+import dagger.multibindings.IntoMap;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
+import me.androidbox.busbybaking.di.scopes.RecipeListScope;
+import me.androidbox.busbybaking.networkapi.RecipesAPI;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
+import me.androidbox.busbybaking.recipieslist.RecipeItemClickListenerImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
+import me.androidbox.busbybaking.recipieslist.RecipeListModelImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+import me.androidbox.busbybaking.recipieslist.RecipeSchedulers;
+import me.androidbox.busbybaking.utils.Constants;
 import timber.log.Timber;
 
 /**
@@ -17,28 +25,36 @@ import timber.log.Timber;
  */
 @Module
 public class MockRecipeListModule {
-    @Provides
-    RecipeListModelContract providesRecipeListModel() {
-        Timber.d("mock(RecipeListModelContract");
-        return Mockito.mock(RecipeListModelContract.class);
-    }
-
-    @Provides
-    RecipeListPresenterContract providesRecipeListPresenter() {
-        return Mockito.mock(RecipeListPresenterImp.class);
-    }
-
-    @Provides
-    RecipeAdapter providesRecipeAdapter() {
-        return Mockito.mock(RecipeAdapter.class);
-    }
-
-    /*
     @RecipeListScope
     @Provides
-    RecipeAdapter providesRecipeAdapter(Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
-        return new RecipeAdapter(activity, viewHolderFactories);
+    RecipeListModelContract providesRecipeListModel(RecipesAPI recipesAPI, RecipeSchedulers recipeSchedulers) {
+        Timber.d("mock(RecipeListModelContract");
+        return new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
-*/
 
+    @RecipeListScope
+    @Provides
+    RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
+        return new RecipeListPresenterImp(recipeListModelContract);
+    }
+
+    @RecipeListScope
+    @Provides
+    RecipeItemClickListener providesRecipeItemClickListener() {
+        return new RecipeItemClickListenerImp();
+    }
+
+    @RecipeListScope
+    @Provides
+    RecipeAdapter providesRecipeAdapter(RecipeItemClickListener recipeItemClickListener, Map<Integer, RecipeListViewHolderFactory> viewHolderFactories) {
+        return new RecipeAdapter(recipeItemClickListener, viewHolderFactories);
+    }
+
+    @RecipeListScope
+    @Provides
+    @IntoMap
+    @IntKey(Constants.RECIPE_LIST)
+    RecipeListViewHolderFactory providesRecipeListViewHolder() {
+        return new RecipeListViewHolderFactory();
+    }
 }

@@ -39,7 +39,7 @@ public class BusbyBakingApplication extends Application {
         return applicationComponent.add(new RecipeListModule());
     }
 
-    public RecipeListComponent recipeListComponent() {
+    public RecipeListComponent getRecipeListComponent() {
         return recipeListComponent;
     }
 
