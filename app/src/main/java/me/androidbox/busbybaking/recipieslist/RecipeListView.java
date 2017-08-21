@@ -58,7 +58,7 @@ public class RecipeListView
         super.onCreate(savedInstanceState);
 
         ((BusbyBakingApplication)getActivity().getApplication())
-                .createRecipeListComponent()
+                .getRecipeListComponent()
                 .inject(this);
     }
 
