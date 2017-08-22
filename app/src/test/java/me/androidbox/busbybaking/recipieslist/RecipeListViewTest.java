@@ -2,9 +2,11 @@ package me.androidbox.busbybaking.recipieslist;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by smason on 6/14/2017 AD.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class RecipeListViewTest {
     @Mock RecipeListPresenterContract presenter;
     @Mock List<Recipe> recipe;
@@ -27,7 +30,6 @@ public class RecipeListViewTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(RecipeListViewTest.this);
         fragment = RecipeListView.newInstance();
         fragment.recipeListPresenterContract = presenter;
         fragment.recipeAdapter = recipeAdapter;
