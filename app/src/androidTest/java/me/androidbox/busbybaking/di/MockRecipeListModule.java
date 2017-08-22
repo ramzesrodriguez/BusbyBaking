@@ -56,5 +56,4 @@ public class MockRecipeListModule {
     RecipeListViewHolderFactory provideRecipeListViewHolder() {
         return new RecipeListViewHolderFactory();
     }
-
 }

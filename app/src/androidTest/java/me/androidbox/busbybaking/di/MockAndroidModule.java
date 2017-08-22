@@ -46,7 +46,7 @@ public class MockAndroidModule {
             @Override
             public Scheduler getBackgroundScheduler() {
                 Timber.d("getBackgroundScheduler");
-                return Schedulers.trampoline();
+                return Schedulers.io();
             }
 
             @Override

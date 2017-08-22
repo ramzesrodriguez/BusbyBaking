@@ -28,6 +28,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 /**
@@ -65,7 +66,7 @@ public class RecipeListViewAndroidTest {
         recipeList.add(recipe);
 
         when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(recipeList));
-//        doNothing().when(mockRecipeListener).onRecipeGetAllSuccess(recipeList);
+        doNothing().when(mockRecipeListener).onRecipeGetAllSuccess(recipeList);
 
         mainActivity.launchActivity(new Intent());
 

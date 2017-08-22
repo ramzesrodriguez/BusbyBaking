@@ -34,7 +34,7 @@ public class RecipeListPresenterImp
 
     @Override
     public void onRecipeGetAllSuccess(List<Recipe> recipeList) {
-        if(isViewAttached() && getView() != null) {
+        if(isViewAttached()) {
             getView().displayRecipeData(recipeList);
         }
     }
