@@ -76,7 +76,6 @@ dependencies {
     testAnnotationProcessor libraries.dagger_compiler
     testCompile libraries.dagger
     //  testCompile libraries.robolectric
-
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */
@@ -109,6 +108,7 @@ dependencies {
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
     provided 'com.google.auto.factory:auto-factory:1.0-beta5'
     testCompile 'org.robolectric:robolectric:3.2'
+    annotationProcessor 'com.groupon.android.dichecks:compiler:1.0.1'
 }
 
 jacocoAndroidUnitTestReport {
