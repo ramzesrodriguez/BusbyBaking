@@ -1,5 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.content.Context;
+
 import me.androidbox.busbybaking.model.Recipe;
 
 /**
@@ -7,5 +9,5 @@ import me.androidbox.busbybaking.model.Recipe;
  */
 
 public interface RecipeItemClickListener {
-    void onRecipeItemClick(Recipe recipe);
+    void onRecipeItemClick(Recipe recipe, Context context);
 }

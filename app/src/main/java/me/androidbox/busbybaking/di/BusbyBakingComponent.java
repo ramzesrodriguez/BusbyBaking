@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import me.androidbox.busbybaking.recipeVideoSteps.RecipeVideoStepsView;
+import me.androidbox.busbybaking.recipieslist.RecipeListView;
 
 /**
  * Created by steve on 5/27/17.

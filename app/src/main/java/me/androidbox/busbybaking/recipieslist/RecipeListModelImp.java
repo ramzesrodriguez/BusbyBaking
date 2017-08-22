@@ -1,5 +1,6 @@
 package me.androidbox.busbybaking.recipieslist;
 
+
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -7,10 +8,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.internal.Preconditions;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import rx.Subscriber;
-import rx.Subscription;
 import timber.log.Timber;
 
 /**
@@ -20,9 +21,9 @@ import timber.log.Timber;
 public class RecipeListModelImp
         implements RecipeListModelContract {
 
-    private Subscription subscription;
     private RecipesAPI recipesAPI;
     private RecipeSchedulers recipeSchedulers;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public RecipeListModelImp(@NonNull RecipesAPI recipesAPI, @NonNull RecipeSchedulers recipeSchedulers) {
@@ -32,33 +33,39 @@ public class RecipeListModelImp
 
     @Override
     public void getRecipesFromAPI(final RecipeGetAllListener recipeGetAllListener) {
-        subscription = recipesAPI.getAllRecipes()
+        compositeDisposable.add(recipesAPI.getAllRecipes()
                 .subscribeOn(recipeSchedulers.getBackgroundScheduler())
                 .observeOn(recipeSchedulers.getUIScheduler())
-                .subscribe(new Subscriber<List<Recipe>>() {
+                .subscribeWith(new DisposableObserver<List<Recipe>>() {
                     @Override
-                    public void onCompleted() {
-                        Timber.d("onCompleted");
+                    protected void onStart() {
+                        Timber.d("onStart");
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.annotations.NonNull List<Recipe> recipeList) {
+                        Timber.d("onNext %d", recipeList.size());
+                        recipeGetAllListener.onRecipeGetAllSuccess(recipeList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.d(e, e.getMessage());
+                        Timber.e(e, "onError %s", e.getMessage());
                         recipeGetAllListener.onRecipeGetAllFailure(e.getMessage());
                     }
 
                     @Override
-                    public void onNext(List<Recipe> recipe) {
-                        Timber.d("onNext");
-                        recipeGetAllListener.onRecipeGetAllSuccess(recipe);
+                    public void onComplete() {
+                        Timber.d("onComplete");
                     }
-                });
+                }));
     }
 
     @Override
     public void releaseResources() {
-        if(subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+        if(compositeDisposable != null && !compositeDisposable.isDisposed()) {
+            compositeDisposable.clear();
+            compositeDisposable.dispose();
         }
     }
 }

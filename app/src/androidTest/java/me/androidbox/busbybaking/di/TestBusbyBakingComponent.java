@@ -3,7 +3,6 @@ package me.androidbox.busbybaking.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 
 /**
  * Created by steve on 5/31/17.
@@ -11,11 +10,11 @@ import me.androidbox.busbybaking.recipieslist.RecipeListViewAndroidTest;
 
 @Singleton
 @Component(modules = {
+        MockNetworkModule.class,
         MockAndroidModule.class,
-        MockRecipeListModule.class,
-        MockNetworkModule.class
+        MockExoPlayerModule.class
 })
-public interface TestBusbyBakingComponent  {
-    void inject(RecipeListViewAndroidTest target);
+public interface TestBusbyBakingComponent extends BusbyBakingComponent {
+    TestRecipeListComponent add(MockRecipeListModule mockRecipeListModule);
 }
 

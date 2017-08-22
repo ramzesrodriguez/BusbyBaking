@@ -20,30 +20,35 @@ public class BusbyBakingApplication extends Application {
         Timber.plant(new Timber.DebugTree());
 
         applicationComponent = createApplicationComponent();
+        recipeListComponent = createRecipeListComponent();
     }
 
     public BusbyBakingComponent createApplicationComponent() {
         return DaggerBusbyBakingComponent.builder()
                 .networkModule(new NetworkModule())
                 .androidModule(new AndroidModule(BusbyBakingApplication.this))
+                .exoPlayerModule(new ExoPlayerModule())
                 .build();
     }
 
-    public BusbyBakingComponent getApplicationComponent() {
+    public BusbyBakingComponent busbyApplicationComponent() {
         return applicationComponent;
     }
 
-    public RecipeListComponent createRecipeListComponent(MainActivity activity) {
-        recipeListComponent = applicationComponent.add(new RecipeListModule(activity));
-        return recipeListComponent;
+    public RecipeListComponent createRecipeListComponent() {
+        return applicationComponent.add(new RecipeListModule());
     }
 
-    public RecipeListComponent createRecipeListComponent() {
-        recipeListComponent = applicationComponent.add(new RecipeListModule());
+    public RecipeListComponent getRecipeListComponent() {
         return recipeListComponent;
     }
 
     public void releaseRecipeListComponent() {
         recipeListComponent = null;
+    }
+
+    /* Used for setting the mock component for AT */
+    public void setRecipeListComponent(RecipeListComponent recipeListComponent) {
+        this.recipeListComponent = recipeListComponent;
     }
 }

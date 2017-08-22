@@ -1,6 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
-import rx.Scheduler;
+
+import io.reactivex.Scheduler;
 
 /**
  * Created by steve on 6/24/17.
