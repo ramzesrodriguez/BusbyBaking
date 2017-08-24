@@ -1,7 +1,6 @@
 package me.androidbox.busbybaking.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -39,12 +38,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         /* Inject the viewholder */
         final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(viewGroup);
 
-        recipeListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
-                recipeItemClickListener.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()), viewGroup.getContext());
-            }
+        recipeListViewHolder.itemView.setOnClickListener(view -> {
+            Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
+            recipeItemClickListener.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()), viewGroup.getContext());
         });
 
         return recipeListViewHolder;
