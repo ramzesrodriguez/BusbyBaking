@@ -3,68 +3,86 @@ package me.androidbox.busbybaking.adapters;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import me.androidbox.busbybaking.BuildConfig;
-import me.androidbox.busbybaking.recipieslist.MainActivity;
+import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
+import me.androidbox.busbybaking.di.MockRecipeListModule;
+import me.androidbox.busbybaking.di.TestBusbyComponent;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by smason on 7/4/17.
  */
-// @RunWith(RobolectricTestRunner.class)
-// @Config(constants = BuildConfig.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class RecipeAdapterTest {
-    private RecipeAdapter recipeAdapter;
-    private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
+    @Inject RecipeAdapter recipeAdapter;
+    @Inject RecipeListViewHolderFactory recipeListViewHolderFactory;
     private Context context;
-    @Mock MainActivity mainActivity;
-    @Mock Map<Integer, RecipeListViewHolderFactory> viewHolder;
-    private RecipeListViewHolderFactory recipeListViewHolderFactory;
+    private ViewGroup linearLayout;
     private RecipeListViewHolder recipeListViewHolder;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-/*
-        mainActivity = Robolectric.buildActivity(MainActivity.class)
-                .create()
-                .resume()
-                .get();
-*/
+        context = ShadowApplication.getInstance().getApplicationContext();
+        linearLayout = new LinearLayout(context);
 
-        assertNotNull(mainActivity);
-     //   context = ShadowApplication.getInstance().getApplicationContext();
-     //   recipeAdapter = new RecipeAdapter(mainActivity, viewHolder);
+        TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
+                .mockRecipeListModule(new MockRecipeListModule())
+                .build();
+
+        testBusbyComponent.inject(RecipeAdapterTest.this);
+
     }
 
-    @Ignore("FIXME")
     @Test
     public void testRecipeAdapterShouldNotBeNull() {
-        assertNotNull(recipeAdapter);
+        assertThat(recipeAdapter, is(notNullValue()));
     }
 
-    @Ignore("FIXME")
+    @Test
+    public void testRecipeViewHolderFactory() {
+        assertThat(recipeListViewHolderFactory, is(notNullValue()));
+    }
+
+    @Test
+    public void testThatViewHolderIsCreated() {
+        recipeListViewHolder = recipeAdapter.onCreateViewHolder(linearLayout, 0);
+        assertThat(recipeListViewHolder, is(notNullValue()));
+    }
+
     @Test
     public void testOnBindViewHolder() {
         RecyclerView recyclerView = createRecyclerView();
-        assertNotNull(recyclerView);
+
+       // recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(linearLayout);
+
         recipeListViewHolder = recipeAdapter.onCreateViewHolder(recyclerView, 0);
 
-        recipeListViewHolderFactory = new RecipeListViewHolderFactory();
-        recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(recyclerView);
+        // recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(recyclerView);
 
         assertNotNull(recipeListViewHolder);
     }
@@ -72,7 +90,6 @@ public class RecipeAdapterTest {
     private @Nonnull RecyclerView createRecyclerView() {
         final RecyclerView recyclerView = new RecyclerView(context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
         return recyclerView;
     }
 }

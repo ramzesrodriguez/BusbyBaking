@@ -1,8 +1,7 @@
 package me.androidbox.busbybaking.recipieslist;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.auto.factory.AutoFactory;
@@ -21,10 +20,10 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvRecipeName) TextView tvRecipeName;
     @BindView(R.id.tvQuantity) TextView tvQuantity;
 
-    public RecipeListViewHolder(ViewGroup parent) {
-        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_item, parent, false));
+    public RecipeListViewHolder(View view) {
+        super(view);
 
-        ButterKnife.bind(RecipeListViewHolder.this, itemView);
+        ButterKnife.bind(RecipeListViewHolder.this, view);
     }
 
     public void populateDate(Recipe recipe) {

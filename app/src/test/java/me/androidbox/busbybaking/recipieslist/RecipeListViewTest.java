@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
@@ -14,6 +13,9 @@ import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.model.Recipe;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,7 +39,7 @@ public class RecipeListViewTest {
 
     @Test
     public void testFragmentShouldNotBeNull() {
-        assertNotNull(fragment);
+        assertThat(fragment, is(notNullValue()));
     }
 
     @Test

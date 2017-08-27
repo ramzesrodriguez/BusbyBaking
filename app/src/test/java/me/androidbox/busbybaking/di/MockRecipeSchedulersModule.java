@@ -1,4 +1,4 @@
-package me.androidbox.busbybaking.recipieslist.di;
+package me.androidbox.busbybaking.di;
 
 import javax.inject.Singleton;
 

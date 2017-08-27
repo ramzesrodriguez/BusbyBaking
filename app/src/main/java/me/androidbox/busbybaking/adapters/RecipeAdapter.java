@@ -1,6 +1,8 @@
 package me.androidbox.busbybaking.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
@@ -36,9 +39,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     @Override
     public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         /* Inject the viewholder */
-        final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(viewGroup);
+        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
+        final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(view);
 
-        recipeListViewHolder.itemView.setOnClickListener(view -> {
+        recipeListViewHolder.itemView.setOnClickListener(itemView -> {
             Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
             recipeItemClickListener.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()), viewGroup.getContext());
         });
@@ -56,7 +60,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         return recipeList.size();
     }
 
-    public Recipe getRecipe(int position) {
+    private Recipe getRecipe(int position) {
         return recipeList.get(position);
     }
 
