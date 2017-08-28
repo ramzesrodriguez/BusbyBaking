@@ -36,6 +36,14 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by smason on 7/4/17.
  */
+/*
+@Config(constants = BuildConfig.class,
+        sdk = TestConstants.DEFAULT_ROBOLECTRIC_SDK,
+        packageName = "com.agoda.mobile.consumer",
+        application = AgodaTestApplication.class)
+@RunWith(MockitoRobolectricRunner.class)
+*/
+
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class RecipeAdapterTest {
@@ -94,6 +102,236 @@ public class RecipeAdapterTest {
     }
 }
 
+/*
+public class TravelerInboxAdapterTest extends BaseAppRobolectricTest {
+
+    private static final int TYPE_INBOX_ITEM = 0;
+    private static final int TYPE_LOADING_INDICATOR = 1;
+    private static final ZoneId TIME_ZONE = ZoneId.of("Asia/Bangkok");
+
+    @Mock IBookingStatusStringProvider bookingStatusStringProvider;
+    @Mock TravelerInboxDateFormatter formatter;
+    private Context shadowContext;
+    private ViewGroup container;
+    private InboxAdapter<TravelerInboxItemViewHolder> adapter;
+    private MatrixCursor cursor;
+
+    private OffsetDateTime todayTime;
+
+    private Locale defaultLocale;
+
+    @Before
+    public void setUp() {
+        ClocksMockAccessor.setMockTimeZone(TIME_ZONE);
+
+        todayTime = Clocks.dateTime();
+        cursor = createMockCursor();
+        shadowContext = ShadowApplication.getInstance().getApplicationContext();
+
+        InboxCursorTransformer inboxCursorTransformer = new InboxCursorTransformer(new DBReservationCursorTransformer(), new DBPropertyCursorTransformer());
+        adapter = new TravelerInboxAdapter(cursor, bookingStatusStringProvider, inboxCursorTransformer, formatter);
+
+        container = new FrameLayout(shadowContext);
+
+        defaultLocale = Locale.getDefault();
+        Locale.setDefault(Locale.US);
+    }
+
+    @After
+    public void tearDown() {
+        ClocksMockAccessor.resetMockClockAndTimeZone();
+        Locale.setDefault(defaultLocale);
+    }
+
+    @Test
+    public void getItemCountNoMoreData() {
+        assertThat(adapter.getItemCount(), is(cursor.getCount()));
+    }
+
+    @Test
+    public void onCreateViewHolder() {
+        RecyclerView.ViewHolder holder;
+
+        holder = adapter.onCreateViewHolder(container, TYPE_INBOX_ITEM);
+        assertThat(holder, is(instanceOf(TravelerInboxItemViewHolder.class)));
+
+        holder = adapter.onCreateViewHolder(container, TYPE_LOADING_INDICATOR);
+        assertThat(holder, is(instanceOf(LoadingIndicatorViewHolder.class)));
+    }
+
+    @Test
+    public void onBindInboxViewHolder_ifInquiry_andNonNhaTypeProperty_andUnread() {
+        TravelerInboxItemViewHolder holder = (TravelerInboxItemViewHolder) adapter.onCreateViewHolder(container, TYPE_INBOX_ITEM);
+        holder.userAvatarView = mock(UserAvatarView.class);
+        holder.otherParticipantName = mock(TextView.class);
+        holder.relativeTime = mock(TextView.class);
+        holder.previewMessage = mock(TextView.class);
+        holder.reservationStatus = mock(TextView.class);
+        holder.propertyName = mock(TextView.class);
+        holder.isReadIndicator = mock(ImageView.class);
+        holder.dateOfStay = mock(TextView.class);
+
+        when(bookingStatusStringProvider.getInquiryTitle()).thenReturn("Inquiry");
+        when(formatter.getFormattedCheckInDay(any(), any())).thenReturn("Jan 4, 2015 - Jan 5");
+
+        adapter.onBindViewHolder(holder, 0);
+
+        verify(holder.userAvatarView).setAvatarImage(R.drawable.ic_host_avatar);
+        verify(holder.otherParticipantName).setText("Property A");
+        verify(holder.previewMessage).setText("Content");
+        verify(holder.reservationStatus).setText("Inquiry");
+        verify(holder.propertyName).setText("Property A");
+        verify(holder.propertyName).setVisibility(View.GONE);
+        verify(holder.relativeTime).setText(StaticDateTimePatterns.TIME.format(todayTime));
+        verify(holder.isReadIndicator).setVisibility(View.VISIBLE);
+        verify(holder.dateOfStay).setText("Jan 4, 2015 - Jan 5");
+    }
+
+    @Test
+    public void onBindInboxViewHolder_ifIsACanceledBooking_andNhaTypeProperty() {
+        TravelerInboxItemViewHolder holder = (TravelerInboxItemViewHolder) adapter.onCreateViewHolder(container, TYPE_INBOX_ITEM);
+        holder.userAvatarView = mock(UserAvatarView.class);
+        holder.otherParticipantName = mock(TextView.class);
+        holder.relativeTime = mock(TextView.class);
+        holder.previewMessage = mock(TextView.class);
+        holder.reservationStatus = mock(TextView.class);
+        holder.propertyName = mock(TextView.class);
+        holder.isReadIndicator = mock(ImageView.class);
+        holder.dateOfStay = mock(TextView.class);
+
+        when(formatter.getFormattedCheckInDay(any(), any())).thenReturn("Jan 4, 2015 - Jan 5");
+
+        adapter.onBindViewHolder(holder, 1);
+
+        verify(holder.userAvatarView).setAvatarImage(R.drawable.ic_home_avatar);
+        verify(holder.otherParticipantName).setText("Host B");
+        verify(holder.previewMessage).setText("Content");
+        verify(holder.reservationStatus).setText("Canceled");
+        verify(holder.propertyName).setText("Property B");
+        verify(holder.propertyName).setVisibility(View.VISIBLE);
+        verify(holder.relativeTime).setText("Jan 4");
+        verify(holder.isReadIndicator).setVisibility(View.INVISIBLE);
+        verify(holder.dateOfStay).setText("Jan 4, 2015 - Jan 5");
+    }
+
+    @Test
+    public void onBindInboxViewHolder_ifIsAnAcceptedBooking_andNhaTypeProperty() {
+        TravelerInboxItemViewHolder holder = (TravelerInboxItemViewHolder) adapter.onCreateViewHolder(container, TYPE_INBOX_ITEM);
+        holder.userAvatarView = mock(UserAvatarView.class);
+        holder.otherParticipantName = mock(TextView.class);
+        holder.relativeTime = mock(TextView.class);
+        holder.previewMessage = mock(TextView.class);
+        holder.reservationStatus = mock(TextView.class);
+        holder.propertyName = mock(TextView.class);
+        holder.isReadIndicator = mock(ImageView.class);
+        holder.dateOfStay = mock(TextView.class);
+
+        when(formatter.getFormattedCheckInDay(any(), any())).thenReturn("Jan 4, 2015 - Dec 5, 2016");
+
+        adapter.onBindViewHolder(holder, 2);
+
+        verify(holder.userAvatarView).setAvatarImage(R.drawable.ic_home_avatar);
+        verify(holder.otherParticipantName).setText("Host C");
+        verify(holder.previewMessage).setText("Content");
+        verify(holder.reservationStatus).setText("Accepted");
+        verify(holder.propertyName).setText("Property C");
+        verify(holder.propertyName).setVisibility(View.VISIBLE);
+        verify(holder.relativeTime).setText("Dec 4, 16");
+        verify(holder.isReadIndicator).setVisibility(View.INVISIBLE);
+        verify(holder.dateOfStay).setText("Jan 4, 2015 - Dec 5, 2016");
+    }
+
+    @Test
+    public void getItemViewType() {
+        assertThat(adapter.getItemViewType(0), is(TYPE_INBOX_ITEM));
+        assertThat(adapter.getItemViewType(1), is(TYPE_INBOX_ITEM));
+
+        adapter.setHasMoreData(true);
+        assertThat(adapter.getItemViewType(2), is(TYPE_INBOX_ITEM));
+        assertThat(adapter.getItemViewType(3), is(TYPE_LOADING_INDICATOR));
+    }
+
+    private MatrixCursor createMockCursor() {
+        MatrixCursor cursor = new MatrixCursor(new String[]{
+                UserContract.COLUMN_NAME,
+
+                PropertyContract.COLUMN_PROPERTY_ID,
+                PropertyContract.COLUMN_NAME,
+                PropertyContract.COLUMN_HOSTNAME,
+                PropertyContract.COLUMN_IS_NHA,
+                PropertyContract.COLUMN_AVATAR_TYPE,
+
+                MessageContract.COLUMN_CONTENT,
+                MessageContract.COLUMN_CREATED_TIMESTAMP_UTC,
+
+                ReservationContract.COLUMN_BOOKING_STATUS,
+                ReservationContract.COLUMN_TRAVELER_BOOKING_STATUS,
+                ReservationContract.COLUMN_LATEST_UPDATED_BOOKING_STATUS_TIMESTAMP,
+                ReservationContract.COLUMN_PRICE,
+
+                ReservationContract.COLUMN_CHECK_IN_DATE,
+                ReservationContract.COLUMN_CHECK_OUT_DATE,
+                ReservationContract.COLUMN_PROPERTY_ID,
+                ReservationContract.COLUMN_CUSTOMER_ID,
+                ReservationContract.COLUMN_BOOKING_ID,
+
+                ReservationContract.COLUMN_ADULTS,
+                ReservationContract.COLUMN_CHILDREN,
+                ReservationContract.COLUMN_PRICE_CURRENCY,
+
+                ConversationContract.COLUMN_NUM_UNREAD_MESSAGES
+        });
+
+        //latestMessageDateTime : now
+        cursor.addRow(createMessageValues("Host", "Property A", "", 0, 1, "Content",
+                DateTimeConverter.toUtcMillis(todayTime), 6, null, DateTimeConverter.toUtcMillis(dateTime(2017,1,2)), 100,
+                LocalDate.of(2015, 1, 4), LocalDate.of(2017, 1, 5), 101, 201, 301, 1, 0, "TH", 1));
+
+        //latestMessageDateTime : current year
+        cursor.addRow(createMessageValues("Host", "Property B", "Host B", 1, 2,  "Content",
+                DateTimeConverter.toUtcMillis(dateTime(2017, 1, 4)), 6, "Canceled", DateTimeConverter.toUtcMillis(dateTime(2017,1,5)), 100,
+                LocalDate.of(2015, 1, 4), LocalDate.of(2017, 1, 5), 101, 201, 301, 1, 0, "TH", 0));
+
+        //latestMessageDateTime : other
+        cursor.addRow(createMessageValues("Host", "Property C", "Host C", 1, 2, "Content",
+                DateTimeConverter.toUtcMillis(dateTime(2016, 12, 4)), 0, "Accepted",  DateTimeConverter.toUtcMillis(dateTime(2017,1,5)), 100,
+                LocalDate.of(2015, 1, 4), LocalDate.of(2016, 12, 5), 101, 201, 301, 1, 0, "TH", 0));
+        return cursor;
+    }
+
+    @Nonnull
+    private Object[] createMessageValues(String otherParticipantName,
+                                         String propertyName,
+                                         String hostName,
+                                         int isNha,
+                                         int avatarType,
+                                         String content,
+                                         long timestamp,
+                                         int bookingStatus,
+                                         String travelerBookingStatus,
+                                         long lastUpdated,
+                                         int price,
+                                         LocalDate checkInDate,
+                                         LocalDate checkoutDate,
+                                         int propertyId,
+                                         int customerId,
+                                         int bookingId,
+                                         int adultCount,
+                                         int childCount,
+                                         String currency,
+                                         int numUnread
+    ) {
+        return new Object[]{otherParticipantName, propertyId, propertyName, hostName, isNha, avatarType, content, timestamp, bookingStatus,
+                travelerBookingStatus,
+                lastUpdated, price,
+                checkInDate, checkoutDate, propertyId, customerId, bookingId, adultCount, childCount, currency, numUnread};
+    }
+
+    @Nonnull private OffsetDateTime dateTime(int year, int month, int dayOfMonth) {
+        return ZonedDateTime.of(year, month, dayOfMonth, 0, 0, 0, 0, TIME_ZONE).toOffsetDateTime();
+    }
+}
+*/
 
 
 /*

@@ -70,3 +70,73 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         notifyItemRangeInserted(0, recipeList.size());
     }
 }
+
+/*public class TravelerInboxAdapter extends InboxAdapter<TravelerInboxItemViewHolder> {
+
+    private final TravelerInboxDateFormatter formatter;
+
+    public TravelerInboxAdapter(Cursor cursor,
+                                IBookingStatusStringProvider bookingStatusStringProvider,
+                                InboxCursorTransformer inboxCursorTransformer,
+                                TravelerInboxDateFormatter formatter) {
+        super(cursor, bookingStatusStringProvider, inboxCursorTransformer);
+        this.formatter = formatter;
+    }
+
+    @Override
+    public int getInboxItemViewLayout() {
+        return R.layout.traveler_inbox_item;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+
+        switch (viewType) {
+            case TYPE_INBOX_ITEM:
+                view = LayoutInflater.from(parent.getContext()).inflate(getInboxItemViewLayout(), parent, false);
+                TravelerInboxItemViewHolder viewHolder = new TravelerInboxItemViewHolder(view);
+                setOnClickEvent(viewHolder);
+                return viewHolder;
+            default:
+                return super.onCreateViewHolder(parent, viewType);
+        }
+    }
+
+    @Override
+    public void bindInboxItemViewHolder(TravelerInboxItemViewHolder viewHolder, int position) {
+        super.bindInboxItemViewHolder(viewHolder, position);
+        InboxItem item = getItem(position);
+        viewHolder.bind(item, formatter);
+    }
+
+    @Override
+    protected void setReservationStatus(final TravelerInboxItemViewHolder viewHolder, final InboxItem item) {
+        if (item.travelerStatus == null || item.travelerStatus.isEmpty()) {
+            viewHolder.reservationStatus.setText(bookingStatusStringProvider.getInquiryTitle());
+        } else {
+            viewHolder.reservationStatus.setText(item.travelerStatus);
+        }
+    }
+
+    @Override
+    protected void setReservationTime(final TravelerInboxItemViewHolder viewHolder, final InboxItem item) {
+        LocalDate messageDate = item.latestMessageDateTime.toLocalDate();
+        if (messageDate.isEqual(Clocks.today())) {
+            viewHolder.relativeTime.setText(StaticDateTimePatterns.TIME.format(item.latestMessageDateTime));
+        } else if (messageDate.getYear() == Clocks.today().getYear()) {
+            viewHolder.relativeTime.setText(StaticDateTimePatterns.MONTH_NAME_SHORT_DAY_SHORT.format(item.latestMessageDateTime));
+        } else {
+            viewHolder.relativeTime.setText(StaticDateTimePatterns.MONTH_NAME_SHORT_DAY_SHORT_YEAR_SHORT.format(item.latestMessageDateTime));
+        }
+    }
+
+    @Override
+    protected void shouldDisplayUnreadNotification(final TravelerInboxItemViewHolder viewHolder, final InboxItem item) {
+        if (item.isRead) {
+            viewHolder.displayAsRead();
+        } else {
+            viewHolder.displayAsUnread();
+        }
+    }
+}*/
