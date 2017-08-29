@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +26,8 @@ import timber.log.Timber;
  */
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
-    private List<Recipe> recipeList = Collections.emptyList();
+    @VisibleForTesting
+    List<Recipe> recipeList = Collections.emptyList();
     private Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
     private RecipeItemClickListener recipeItemClickListener;
 
@@ -36,7 +39,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     }
 
     @Override
-    public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
+    public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int viewType) {
         final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
         /* Inject the viewholder */
         final RecipeListViewHolder recipeListViewHolder = new RecipeListViewHolder(view);

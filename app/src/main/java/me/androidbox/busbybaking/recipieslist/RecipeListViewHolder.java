@@ -1,5 +1,6 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -17,8 +18,8 @@ import timber.log.Timber;
  */
 @AutoFactory(implementing = IRecipeListViewHolderFactory.class)
 public class RecipeListViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tvRecipeName) TextView tvRecipeName;
-    @BindView(R.id.tvQuantity) TextView tvQuantity;
+    @BindView(R.id.tvRecipeName) public TextView tvRecipeName;
+    @BindView(R.id.tvQuantity) public TextView tvQuantity;
 
     public RecipeListViewHolder(View view) {
         super(view);

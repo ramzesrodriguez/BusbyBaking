@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -19,23 +20,30 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.androidbox.busbybaking.BuildConfig;
+import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyComponent;
+import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by smason on 7/4/17.
@@ -47,6 +55,7 @@ import static org.junit.Assert.assertThat;
         application = AgodaTestApplication.class)
 @RunWith(MockitoRobolectricRunner.class)
 */
+
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricTestRunner.class)
 public class RecipeAdapterTest {
@@ -60,12 +69,12 @@ public class RecipeAdapterTest {
     @Before
     public void setup() {
 
-        activity = Robolectric.setupActivity(MainActivity.class);
+    /*    activity = Robolectric.setupActivity(MainActivity.class);*/
 
-     /*   activity = Robolectric.buildActivity(MainActivity)
+        activity = Robolectric.buildActivity(MainActivity.class)
                 .create()
                 .resume()
-                .get();*/
+                .get();
 
         context = ShadowApplication.getInstance().getApplicationContext();
         linearLayout = new LinearLayout(context);
@@ -75,6 +84,8 @@ public class RecipeAdapterTest {
                 .build();
 
         testBusbyComponent.inject(RecipeAdapterTest.this);
+
+        recipeAdapter.recipeList = createRecipes();
     }
 
     @Test
@@ -82,11 +93,13 @@ public class RecipeAdapterTest {
         assertThat(activity, is(notNullValue()));
     }
 
+    @Ignore
     @Test
     public void testRecipeAdapterShouldNotBeNull() {
         assertThat(recipeAdapter, is(notNullValue()));
     }
 
+    @Ignore
     @Test
     public void testRecipeViewHolderFactory() {
         assertThat(recipeListViewHolderFactory, is(notNullValue()));
@@ -98,24 +111,40 @@ public class RecipeAdapterTest {
         assertThat(recipeListViewHolder, is(notNullValue()));
     }
 
-    @Ignore("FIXME")
     @Test
     public void testOnBindViewHolder() {
-        RecyclerView recyclerView = createRecyclerView();
+        recipeListViewHolder = recipeAdapter.onCreateViewHolder(linearLayout, 0);
+        assertThat(recipeListViewHolder, is(notNullValue()));
 
-       // recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(linearLayout);
+        recipeAdapter.onBindViewHolder(recipeListViewHolder, 0);
 
-        recipeListViewHolder = recipeAdapter.onCreateViewHolder(recyclerView, 0);
+        recipeListViewHolder.populateDate(createRecipes().get(0));
+ //       recipeListViewHolder.tvQuantity = mock(TextView.class);
+        recipeListViewHolder.tvRecipeName = mock(TextView.class);
+        verify(recipeListViewHolder.tvRecipeName).setText("Test Brownies");
+      //  verify(recipeListViewHolder.tvQuantity).setText("10");
+/*
 
-        // recipeListViewHolder = recipeListViewHolderFactory.createViewHolder(recyclerView);
-
-        assertNotNull(recipeListViewHolder);
+        TextView recipeName = (TextView)activity.findViewById(R.id.tvRecipeName);
+        TextView quantity = (TextView)activity.findViewById(R.id.tvQuantity);
+        assertThat(recipeName.getText().toString(), is(containsString("Test Brownies")));
+*/
     }
 
     private @Nonnull RecyclerView createRecyclerView() {
         final RecyclerView recyclerView = new RecyclerView(context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         return recyclerView;
+    }
+
+    private List<Recipe> createRecipes() {
+        List<Recipe> recipeList = new ArrayList<>();
+        Recipe recipe = new Recipe();
+        recipe.setName("Test Brownies");
+        recipe.setServings(10);
+        recipeList.add(recipe);
+
+        return recipeList;
     }
 }
 
