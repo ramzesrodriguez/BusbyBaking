@@ -116,13 +116,15 @@ public class RecipeAdapterTest {
         recipeListViewHolder = recipeAdapter.onCreateViewHolder(linearLayout, 0);
         assertThat(recipeListViewHolder, is(notNullValue()));
 
+  //      recipeListViewHolder.populateDate(createRecipes().get(0));
+        recipeListViewHolder.tvRecipeName = mock(TextView.class);
         recipeAdapter.onBindViewHolder(recipeListViewHolder, 0);
 
-        recipeListViewHolder.populateDate(createRecipes().get(0));
  //       recipeListViewHolder.tvQuantity = mock(TextView.class);
-        recipeListViewHolder.tvRecipeName = mock(TextView.class);
+        //  verify(recipeListViewHolder.tvQuantity).setText("10");
+
         verify(recipeListViewHolder.tvRecipeName).setText("Test Brownies");
-      //  verify(recipeListViewHolder.tvQuantity).setText("10");
+
 /*
 
         TextView recipeName = (TextView)activity.findViewById(R.id.tvRecipeName);

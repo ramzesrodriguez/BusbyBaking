@@ -41,7 +41,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     @Override
     public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int viewType) {
         final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
-        /* Inject the viewholder */
         final RecipeListViewHolder recipeListViewHolder = new RecipeListViewHolder(view);
 
         recipeListViewHolder.itemView.setOnClickListener(itemView -> {
