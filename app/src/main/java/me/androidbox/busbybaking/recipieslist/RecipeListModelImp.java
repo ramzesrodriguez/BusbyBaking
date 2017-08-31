@@ -2,6 +2,7 @@ package me.androidbox.busbybaking.recipieslist;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class RecipeListModelImp
 
     private RecipesAPI recipesAPI;
     private RecipeSchedulers recipeSchedulers;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    @VisibleForTesting
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public RecipeListModelImp(@NonNull RecipesAPI recipesAPI, @NonNull RecipeSchedulers recipeSchedulers) {
@@ -65,7 +67,6 @@ public class RecipeListModelImp
     public void releaseResources() {
         if(compositeDisposable != null && !compositeDisposable.isDisposed()) {
             compositeDisposable.clear();
-            compositeDisposable.dispose();
         }
     }
 }

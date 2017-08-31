@@ -26,8 +26,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -47,7 +47,7 @@ public class RecipeListModelImpTest {
     @Inject RecipeSchedulers recipeSchedulers;
     @Inject RecipeAdapter recipeAdapter;
 
-    private RecipeListModelContract recipeListModel;
+    private RecipeListModelImp recipeListModel;
 
     @Before
     public void setup() {
@@ -121,5 +121,17 @@ public class RecipeListModelImpTest {
         recipeListModel.releaseResources();
 
         verify(subscription, times(1)).isDisposed();
+    }
+
+    @Test
+    public void testReleaseSubscriptionsAreCleared() {
+        assertThat(recipeListModel.compositeDisposable, is(notNullValue()));
+        when(recipesAPI.getAllRecipes()).thenReturn(Observable.just(recipes));
+        assertThat(recipeListModel.compositeDisposable.isDisposed(), is(false));
+        recipeListModel.getRecipesFromAPI(recipeGetAllListener);
+
+        recipeListModel.releaseResources();
+
+        assertThat(recipeListModel.compositeDisposable.isDisposed(), is(false));
     }
 }
