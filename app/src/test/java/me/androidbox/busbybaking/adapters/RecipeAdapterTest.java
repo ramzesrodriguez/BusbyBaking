@@ -61,11 +61,6 @@ public class RecipeAdapterTest {
 
         activity = Robolectric.setupActivity(MainActivity.class);
 
- /*       activity = Robolectric.buildActivity(MainActivity.class)
-                .create()
-                .resume()
-                .get();
-*/
         final Context context = ShadowApplication.getInstance().getApplicationContext();
         linearLayout = new LinearLayout(context);
 
