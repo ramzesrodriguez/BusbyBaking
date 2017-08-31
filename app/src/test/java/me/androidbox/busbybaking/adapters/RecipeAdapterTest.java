@@ -2,9 +2,6 @@ package me.androidbox.busbybaking.adapters;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,8 +10,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
@@ -22,13 +17,11 @@ import org.robolectric.shadows.ShadowApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.androidbox.busbybaking.BuildConfig;
-import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyComponent;
@@ -37,10 +30,8 @@ import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -61,7 +52,6 @@ import static org.mockito.Mockito.verify;
 public class RecipeAdapterTest {
     @Inject RecipeAdapter recipeAdapter;
     @Inject RecipeListViewHolderFactory recipeListViewHolderFactory;
-    private Context context;
     private ViewGroup linearLayout;
     private RecipeListViewHolder recipeListViewHolder;
     private MainActivity activity;
@@ -69,14 +59,14 @@ public class RecipeAdapterTest {
     @Before
     public void setup() {
 
-    /*    activity = Robolectric.setupActivity(MainActivity.class);*/
+        activity = Robolectric.setupActivity(MainActivity.class);
 
-        activity = Robolectric.buildActivity(MainActivity.class)
+ /*       activity = Robolectric.buildActivity(MainActivity.class)
                 .create()
                 .resume()
                 .get();
-
-        context = ShadowApplication.getInstance().getApplicationContext();
+*/
+        final Context context = ShadowApplication.getInstance().getApplicationContext();
         linearLayout = new LinearLayout(context);
 
         TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
@@ -131,12 +121,6 @@ public class RecipeAdapterTest {
         TextView quantity = (TextView)activity.findViewById(R.id.tvQuantity);
         assertThat(recipeName.getText().toString(), is(containsString("Test Brownies")));
 */
-    }
-
-    private @Nonnull RecyclerView createRecyclerView() {
-        final RecyclerView recyclerView = new RecyclerView(context);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        return recyclerView;
     }
 
     private List<Recipe> createRecipes() {
