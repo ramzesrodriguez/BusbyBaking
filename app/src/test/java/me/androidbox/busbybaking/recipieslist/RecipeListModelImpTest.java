@@ -5,7 +5,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.lang.reflect.Field;
@@ -15,14 +14,20 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import me.androidbox.busbybaking.adapters.RecipeAdapter;
+import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
+import me.androidbox.busbybaking.di.MockRecipeListModule;
+import me.androidbox.busbybaking.di.MockRecipeSchedulersModule;
+import me.androidbox.busbybaking.di.TestBusbyComponent;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
-import me.androidbox.busbybaking.recipieslist.di.DaggerTestBusbyComponent;
-import me.androidbox.busbybaking.recipieslist.di.MockRecipeSchedulersModule;
-import me.androidbox.busbybaking.recipieslist.di.TestBusbyComponent;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -40,6 +45,7 @@ public class RecipeListModelImpTest {
     @Mock List<Recipe> recipes;
 
     @Inject RecipeSchedulers recipeSchedulers;
+    @Inject RecipeAdapter recipeAdapter;
 
     private RecipeListModelContract recipeListModel;
 
@@ -48,10 +54,10 @@ public class RecipeListModelImpTest {
 
         TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
                 .mockRecipeSchedulersModule(new MockRecipeSchedulersModule())
+                .mockRecipeListModule(new MockRecipeListModule())
                 .build();
 
         testBusbyComponent.inject(RecipeListModelImpTest.this);
-
         recipeListModel = new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
@@ -63,6 +69,11 @@ public class RecipeListModelImpTest {
     @Test
     public void testRecipeListModelShouldNotBeNull() {
         assertNotNull(recipeListModel);
+    }
+
+    @Test
+    public void testRecipeAdapterShouldNotBeNull() {
+        assertThat(recipeAdapter, is(notNullValue()));
     }
 
     @Test

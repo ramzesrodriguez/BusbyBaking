@@ -10,8 +10,12 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
-     /*   testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"*/
         testInstrumentationRunner "me.androidbox.busbybaking.di.MockBusbyBakingTestRunner"
+/*
+        jackOptions {
+            enabled true
+        }
+*/
     }
     buildTypes {
         release {
@@ -30,30 +34,38 @@ android {
     packagingOptions {
         exclude "META-INF/rxjava.properties"
     }
-    dexOptions {
-    }
 
 /*
-    productFlavors {
-        PreVersion3 {
-            configurations.all {
-                resolutionStrategy.force('com.android.support:support-annotations:23.1.1')
-                resolutionStrategy.force('com.android.support:support-v4:23.1.1')
-                resolutionStrategy.force('com.android.support:design:23.1.1')
-                resolutionStrategy.force('com.android.support:recyclerview-v7:23.1.1')
-                resolutionStrategy.force('com.android.support:appcompat-v7:23.1.1')
-                resolutionStrategy.force('com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework:2.0')
-            }
-        }
+    configurations.all {
+        resolutionStrategy.force('com.android.support:support-annotations:23.1.1')
+        resolutionStrategy.force('com.android.support:support-v4:23.1.1')
+        resolutionStrategy.force('com.android.support:design:23.1.1')
+        resolutionStrategy.force('com.android.support:recyclerview-v7:23.1.1')
+        resolutionStrategy.force('com.android.support:appcompat-v7:23.1.1')
+        resolutionStrategy.force('com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework:2.0')
     }
 */
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 /** Dagger cannot generate class for the test directory without this */
+/*
 android.applicationVariants.all {
     def aptOutputDir = new File(buildDir, "generated/source/apt/${it.unitTestVariant.dirName}")
     it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+}
+*/
+
+android.applicationVariants.all { variant ->
+    if (variant.buildType.name == "debug") {
+        def aptOutputDir = new File(buildDir, "generated/source/apt/${variant.unitTestVariant.dirName}")
+        variant.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+        assembleDebug.finalizedBy('assembleDebugUnitTest')
+    }
 }
 
 
@@ -62,7 +74,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2'
+
     compile libraries.recyclerview
     compile libraries.cardview
     /** Instrumentation and unit Testing */
@@ -75,8 +88,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testAnnotationProcessor libraries.dagger_compiler
     testCompile libraries.dagger
-    //  testCompile libraries.robolectric
-
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */
@@ -108,7 +119,8 @@ dependencies {
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
     provided 'com.google.auto.factory:auto-factory:1.0-beta5'
-    testCompile 'org.robolectric:robolectric:3.2'
+    testCompile 'org.robolectric:robolectric:3.4.2'
+    /*    annotationProcessor 'com.groupon.android.dichecks:compiler:1.0.1'*/
 }
 
 jacocoAndroidUnitTestReport {

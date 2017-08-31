@@ -42,3 +42,119 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
+
+<!--
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:background="@color/white">
+
+<RelativeLayout
+    android:id="@+id/view_inbox_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/touch_background"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/space_8">
+
+    <com.agoda.mobile.core.components.views.UserAvatarView
+        android:id="@+id/user_avatar"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_40"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_4" />
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/user_display_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:layout_toEndOf="@+id/user_avatar"
+        android:layout_toLeftOf="@+id/relative_time"
+        android:layout_toStartOf="@+id/relative_time"
+        android:textSize="@dimen/font_size_medium"
+        tools:text="Elena Eremenko" />
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/relative_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_alignBaseline="@+id/user_display_name"
+        tools:textColor="@color/red_400"
+        tools:text="1 min ago" />
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/preview_message"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:layout_toEndOf="@+id/user_avatar"
+        android:layout_toLeftOf="@+id/is_read_indicator"
+        android:layout_toStartOf="@+id/is_read_indicator"
+        android:layout_below="@+id/user_display_name"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Hi, we plan to arrive to Bangkok at 6:30 and sleep for a very long time"/>
+
+    <ImageView
+        android:id="@+id/is_read_indicator"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/preview_message"
+        android:layout_width="@dimen/space_8"
+        android:layout_height="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_4"
+        android:layout_marginRight="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_8"
+        android:src="@drawable/red_circle" />
+
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/property_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/preview_message"
+        android:layout_marginRight="@dimen/space_32"
+        android:layout_marginEnd="@dimen/space_32"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:layout_toEndOf="@+id/user_avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Lumpini Srinakarintravironment Srinakarintravironment" />
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/reservation_status"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:layout_toEndOf="@+id/user_avatar"
+        android:layout_below="@+id/property_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Accepted" />
+
+    <com.agoda.mobile.core.components.views.widget.AgodaTextView
+        android:id="@+id/date_of_stay"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:layout_toEndOf="@+id/user_avatar"
+        android:layout_below="@+id/reservation_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Dec 31 - Jan 2,17" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/date_of_stay"
+        android:layout_marginTop="@dimen/space_8"
+        android:background="@drawable/line_divider" />
+</RelativeLayout>
+</FrameLayout>
+-->
+

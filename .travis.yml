@@ -6,6 +6,7 @@ env:
   global:
     - ANDROID_TARGET=android-25
     - ANDROID_ABI=armeabi-v7a
+    - android.enableAapt=false
 
 android:
   components:
@@ -16,12 +17,13 @@ android:
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
+
 licenses:
   - android-sdk-license-.+
   - '.+'
 
 script:
-    - ./gradlew --daemon build jacocoTestReport
+    - ./gradlew --daemon build jacocoTestReport --info
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

@@ -1,9 +1,7 @@
 package me.androidbox.busbybaking.di;
 
-import android.app.Activity;
 import android.app.Application;
 
-import me.androidbox.busbybaking.recipieslist.MainActivity;
 import timber.log.Timber;
 
 /**
