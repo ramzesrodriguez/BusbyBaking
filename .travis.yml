@@ -6,9 +6,9 @@ env:
   global:
     - ANDROID_TARGET=android-25
     - ANDROID_ABI=armeabi-v7a
+    - android.enableApat=false
 
 android:
-  - android.enableApat=false
   components:
   - tools
   - platform-tools
