@@ -8,6 +8,7 @@ env:
     - ANDROID_ABI=armeabi-v7a
 
 android:
+  - android.enableApat=false
   components:
   - tools
   - platform-tools
@@ -15,7 +16,7 @@ android:
   - android-25
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-  - android.enableApat=false
+
 
 licenses:
   - android-sdk-license-.+
