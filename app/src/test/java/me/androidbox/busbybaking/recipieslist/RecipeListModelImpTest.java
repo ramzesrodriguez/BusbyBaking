@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
-import me.androidbox.busbybaking.di.BaseRobolectricTestRunner;
+import me.androidbox.busbybaking.testrunner.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 

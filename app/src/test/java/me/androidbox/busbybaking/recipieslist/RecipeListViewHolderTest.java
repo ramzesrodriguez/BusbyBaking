@@ -1,5 +1,6 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -11,9 +12,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import me.androidbox.busbybaking.R;
-import me.androidbox.busbybaking.di.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.model.Recipe;
+import me.androidbox.busbybaking.testrunner.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.utils.Constants;
 
 import static org.hamcrest.Matchers.is;
@@ -26,16 +26,16 @@ import static org.junit.Assert.assertThat;
 public class RecipeListViewHolderTest extends BaseRobolectricTestRunner {
 
     @Inject Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
-
+    @Inject @LayoutRes int recipeItem;
     private RecipeListViewHolder recipeListViewHolder;
 
     @Before
     public void setup() {
         getTestComponent().inject(RecipeListViewHolderTest.this);
 
-        View view = View.inflate(
+        final View view = View.inflate(
                 ShadowApplication.getInstance().getApplicationContext(),
-                R.layout.recipe_item,
+                recipeItem,
                 new LinearLayout(ShadowApplication.getInstance().getApplicationContext()));
 
         recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).create(view);

@@ -1,7 +1,6 @@
 package me.androidbox.busbybaking.adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,9 +8,6 @@ import android.widget.TextView;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
 import java.util.ArrayList;
@@ -19,11 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import me.androidbox.busbybaking.BuildConfig;
-import me.androidbox.busbybaking.di.BaseRobolectricTestRunner;
-import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
-import me.androidbox.busbybaking.di.MockRecipeListModule;
-import me.androidbox.busbybaking.di.TestBusbyComponent;
+import me.androidbox.busbybaking.testrunner.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
