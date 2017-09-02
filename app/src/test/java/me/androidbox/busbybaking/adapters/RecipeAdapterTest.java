@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
@@ -21,11 +20,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import me.androidbox.busbybaking.BuildConfig;
+import me.androidbox.busbybaking.di.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
 import me.androidbox.busbybaking.di.MockRecipeListModule;
 import me.androidbox.busbybaking.di.TestBusbyComponent;
 import me.androidbox.busbybaking.model.Recipe;
-import me.androidbox.busbybaking.recipieslist.MainActivity;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 
@@ -38,44 +37,20 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by smason on 7/4/17.
  */
-/*
-@Config(constants = BuildConfig.class,
-        sdk = TestConstants.DEFAULT_ROBOLECTRIC_SDK,
-        packageName = "com.agoda.mobile.consumer",
-        application = AgodaTestApplication.class)
-@RunWith(MockitoRobolectricRunner.class)
-*/
-
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
-@RunWith(RobolectricTestRunner.class)
-public class RecipeAdapterTest {
+public class RecipeAdapterTest extends BaseRobolectricTestRunner {
     @Inject RecipeAdapter recipeAdapter;
     @Inject RecipeListViewHolderFactory recipeListViewHolderFactory;
     private ViewGroup linearLayout;
     private RecipeListViewHolder recipeListViewHolder;
-    private MainActivity activity;
 
     @Before
     public void setup() {
-
-        activity = Robolectric.setupActivity(MainActivity.class);
-
         final Context context = ShadowApplication.getInstance().getApplicationContext();
         linearLayout = new LinearLayout(context);
 
-        TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
-                .mockRecipeListModule(new MockRecipeListModule())
-                .build();
-
-        testBusbyComponent.inject(RecipeAdapterTest.this);
+        getTestComponent().inject(RecipeAdapterTest.this);
 
         recipeAdapter.recipeList = createRecipes();
-    }
-
-    @Ignore
-    @Test
-    public void testActivityShouldNotBeNull() {
-        assertThat(activity, is(notNullValue()));
     }
 
     @Ignore
@@ -97,7 +72,6 @@ public class RecipeAdapterTest {
         assertThat(recipeListViewHolder, is(notNullValue()));
     }
 
-    @Ignore
     @Test
     public void testOnBindViewHolder() {
         recipeListViewHolder = recipeAdapter.onCreateViewHolder(linearLayout, 0);

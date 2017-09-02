@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import me.androidbox.busbybaking.adapters.RecipeAdapterTest;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelImpTest;
+import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderTest;
 
 /**
  * Created by steve on 6/24/17.
@@ -17,4 +18,5 @@ import me.androidbox.busbybaking.recipieslist.RecipeListModelImpTest;
 public interface TestBusbyComponent {
     void inject(RecipeListModelImpTest target);
     void inject(RecipeAdapterTest target);
+    void inject(RecipeListViewHolderTest target);
 }

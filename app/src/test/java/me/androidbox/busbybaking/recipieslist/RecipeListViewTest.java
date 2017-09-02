@@ -12,7 +12,6 @@ import java.util.List;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.model.Recipe;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;

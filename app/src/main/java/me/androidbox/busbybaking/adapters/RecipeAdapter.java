@@ -19,6 +19,7 @@ import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
+import me.androidbox.busbybaking.utils.Constants;
 import timber.log.Timber;
 
 /**
@@ -41,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
     @Override
     public RecipeListViewHolder onCreateViewHolder(final ViewGroup viewGroup, int viewType) {
         final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
-        final RecipeListViewHolder recipeListViewHolder = new RecipeListViewHolder(view);
+        final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(view);
 
         recipeListViewHolder.itemView.setOnClickListener(itemView -> {
             Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());

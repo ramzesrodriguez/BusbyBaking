@@ -15,10 +15,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
-import me.androidbox.busbybaking.di.DaggerTestBusbyComponent;
-import me.androidbox.busbybaking.di.MockRecipeListModule;
-import me.androidbox.busbybaking.di.MockRecipeSchedulersModule;
-import me.androidbox.busbybaking.di.TestBusbyComponent;
+import me.androidbox.busbybaking.di.BaseRobolectricTestRunner;
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.networkapi.RecipesAPI;
 
@@ -26,7 +23,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -37,7 +33,7 @@ import static org.mockito.Mockito.when;
  * Created by smason on 6/23/2017 AD.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RecipeListModelImpTest {
+public class RecipeListModelImpTest extends BaseRobolectricTestRunner {
 
     @Mock Disposable subscription;
     @Mock RecipesAPI recipesAPI;
@@ -51,13 +47,7 @@ public class RecipeListModelImpTest {
 
     @Before
     public void setup() {
-
-        TestBusbyComponent testBusbyComponent = DaggerTestBusbyComponent.builder()
-                .mockRecipeSchedulersModule(new MockRecipeSchedulersModule())
-                .mockRecipeListModule(new MockRecipeListModule())
-                .build();
-
-        testBusbyComponent.inject(RecipeListModelImpTest.this);
+        getTestComponent().inject(RecipeListModelImpTest.this);
         recipeListModel = new RecipeListModelImp(recipesAPI, recipeSchedulers);
     }
 
