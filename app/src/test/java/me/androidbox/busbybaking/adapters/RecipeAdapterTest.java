@@ -97,7 +97,6 @@ public class RecipeAdapterTest {
         assertThat(recipeListViewHolder, is(notNullValue()));
     }
 
-    @Ignore
     @Test
     public void testOnBindViewHolder() {
         recipeListViewHolder = recipeAdapter.onCreateViewHolder(linearLayout, 0);
