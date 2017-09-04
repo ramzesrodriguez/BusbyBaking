@@ -11,12 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "me.androidbox.busbybaking.di.MockBusbyBakingTestRunner"
-/*
-        jackOptions {
-            enabled true
-        }
-*/
     }
+
     buildTypes {
         release {
             minifyEnabled false
