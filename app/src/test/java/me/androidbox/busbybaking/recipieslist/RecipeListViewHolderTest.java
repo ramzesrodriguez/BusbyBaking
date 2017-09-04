@@ -27,7 +27,6 @@ import static org.junit.Assert.assertThat;
  * Created by steve on 9/2/17.
  */
 public class RecipeListViewHolderTest extends BaseRobolectricTestRunner {
-
     @Inject Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
     @Inject @LayoutRes int recipeItem;
 
