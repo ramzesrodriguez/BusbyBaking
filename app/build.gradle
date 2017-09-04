@@ -11,12 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "me.androidbox.busbybaking.di.MockBusbyBakingTestRunner"
-/*
-        jackOptions {
-            enabled true
-        }
-*/
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -79,15 +75,15 @@ dependencies {
     compile libraries.recyclerview
     compile libraries.cardview
     /** Instrumentation and unit Testing */
-    androidTestCompile libraries.mockito_core
-    androidTestCompile libraries.dagger
+    androidTestImplementation libraries.mockito_core
+    androidTestImplementation libraries.dagger
     androidTestAnnotationProcessor libraries.dagger_compiler
-    androidTestCompile libraries.uiautomator
-    androidTestCompile libraries.mockito_android
-    testCompile libraries.mockito_core
-    testCompile 'junit:junit:4.12'
+    androidTestImplementation libraries.uiautomator
+    androidTestImplementation libraries.mockito_android
+    testImplementation libraries.mockito_core
+    testImplementation 'junit:junit:4.12'
     testAnnotationProcessor libraries.dagger_compiler
-    testCompile libraries.dagger
+    testImplementation libraries.dagger
     /* MVP */
     compile libraries.mosbyMvp
     /* Networking */
@@ -118,8 +114,8 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
-    provided 'com.google.auto.factory:auto-factory:1.0-beta5'
-    testCompile 'org.robolectric:robolectric:3.4.2'
+    compileOnly 'com.google.auto.factory:auto-factory:1.0-beta5'
+    testImplementation 'org.robolectric:robolectric:3.4.2'
     /*    annotationProcessor 'com.groupon.android.dichecks:compiler:1.0.1'*/
 }
 

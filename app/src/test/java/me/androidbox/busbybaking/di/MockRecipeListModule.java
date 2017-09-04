@@ -1,5 +1,8 @@
 package me.androidbox.busbybaking.di;
 
+import android.support.annotation.LayoutRes;
+import android.text.Layout;
+
 import org.mockito.Mockito;
 
 import java.util.Map;
@@ -10,11 +13,13 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntKey;
 import dagger.multibindings.IntoMap;
+import me.androidbox.busbybaking.R;
 import me.androidbox.busbybaking.adapters.RecipeAdapter;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeItemClickListenerImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListModelContract;
 import me.androidbox.busbybaking.recipieslist.RecipeListPresenterContract;
+import me.androidbox.busbybaking.recipieslist.RecipeListPresenterImp;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import me.androidbox.busbybaking.utils.Constants;
 
@@ -37,8 +42,8 @@ public class MockRecipeListModule {
 
     @Singleton
     @Provides
-    RecipeListPresenterContract providesRecipeListPresenter() {
-        return Mockito.mock(RecipeListPresenterContract.class);
+    RecipeListPresenterContract providesRecipeListPresenter(RecipeListModelContract recipeListModelContract) {
+        return new RecipeListPresenterImp(recipeListModelContract);
     }
 
     @Singleton
@@ -54,6 +59,13 @@ public class MockRecipeListModule {
     @IntKey(Constants.RECIPE_LIST)
     RecipeListViewHolderFactory provideRecipeListViewHolder() {
         return new RecipeListViewHolderFactory();
+    }
+
+    @Singleton
+    @LayoutRes
+    @Provides
+    int providesRecipeItem() {
+        return R.layout.recipe_item;
     }
 }
 
