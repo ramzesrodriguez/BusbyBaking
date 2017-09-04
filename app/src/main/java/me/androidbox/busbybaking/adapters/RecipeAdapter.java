@@ -45,7 +45,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         final RecipeListViewHolder recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).createViewHolder(view);
 
         recipeListViewHolder.itemView.setOnClickListener(itemView -> {
-            Timber.d("onClick %d", recipeListViewHolder.getAdapterPosition());
             recipeItemClickListener.onRecipeItemClick(getRecipe(recipeListViewHolder.getAdapterPosition()), viewGroup.getContext());
         });
 

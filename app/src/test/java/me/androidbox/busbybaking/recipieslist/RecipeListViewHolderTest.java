@@ -1,11 +1,14 @@
 package me.androidbox.busbybaking.recipieslist;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Map;
@@ -27,16 +30,18 @@ public class RecipeListViewHolderTest extends BaseRobolectricTestRunner {
 
     @Inject Map<Integer, RecipeListViewHolderFactory> viewHolderFactories;
     @Inject @LayoutRes int recipeItem;
+
     private RecipeListViewHolder recipeListViewHolder;
 
     @Before
     public void setup() {
         getTestComponent().inject(RecipeListViewHolderTest.this);
+        final Context context = ShadowApplication.getInstance().getApplicationContext();
 
         final View view = View.inflate(
-                ShadowApplication.getInstance().getApplicationContext(),
+                context,
                 recipeItem,
-                new LinearLayout(ShadowApplication.getInstance().getApplicationContext()));
+                new LinearLayout(context));
 
         recipeListViewHolder = viewHolderFactories.get(Constants.RECIPE_LIST).create(view);
         assertThat(recipeListViewHolder, is(notNullValue()));
