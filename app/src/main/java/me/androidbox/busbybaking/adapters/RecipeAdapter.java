@@ -20,7 +20,6 @@ import me.androidbox.busbybaking.recipieslist.RecipeItemClickListener;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolder;
 import me.androidbox.busbybaking.recipieslist.RecipeListViewHolderFactory;
 import me.androidbox.busbybaking.utils.Constants;
-import timber.log.Timber;
 
 /**
  * Created by steve on 6/7/17.
