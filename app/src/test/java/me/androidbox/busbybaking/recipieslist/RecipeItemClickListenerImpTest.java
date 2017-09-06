@@ -4,45 +4,46 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.robolectric.Robolectric;
+import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowIntent;
 
 import me.androidbox.busbybaking.model.Recipe;
 import me.androidbox.busbybaking.recipe.Henson;
-import me.androidbox.busbybaking.recipedetail.RecipeDetailActivity$$IntentBuilder;
+import me.androidbox.busbybaking.recipedetail.RecipeDetailActivity;
+import me.androidbox.busbybaking.testrunner.BaseRobolectricTestRunner;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertNotNull;
+import static org.robolectric.Shadows.shadowOf;
+
 
 /**
  * Created by steve on 9/5/17.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class RecipeItemClickListenerImpTest {
+public class RecipeItemClickListenerImpTest extends BaseRobolectricTestRunner {
     private RecipeItemClickListenerImp recipeItemClickListenerImp;
-
-    @Mock Context context;
-    @Mock Intent intent;
 
     @Before
     public void setup() {
         recipeItemClickListenerImp = new RecipeItemClickListenerImp();
     }
 
-    @Ignore("Issue with put(bundle)")
     @Test
     public void shouldStartDetailActivity() {
-        Recipe recipe = new Recipe();
+        final Context context = ShadowApplication.getInstance().getApplicationContext();
+
+        final Recipe recipe = new Recipe();
         recipeItemClickListenerImp.onRecipeItemClick(recipe, context);
 
-        final Intent intent = Henson.with(context)
-                .gotoRecipeDetailActivity()
-                .recipe(recipe)
-                .build();
+        final MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        final ShadowActivity shadowActivity = shadowOf(activity);
+        final Intent intent = shadowActivity.getNextStartedActivity();
+        final ShadowIntent shadowIntent = shadowOf(intent);
 
-        verify(context).startActivity(intent);
+        assertThat(shadowIntent.getIntentClass().getName(), equalTo(RecipeDetailActivity.class.getName()));
     }
 }
