@@ -70,3 +70,48 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
         notifyItemRangeInserted(0, recipeList.size());
     }
 }
+
+public class TravelerChatAdapter extends ChatAdapter {
+    public TravelerChatAdapter(ChatAdapter.Controller controller, Cursor cursor, String hostId) {
+        super(controller, cursor, hostId);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final Context context = parent.getContext();
+        final LayoutInflater inflater = LayoutInflater.from(context);
+
+        switch (viewType) {
+            case TYPE_SPECIAL_REQUEST: {
+                final View view = inflater.inflate(R.layout.chat_special_request_message_item, parent, false);
+                return new SpecialRequestsViewHolder(view);
+            }
+            default:
+                return super.onCreateViewHolder(parent, viewType);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        switch(getItemViewType(position)) {
+            case TYPE_SPECIAL_REQUEST: {
+                onBindSpecialRequestViewHolder((SpecialRequestsViewHolder) holder, position);
+                break;
+            }
+            default:
+                super.onBindViewHolder(holder, position);
+        }
+    }
+
+    private void onBindSpecialRequestViewHolder(SpecialRequestsViewHolder holder, int position) {
+        final ChatMessage chatMessage = getItem(position);
+        holder.populateSpecialRequestContent(chatMessage.content, getTimeFromDate(chatMessage.timestamp));
+    }
+
+    @Override
+    protected void onBindIncomingMessageHolder(IncomingMessageViewHolder holder, int position) {
+        super.onBindIncomingMessageHolder(holder, position);
+        holder.avatarView.setAvatarImage(chatViewModel.propertyInfo.getAvatarIcon());
+    }
+}
+
